@@ -272,7 +272,7 @@ namespace KoreanWarPlugin.Info
                     foreach (SteamPlayer steamPlayer in steamPlayers)
                     {
                         PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                        if (pc.uIState != EPlayerUIState.RoundEnd) continue;
+                        if (pc.localUIState != EPlayerUIState.RoundEnd) continue;
                         ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                         // 하이라이트 황성화
                         if (result < 6) EffectManager.sendUIEffectVisibility(47, tc, false, $"P_MapVote_{result}Highlight", true);
@@ -306,7 +306,7 @@ namespace KoreanWarPlugin.Info
                     foreach (SteamPlayer steamPlayer in steamPlayers)
                     {
                         PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                        if (pc.uIState != EPlayerUIState.RoundEnd) continue;
+                        if (pc.localUIState != EPlayerUIState.RoundEnd) continue;
                         ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                         EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_MapName", $"{PluginManager.roundInfo.currentMapPreset.name}");
                         EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_GameMode", $"{PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].name}");

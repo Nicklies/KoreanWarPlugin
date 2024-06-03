@@ -83,7 +83,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIVoteMapInfo(tc);
             }
@@ -127,7 +127,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIVoteCountInfoAll(tc);
             }
@@ -145,7 +145,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIVoteCountInfo(tc, _index);
             }
@@ -167,7 +167,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIVoteTimer(tc);
             }
@@ -182,7 +182,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIRoundStartTimer(tc);
             }
@@ -214,7 +214,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.RoundEnd) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.RoundEnd) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIVotePlayerCount(tc);
             }
@@ -264,7 +264,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (!pc.isJoinedTeam || pc.uIState == EnumTable.EPlayerUIState.TeamSelect) continue;
+                if (!pc.isJoinedTeam || pc.localUIState == EnumTable.EPlayerUIState.TeamSelect) continue;
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIRoundInfo(tc, pc.team);
             }
@@ -514,7 +514,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState == EnumTable.EPlayerUIState.TeamSelect) continue;
+                if (pc.localUIState == EnumTable.EPlayerUIState.TeamSelect) continue;
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIFreeModeInfo(tc);
             }

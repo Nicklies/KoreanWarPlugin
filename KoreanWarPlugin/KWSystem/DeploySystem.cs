@@ -386,7 +386,7 @@ namespace KoreanWarPlugin.KWSystem
                 if (playerInfoDir.Value.team != _team) continue;
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
                 if (playerInfoDir.Value.vGroupInstanceID != ushort.MaxValue) active = false;
                 EffectManager.sendUIEffectVisibility(47, tc, false, $"P_Marker_Objective_{_index}", active);
@@ -435,7 +435,7 @@ namespace KoreanWarPlugin.KWSystem
                 if (playerInfoDir.Value.team != _team) continue;
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
                 ActiveDeployMarker_VehicleAll(tc, _team, playerInfoDir.Value);
             }
@@ -484,7 +484,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (!pc.isJoinedTeam || pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (!pc.isJoinedTeam || pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = steamPlayer.transportConnection;
                 UpdateMarkerPosition_Vehicle(tc, _team, _index);
             }
@@ -500,7 +500,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 RefreshUIMapObjectiveTeam(tc, pc.team, _index);
             }

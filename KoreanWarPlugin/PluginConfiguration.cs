@@ -905,7 +905,7 @@ namespace KoreanWarPlugin
                     timer = 0,
                     vehicleMax = 5,
                     playerMinCount = 0,
-                    crewMinCount = 6,
+                    crewMinCount = 1,
                     classIndex = 0,
                     vehicleList = new ushort[]{ 7 },
                     respawnTime = 30,

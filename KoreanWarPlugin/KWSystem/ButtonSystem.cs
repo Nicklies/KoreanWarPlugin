@@ -75,8 +75,8 @@ namespace KoreanWarPlugin.KWSystem
                     VehicleGroupSystem.TryPassword_VehicleGroup(_uPlayer, pc, _tc, team);
                     return;
                 case "B_ChatType": // 채팅 종류 변환
-                    pc.chatType++;
-                    if (EnumTable.EChatType.Vehicle < pc.chatType || playerInfo.vGroupInstanceID == ushort.MaxValue && EnumTable.EChatType.Vehicle == pc.chatType) pc.chatType = EnumTable.EChatType.Team;
+                    pc.localChatType++;
+                    if (EnumTable.EChatType.Vehicle < pc.localChatType || playerInfo.vGroupInstanceID == ushort.MaxValue && EnumTable.EChatType.Vehicle == pc.localChatType) pc.localChatType = EnumTable.EChatType.Team;
                     UISystem.ChangeChatType(pc, _tc);
                     return;
                 case "B_Marker_Base": // 기지 스폰 마커 선택

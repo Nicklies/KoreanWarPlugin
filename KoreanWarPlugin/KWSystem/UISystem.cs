@@ -203,7 +203,7 @@ namespace KoreanWarPlugin.KWSystem
         public static void SetUIState_TeamSelection(Player _player, ITransportConnection _tc) // 팀 선택 UI 상태로 변환
         {
             PlayerComponent pc = _player.GetComponent<PlayerComponent>();
-            pc.uIState = EnumTable.EPlayerUIState.TeamSelect;
+            pc.localUIState = EnumTable.EPlayerUIState.TeamSelect;
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_SetUIState_Team", true);
             RefreshUITeamPlayers(_tc, true);
             RefreshUITeamPlayers(_tc, false);
@@ -212,9 +212,9 @@ namespace KoreanWarPlugin.KWSystem
         public static void SetUIState_Loadout(UnturnedPlayer _uPlayer, ITransportConnection _tc,PlayerData data,PlayerInfo _playerInfo, PlayerTeamRecordInfo _pTeamRecordInfo) // 로드아웃 UI 상태로 변환
         {
             PlayerComponent pc = _uPlayer.Player.GetComponent<PlayerComponent>();
-            pc.uIState = EnumTable.EPlayerUIState.Loadout;
+            pc.localUIState = EnumTable.EPlayerUIState.Loadout;
             _uPlayer.Player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
-            if (pc.chatType == EnumTable.EChatType.Vehicle) ChangeChatType(pc, _tc);
+            if (pc.localChatType == EnumTable.EChatType.Vehicle) ChangeChatType(pc, _tc);
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_SetUIState_Loadout", true);
             ClassSystem.SetClassType_Infantary(pc, _tc);
             ClassSystem.RefreshUIClassPlayerCountAll(_tc, _playerInfo.team, EnumTable.EClassType.infantary); // 보병 인원 수 갱신
@@ -238,7 +238,7 @@ namespace KoreanWarPlugin.KWSystem
             PlayerComponent pc = _uPlayer.Player.GetComponent<PlayerComponent>();
             pc.killLogCount = 0;
             pc.scoreGainCount = 0;
-            pc.uIState = EnumTable.EPlayerUIState.InGame;
+            pc.localUIState = EnumTable.EPlayerUIState.InGame;
             _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.Modal);
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_SetUIState_Ingame", true);
             IngameSystem.UpdateHealthBar(_uPlayer, _uPlayer.Health);
@@ -246,14 +246,14 @@ namespace KoreanWarPlugin.KWSystem
         public static void SetUIState_Death(UnturnedPlayer _uPlayer, ITransportConnection _tc) // 사망 UI 상태로 변환
         {
             PlayerComponent pc = _uPlayer.Player.GetComponent<PlayerComponent>();
-            pc.uIState = EnumTable.EPlayerUIState.InGame;
+            pc.localUIState = EnumTable.EPlayerUIState.InGame;
             _uPlayer.Player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_SetUIState_Death", true);
         }
         public static void SetUIState_RoundEnd(Player _player, ITransportConnection _tc) // 사망 UI 상태로 변환
         {
             PlayerComponent pc = _player.GetComponent<PlayerComponent>();
-            pc.uIState = EnumTable.EPlayerUIState.RoundEnd;
+            pc.localUIState = EnumTable.EPlayerUIState.RoundEnd;
             _player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
             if (!pc.isJoinedTeam || PluginManager.roundInfo.roundType == ERoundType.Free) EffectManager.sendUIEffectText(47, _tc, false, "T_Victory", "게임종료");
             else
@@ -321,7 +321,7 @@ namespace KoreanWarPlugin.KWSystem
         {
             if (string.IsNullOrWhiteSpace(_pc.chatText)) return;
             string chat = $"{_uPlayer.DisplayName}: {_pc.chatText}";
-            switch (_pc.chatType)
+            switch (_pc.localChatType)
             {
                 case EnumTable.EChatType.Team:
                     List<SteamPlayer> steamPlayers = Provider.clients;
@@ -356,18 +356,18 @@ namespace KoreanWarPlugin.KWSystem
         }
         public static void ChangeChatType(PlayerComponent _pc,ITransportConnection _tc)
         {
-            switch (_pc.chatType)
+            switch (_pc.localChatType)
             {
                 case EnumTable.EChatType.Team:
-                    _pc.chatType = EnumTable.EChatType.Team;
+                    _pc.localChatType = EnumTable.EChatType.Team;
                     EffectManager.sendUIEffectText(47, _tc, false, $"T_ChatType", "Team");
                     break;
                 case EnumTable.EChatType.All:
-                    _pc.chatType = EnumTable.EChatType.All;
+                    _pc.localChatType = EnumTable.EChatType.All;
                     EffectManager.sendUIEffectText(47, _tc, false, $"T_ChatType", "All");
                     break;
                 case EnumTable.EChatType.Vehicle:
-                    _pc.chatType = EnumTable.EChatType.Vehicle;
+                    _pc.localChatType = EnumTable.EChatType.Vehicle;
                     EffectManager.sendUIEffectText(47, _tc, false, $"T_ChatType", "Vehicle");
                     break;
             }
@@ -379,7 +379,7 @@ namespace KoreanWarPlugin.KWSystem
             {
                 UnturnedPlayer player = UnturnedPlayer.FromSteamPlayer(steamPlayer);
                 PlayerComponent pc = player.Player.GetComponent<PlayerComponent>();
-                if (pc.uIState == EnumTable.EPlayerUIState.TeamSelect)
+                if (pc.localUIState == EnumTable.EPlayerUIState.TeamSelect)
                 {
                     ITransportConnection tc = player.Player.channel.GetOwnerTransportConnection();
                     RefreshUITeamPlayers(tc, _team);

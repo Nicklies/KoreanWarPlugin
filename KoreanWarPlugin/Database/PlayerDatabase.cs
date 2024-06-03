@@ -61,7 +61,7 @@ namespace KoreanWarPlugin.Database
             pData.credit += _amount;
             PluginManager.playerDatabase.UpdateData();
             PlayerComponent pc = _uPlayer.Player.GetComponent<PlayerComponent>();
-            if(pc.uIState == EnumTable.EPlayerUIState.Loadout)
+            if(pc.localUIState == EnumTable.EPlayerUIState.Loadout)
             {
                 ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
                 VehicleGroupSystem.RefreshVehicleTypeStateAll(tc, pc.team, _uPlayer); // 차량 조건문 갱신

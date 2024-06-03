@@ -21,7 +21,7 @@ namespace KoreanWarPlugin.KWSystem
             {
                 if(!_isMaxLevel && !_isMaxLevel) LevelUp(_uPlayer,_pTeamRecordInfo);
             }
-            if(_pc.uIState == EnumTable.EPlayerUIState.Loadout)
+            if(_pc.localUIState == EnumTable.EPlayerUIState.Loadout)
             {
                 ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
                 RefreshUIExperience(_pTeamRecordInfo, tc);
@@ -39,14 +39,14 @@ namespace KoreanWarPlugin.KWSystem
                 _pTeamRecordInfo.score = expRequire;
             }
             // 레벨업 UI 띄우기
-            if (pc.uIState == EnumTable.EPlayerUIState.InGame)
+            if (pc.localUIState == EnumTable.EPlayerUIState.InGame)
             {
                 LevelPreset levelPreset = pc.team ? PluginManager.teamInfo.teamPreset_0.levelPresets[_pTeamRecordInfo.level] : PluginManager.teamInfo.teamPreset_1.levelPresets[_pTeamRecordInfo.level];
                 EffectManager.sendUIEffectImageURL(47, tc, false, "I_LevelUp", $"{levelPreset.iconUrl}");
                 EffectManager.sendUIEffectText(47, tc, false, "T_LevelUp_Rank", $"{levelPreset.name}");
                 EffectManager.sendUIEffectVisibility(47, tc, false, "A_LevelUp", true);
             }
-            else if (pc.uIState == EnumTable.EPlayerUIState.Loadout)
+            else if (pc.localUIState == EnumTable.EPlayerUIState.Loadout)
             {
                 RefreshUILevel(_pTeamRecordInfo, tc, pc.team);
                 PlayerInfo playerInfo = PluginManager.teamInfo.GetPlayerInfo(_uPlayer.CSteamID);

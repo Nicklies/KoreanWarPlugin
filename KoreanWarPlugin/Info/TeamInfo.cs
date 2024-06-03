@@ -206,9 +206,9 @@ namespace KoreanWarPlugin.Info
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(_cSteamID);
                 uPlayer.Player.GetComponent<PlayerComponent>().passwordText = "";
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.chatType == EnumTable.EChatType.Vehicle)
+                if (pc.localChatType == EnumTable.EChatType.Vehicle)
                 {
-                    pc.chatType = EnumTable.EChatType.Team;
+                    pc.localChatType = EnumTable.EChatType.Team;
                     UISystem.ChangeChatType(pc, tc);
                 }
                 // 거점 정보 갱신

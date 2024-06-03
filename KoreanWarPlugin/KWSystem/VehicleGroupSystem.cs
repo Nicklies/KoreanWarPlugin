@@ -196,9 +196,9 @@ namespace KoreanWarPlugin.KWSystem
                                 ITransportConnection exilePlayerTc = UnturnedPlayer.FromCSteamID(exilePlayerCSteamID).Player.channel.GetOwnerTransportConnection();
                                 EffectManager.sendUIEffectVisibility(47, exilePlayerTc, false, "L_VehicleInfo", false);
                                 PlayerComponent exilePc = UnturnedPlayer.FromCSteamID(exilePlayerInfo.cSteamID).Player.GetComponent<PlayerComponent>();
-                                if (exilePc.chatType == EnumTable.EChatType.Vehicle)
+                                if (exilePc.localChatType == EnumTable.EChatType.Vehicle)
                                 {
-                                    exilePc.chatType = EnumTable.EChatType.Team;
+                                    exilePc.localChatType = EnumTable.EChatType.Team;
                                     UISystem.ChangeChatType(exilePc, exilePlayerTc);
                                 }
                                 UISystem.SendPopUpInfo(exilePlayerTc, "좌석 부족으로 인해 자동 퇴장 되었습니다.");
@@ -245,7 +245,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (!pc.isJoinedTeam || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (!pc.isJoinedTeam || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromSteamPlayer(steamPlayer);
                 RefreshVehicleTypeStateAll(steamPlayer.transportConnection, pc.team, uPlayer);
             }
@@ -264,7 +264,7 @@ namespace KoreanWarPlugin.KWSystem
             {
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
                 RefreshVehicleTypeState(tc, _team, _vTypeIndex, uPlayer);
             }
@@ -330,7 +330,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshVehicleTypeCount(tc, _team, _vTypeIndex, vehicleList[_vTypeIndex]);
             }
@@ -345,7 +345,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 if (_time > 0)
                 {
                     int minutes = (int)(_time / 60);
@@ -366,7 +366,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 if (_time > 0)
                 {
                     int minutes = (int)(_time / 60);
@@ -383,7 +383,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIVehicleGroup(tc, _vIndex, _team);
@@ -404,7 +404,7 @@ namespace KoreanWarPlugin.KWSystem
             {
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
                 RefreshUIVehicleGroupAll(tc, playerInfoDir.Value.vGroupInstanceID, _team);
@@ -434,7 +434,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIVehicleDeployAll(tc, _team);
@@ -459,7 +459,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIVehicleDeployState(tc, _vDeployIndex, _vDeployInfo);

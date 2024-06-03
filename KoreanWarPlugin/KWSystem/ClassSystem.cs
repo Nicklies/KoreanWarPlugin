@@ -131,7 +131,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIClassPlayerCountAll(tc, _team, _type);
@@ -180,7 +180,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.uIState != EnumTable.EPlayerUIState.Loadout) continue;
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
                 ITransportConnection tc = steamPlayer.transportConnection;
                 RefreshUIClassPlayerCount(tc, _team, _index, _type);

@@ -246,7 +246,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.uIState != EPlayerUIState.InGame) continue;
+                if (pc.localUIState != EPlayerUIState.InGame) continue;
                 pc.killLogCount++;
                 pc.killLogCount = (byte)Mathf.Clamp(pc.killLogCount, 0, 5);
                 ITransportConnection tc = steamPlayer.transportConnection;
@@ -331,7 +331,7 @@ namespace KoreanWarPlugin.KWSystem
             }
             // UI 활성화
             ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
-            if (pc.uIState == EPlayerUIState.InGame)
+            if (pc.localUIState == EPlayerUIState.InGame)
             {
                 string preText = "";
                 string middleText = "";

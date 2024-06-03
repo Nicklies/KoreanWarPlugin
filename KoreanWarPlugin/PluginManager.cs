@@ -737,7 +737,7 @@ namespace KoreanWarPlugin
                         RoundSystem.RefreshUIFreeModeInfoToEveryone();
                     }
                 }
-                if (pc.uIState == EPlayerUIState.TeamSelect || !pc.isJoinedTeam) return;
+                if (pc.localUIState == EPlayerUIState.TeamSelect || !pc.isJoinedTeam) return;
                 PlayerInfo playerInfo = teamInfo.GetPlayerInfo(_uPlayer.CSteamID);
                 if (playerInfo == null) return; // 팀에 배정된 상태가 아니면 리턴
                 bool team = playerInfo.team;
@@ -795,7 +795,7 @@ namespace KoreanWarPlugin
                 return;
             }
             ITransportConnection tc = _player.channel.GetOwnerTransportConnection();
-            switch (pc.uIState)
+            switch (pc.localUIState)
             {
                 case EPlayerUIState.TeamSelect:
                     ButtonSystem.OnButtonClick_TeamSelect(UnturnedPlayer.FromPlayer(_player), tc, _buttonName);
@@ -1023,6 +1023,8 @@ namespace KoreanWarPlugin
     5. 라운드 끝나고 팀 선택할 때 무한로딩 걸리는 사람 있음
     6. 점령 했을대 에러 뜨는거 있음 로그에는 안떳는데 어쩃든 멈추게 만듬
     7. 코르틴 멈추면 다시 실행되게 할수있으며 해보기
+    8. 제한지역에서 죽으면 병과 선택 안되는 버그 있음 / 팀 나갔다 오면 버그 사라짐
+    9. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
     기타정보
     1. 섬멸전할때 특별히 뜨는 버그는 안보임
     2. 차량 관련해서 뜨는 버그가 좀 있음 / 장전관련이 좀 있음 나중에 사람 하나 불러서 테스트 하면 좋을거 같음
