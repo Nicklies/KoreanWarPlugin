@@ -50,7 +50,7 @@ namespace KoreanWarPlugin.Queue
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.localUIState != EnumTable.EPlayerUIState.InGame) continue;
+                if (pc.localUIState != EPlayerUIState.InGame) continue;
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 string objective = "";
                 switch (currentPopUpRequest.index)

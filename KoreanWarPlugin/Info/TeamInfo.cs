@@ -99,7 +99,16 @@ namespace KoreanWarPlugin.Info
         public PlayerInfo GetPlayerInfo(CSteamID _cSteamID)
         {
             if (!playerInfoList.ContainsKey(_cSteamID)) return null;
-            else return playerInfoList[_cSteamID];
+            else
+            {
+                PlayerComponent pc = UnturnedPlayer.FromCSteamID(_cSteamID).Player.GetComponent<PlayerComponent>();
+                if (!pc.isJoinedTeam)
+                {
+                    playerInfoList.Remove(_cSteamID);
+                    return null;
+                }
+                return playerInfoList[_cSteamID];
+            }
         }
         public VehicleGroupInfo GetVehicleGroupInfo(ushort _instanceID, bool _team)
         {

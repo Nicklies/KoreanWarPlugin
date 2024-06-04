@@ -98,7 +98,7 @@ namespace KoreanWarPlugin
             // 이벤트 등록
             U.Events.OnPlayerConnected += (player) =>
             {
-                UISystem.PlayerJoinStart(player.Player);
+                UISystem.PlayerJoinStart(player);
                 playerDatabase.FindData(player.CSteamID);
                 playerDatabase.UpdateData();
                 player.Events.OnUpdateHealth += Events_OnUpdateHealth;
@@ -1004,12 +1004,12 @@ namespace KoreanWarPlugin
     }
     /*
     해야 할거
-    1. 탄약 보급 기능 / 사람, 차량 모두
-    - 차량 파괴되면 트렁크내 아이템 제거
+    1. 차량 파괴되면 트렁크내 아이템 제거
     2. 특정 아이템은 죽을때 떨구게 하기
     3. 터렛에서 나갈때 탄약 돌려주기
     5. 무적 상태 애니메이션 고치기
     6. 탄약 보급 구역이랑 제한구역 분리하기
+    7. 게임 시작 시 점수 얼마나 줄지 콘피그에서 수정 가능하게 하기
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
     2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
@@ -1023,7 +1023,6 @@ namespace KoreanWarPlugin
     5. 라운드 끝나고 팀 선택할 때 무한로딩 걸리는 사람 있음
     6. 점령 했을대 에러 뜨는거 있음 로그에는 안떳는데 어쩃든 멈추게 만듬
     7. 코르틴 멈추면 다시 실행되게 할수있으며 해보기
-    8. 제한지역에서 죽으면 병과 선택 안되는 버그 있음 / 팀 나갔다 오면 버그 사라짐
     9. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
     기타정보
     1. 섬멸전할때 특별히 뜨는 버그는 안보임

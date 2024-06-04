@@ -151,10 +151,12 @@ namespace KoreanWarPlugin.Info
             List<SteamPlayer> steamPlayers = Provider.clients;
             foreach (SteamPlayer steamPlayer in steamPlayers)
             {
+                PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
+                // 미접속 상태일 시 예외처리
+                if (!pc.isEnterFinished) continue;
+                pc.Initialize();
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 UISystem.SetUIState_TeamSelection(steamPlayer.player, tc);
-                PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                pc.Initialize();
                 PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
                 if(steamPlayer.player.life.isDead) steamPlayer.player.life.ServerRespawn(false);
                 else steamPlayer.player.teleportToLocationUnsafe(configuration.spawnPos, configuration.spawnRot);

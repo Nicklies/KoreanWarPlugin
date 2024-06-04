@@ -25,12 +25,12 @@ namespace KoreanWarPlugin.KWSystem
             pc.fireMode = 255;
             pc.isKnockDown = false;
             KillRecordInfo killRecordInfo = new KillRecordInfo("", "", "", "", "", false, false, false, false, (CSteamID)0, null);
+            PlayerInfo deathInfo = PluginManager.teamInfo.GetPlayerInfo(_uPlayer_Death.CSteamID);
+            // 사망한 유저 정보 처리
+            deathInfo.isDeployed = false;
             if (PluginManager.roundInfo.killRecordList.ContainsKey(_uPlayer_Death.CSteamID))
             {
                 killRecordInfo = PluginManager.roundInfo.killRecordList[_uPlayer_Death.CSteamID];
-                PlayerInfo deathInfo = PluginManager.teamInfo.GetPlayerInfo(_uPlayer_Death.CSteamID);
-                // 사망한 유저 정보 처리
-                deathInfo.isDeployed = false;
                 PlayerTeamRecordInfo deathRecordInfo = deathInfo.team ? PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_0_RecordInfo : PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_1_RecordInfo;
                 if (deathRecordInfo != null) deathRecordInfo.deathCount++;
                 // 죽인 유저 정보 처리

@@ -33,7 +33,6 @@ namespace KoreanWarPlugin.KWSystem
             }
             PluginManager.teamInfo.OnRoundEnd();
             PluginManager.roundInfo.ReloadVote();
-            List<SteamPlayer> steamPlayers = Provider.clients;
             List<PlayerTeamRecordInfo> team_0_resultList = new List<PlayerTeamRecordInfo>();
             List<PlayerTeamRecordInfo> team_1_resultList = new List<PlayerTeamRecordInfo>();
             foreach (var recordInfoDir in PluginManager.teamInfo.playerRecordInfoList)
@@ -44,13 +43,13 @@ namespace KoreanWarPlugin.KWSystem
             PluginManager.teamInfo.scoreBoardInfo.team_0_Results = team_0_resultList.OrderByDescending(x => x.score).ToArray();
             PluginManager.teamInfo.scoreBoardInfo.team_1_Results = team_1_resultList.OrderByDescending(x => x.score).ToArray();
             byte playerCount = 0;
-            foreach (SteamPlayer steamPlayer in steamPlayers)
+            foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
                 if (pc.isEnterFinished) playerCount++;
             }
             PluginManager.roundInfo.votePlayerCount = playerCount;
-            foreach (SteamPlayer steamPlayer in steamPlayers)
+            foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
                 if (!pc.isEnterFinished) continue;

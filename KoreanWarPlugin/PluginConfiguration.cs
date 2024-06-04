@@ -100,7 +100,7 @@ namespace KoreanWarPlugin
                 new WeaponInfoPreset
                 {
                     id = 46014,
-                    name = "모신난강",
+                    name = "모신나강",
                     iconUrl = "https://drive.google.com/uc?id=1H2NH5f-wLXM1ea-ECHp2-df3Vozgru8v",
                     isImageLarge = true
                 }, // 7. 모신난강
@@ -163,10 +163,48 @@ namespace KoreanWarPlugin
             }; // 무기 정보 프리셋
             magazineInfoPresets = new MagazineInfoPreset[]
             {
-                new MagazineInfoPreset{ id = 46001, name = "카빈 탄창",iconUrl = ""}, // 0. 카빈 탄창
-                new MagazineInfoPreset{ id = 46704, name = "75mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 1. 75mm 철갑탄
-                new MagazineInfoPreset{ id = 46705, name = "75mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 2. 75mm 고폭탄
-                new MagazineInfoPreset{ id = 46806, name = "30구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 2. 30구경 탄통
+                new MagazineInfoPreset{ id = 46001, name = "카빈 탄창",iconUrl = ""}, // 카빈 탄창
+                new MagazineInfoPreset{ id = 46003, name = "카빈 확장 탄창",iconUrl = ""}, // 카빈 확장 탄창
+                new MagazineInfoPreset{ id = 46005, name = "개런드 클립",iconUrl = ""}, // 개런드 클립
+                new MagazineInfoPreset{ id = 46007, name = "그리스건 탄창",iconUrl = ""}, // 그리스건 탄창
+                new MagazineInfoPreset{ id = 46009, name = "BAR 탄창",iconUrl = ""}, // BAR 탄창
+                new MagazineInfoPreset{ id = 46011, name = "M1911 탄창",iconUrl = ""}, // M1911 탄창
+                new MagazineInfoPreset{ id = 46013, name = "스프링필드 클립",iconUrl = ""}, // 스프링필드 클립
+                new MagazineInfoPreset{ id = 46015, name = "모신나강 클립",iconUrl = ""}, // 모신나강 클립
+                new MagazineInfoPreset{ id = 46017, name = "PPSH 탄창",iconUrl = ""}, // PPSH 탄창
+                new MagazineInfoPreset{ id = 46018, name = "PPSH 원형 탄창",iconUrl = ""}, // PPSH 원형 탄창
+                new MagazineInfoPreset{ id = 46020, name = "DP-28 탄창",iconUrl = ""}, // DP-28 탄창
+                new MagazineInfoPreset{ id = 46022, name = "SVT-40 탄창",iconUrl = ""}, // SVT-40 탄창
+                new MagazineInfoPreset{ id = 46024, name = "TT-33 탄창",iconUrl = ""}, // TT-33 탄창
+                new MagazineInfoPreset{ id = 46026, name = "M9A1 발사체",iconUrl = ""}, // M9A1 발사체
+                new MagazineInfoPreset{ id = 46028, name = "M20 발사체",iconUrl = ""}, // M20 발사체
+                new MagazineInfoPreset{ id = 46030, name = "PPS-43 탄창",iconUrl = ""}, // PPS-43 탄창
+                new MagazineInfoPreset{ id = 46032, name = "PTRS-41 탄창",iconUrl = ""}, // PTRS-41 탄창
+                /// 차량용 탄창
+                new MagazineInfoPreset{ id = 46806, name = "30구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 30구경 탄통
+                new MagazineInfoPreset{ id = 46808, name = "50구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 50구경 탄통
+                new MagazineInfoPreset{ id = 46727, name = "DT-29 탄창",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // DT-29 탄창
+                new MagazineInfoPreset{ id = 46816, name = "중기관총 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 중기관총 탄통
+                new MagazineInfoPreset{ id = 46700, name = "37mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 37mm 철갑탄
+                new MagazineInfoPreset{ id = 46701, name = "37mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 37mm 고폭탄
+                new MagazineInfoPreset{ id = 46702, name = "57mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 57mm 철갑탄
+                new MagazineInfoPreset{ id = 46703, name = "57mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 57mm 고폭탄
+                new MagazineInfoPreset{ id = 46704, name = "75mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 75mm 철갑탄
+                new MagazineInfoPreset{ id = 46705, name = "75mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 75mm 고폭탄
+                new MagazineInfoPreset{ id = 46706, name = "76mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 76mm 철갑탄
+                new MagazineInfoPreset{ id = 46707, name = "76mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 76mm 고폭탄
+                new MagazineInfoPreset{ id = 46708, name = "90mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 90mm 철갑탄
+                new MagazineInfoPreset{ id = 46709, name = "90mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 90mm 고폭탄
+                new MagazineInfoPreset{ id = 46710, name = "45mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 45mm 철갑탄
+                new MagazineInfoPreset{ id = 46711, name = "45mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 45mm 고폭탄
+                new MagazineInfoPreset{ id = 46712, name = "76mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 76mm 철갑탄
+                new MagazineInfoPreset{ id = 46713, name = "76mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 76mm 고폭탄
+                new MagazineInfoPreset{ id = 46714, name = "85mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 85mm 철갑탄
+                new MagazineInfoPreset{ id = 46715, name = "85mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 85mm 고폭탄
+                new MagazineInfoPreset{ id = 46716, name = "100mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 100mm 철갑탄
+                new MagazineInfoPreset{ id = 46717, name = "100mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 100mm 고폭탄
+                new MagazineInfoPreset{ id = 46735, name = "122mm 철갑탄",iconUrl = "https://drive.google.com/uc?id=1EqetDkBr5BXXHoFVDfJ67rGGmThXZSRy"}, // 122mm 철갑탄
+                new MagazineInfoPreset{ id = 46736, name = "122mm 고폭탄",iconUrl = "https://drive.google.com/uc?id=1pPNvhJ912wYYEVcKdcSCv3mO-YznU7X_"}, // 122mm 고폭탄
             }; // 탄창 정보 프리셋
             teamPresets = new TeamPresetTable[]
             {

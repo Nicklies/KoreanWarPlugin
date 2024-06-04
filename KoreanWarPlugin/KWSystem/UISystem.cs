@@ -23,27 +23,29 @@ namespace KoreanWarPlugin.KWSystem
 {
     public class UISystem // 일반적인 기능 시스템
     {
-        public static void PlayerJoinStart(Player _player) // 처음 서버 입장 시 실행되는 함수
+        public static void PlayerJoinStart(UnturnedPlayer _uPlayer) // 처음 서버 입장 시 실행되는 함수
         {
             // 스폰으로 이동
             PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
-            _player.teleportToLocationUnsafe(configuration.spawnPos, configuration.spawnRot);
+            _uPlayer.Player.teleportToLocationUnsafe(configuration.spawnPos, configuration.spawnRot);
             // 모든 기본 UI 비활성화
-            _player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowFood);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowHealth);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowOxygen);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowStamina);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowVirus);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowWater);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowDeathMenu);
-            _player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowVehicleStatus);
+            _uPlayer.Player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowFood);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowHealth);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowOxygen);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowStamina);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowVirus);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowWater);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowDeathMenu);
+            _uPlayer.Player.disablePluginWidgetFlag(EPluginWidgetFlags.ShowVehicleStatus);
             // 로비 UI 활성화
-            ITransportConnection tc = _player.channel.GetOwnerTransportConnection();
+            ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
             EffectManager.sendUIEffect(4700, 47, tc, false);
             LoadImage(tc);
+            // 접속 했을때 해당 유저 정보가 이미 있다면 제거하기
+            if (PluginManager.teamInfo.playerInfoList.ContainsKey(_uPlayer.CSteamID)) PluginManager.teamInfo.playerInfoList.Remove(_uPlayer.CSteamID);
         }
         public static void PlayerJoinFinish(Player _player) // 로딩 완료 후 입장 시 실행되는 함수
         {
@@ -152,6 +154,10 @@ namespace KoreanWarPlugin.KWSystem
             foreach (GameModePreset preset in configuration.gameModePresets)
             {
                 EffectManager.sendUIEffectImageURL(47, _tc, false, "I_ImageLoading", preset.iconUrl); // 게임모드 아이콘
+            }
+            foreach (MagazineInfoPreset preset in configuration.magazineInfoPresets)
+            {
+                EffectManager.sendUIEffectImageURL(47, _tc, false, "I_ImageLoading", preset.iconUrl); // 탄창 아이콘
             }
             EffectManager.sendUIEffectImageURL(47, _tc, false, "I_PreLoad", PluginManager.icons["Approve"]); // 확인용 아이콘 보내기
         }

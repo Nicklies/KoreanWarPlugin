@@ -376,7 +376,7 @@ namespace KoreanWarPlugin.KWSystem
             }
             ActiveDeployMarker_ObjectiveAll(_tc, _team, _playerInfo);
         }
-        public static void ActiveDeployMarker_ObjectiveToEveryone(bool _team, byte _index) // 모든 팀원에게 거점 체크 후 활성화
+        public static void ActiveDeployMarker_ObjectiveToEveryone(bool _team, byte _index) // 모든 팀원에게 거점 스폰 마커 활성화 여부 갱신
         {
             if (PluginManager.teamInfo.playerInfoList.Count == 0) return;
             EnumTable.EObjectiveTeam eTeam = _team ? EnumTable.EObjectiveTeam.Team_0 : EnumTable.EObjectiveTeam.Team_1;
@@ -385,12 +385,13 @@ namespace KoreanWarPlugin.KWSystem
             {
                 if (playerInfoDir.Value.team != _team) continue;
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
+                if (uPlayer == null) continue;
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
                 if (playerInfoDir.Value.vGroupInstanceID != ushort.MaxValue) active = false;
                 EffectManager.sendUIEffectVisibility(47, tc, false, $"P_Marker_Objective_{_index}", active);
-                if(!active && playerInfoDir.Value.spawnIndex == _index) // 거점이 비활성화 되었는데 유저가 해당 거점을 이미 선택한 경우
+                if(!active && playerInfoDir.Value.spawnIndex == _index) // 거점이 비활성화 되었는데 유저가 해당 거점을 선택한 상태인 경우 비활성화 시키기
                 {
                     playerInfoDir.Value.spawnIndex = byte.MaxValue;
                     playerInfoDir.Value.spawnInstaceID_Dynamic = ushort.MaxValue;
@@ -434,6 +435,7 @@ namespace KoreanWarPlugin.KWSystem
             {
                 if (playerInfoDir.Value.team != _team) continue;
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
+                if (uPlayer == null) continue;
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();

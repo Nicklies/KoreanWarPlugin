@@ -41,9 +41,9 @@ namespace KoreanWarPlugin.Queue
         {
             bool success = false;
             UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(currentClassRequest.cSteamID);
-            PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
             if (uPlayer != null)
             {
+                PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (pc.isJoinedTeam)
                 {
                     List<ClassInfo> classList = new List<ClassInfo>();

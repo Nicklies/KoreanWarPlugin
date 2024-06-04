@@ -263,6 +263,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (var playerInfoDir in PluginManager.teamInfo.playerInfoList)
             {
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
+                if (uPlayer == null) continue;
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
                 ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
@@ -403,6 +404,7 @@ namespace KoreanWarPlugin.KWSystem
             foreach (var playerInfoDir in PluginManager.teamInfo.playerInfoList)
             {
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(playerInfoDir.Key);
+                if (uPlayer == null) continue;
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
 
