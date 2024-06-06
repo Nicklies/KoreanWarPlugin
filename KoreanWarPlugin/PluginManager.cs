@@ -46,6 +46,9 @@ namespace KoreanWarPlugin
         public byte voteIniTime { get; set; } // 투표 시간 초기값
         // 코르틴
         public Coroutine freeModeEnd { get; set; } // 자유모드 종료 카운트 코르틴
+        public Coroutine loopCoroutine { get; set; } // 루프 코르틴
+        public Coroutine voteCoroutine { get; set; } // 투표 코르틴
+        public Coroutine roundStartCoroutine { get; set; } // 게임시작 코르틴
         //대기열
         public IngamePopUpQueueManager ingamePopUpQueue { get; set; }
         public Harmony patcher;
@@ -134,7 +137,6 @@ namespace KoreanWarPlugin
             Rocket.Core.Logging.Logger.Log(Configuration.Instance.LoadMessage);
             Rocket.Core.Logging.Logger.Log($"{Name} {Assembly.GetName().Version} has been loaded!");
         }
-
         private void UseableConsumeable_onPerformingAid(Player instigator, Player target, ItemConsumeableAsset asset, ref bool shouldAllow)
         {
             PlayerComponent targetPc = target.GetComponent<PlayerComponent>();
@@ -717,7 +719,7 @@ namespace KoreanWarPlugin
             // 1 팀 차량 정보 배정
             for (int i = 0; i < teamPreset.vehicleTypeList.Length; i++) { teamInfo.team_1_VehicleTypes.Add(new VehicleTypeInfo(Configuration.Instance.vehicleTypePresets[teamPreset.vehicleTypeList[i]])); }
 
-            StartCoroutine(TimeLoop());
+            loopCoroutine = StartCoroutine(TimeLoop());
             teamInfo.OnRoundStart();
             roundInfo.OnRoundStart();
         }
@@ -827,31 +829,74 @@ namespace KoreanWarPlugin
                     break;
             }
         }
-        IEnumerator TimeLoop()
+        public void StartCoroutine_Loop()
+        {
+            if (loopCoroutine != null) StopCoroutine(loopCoroutine);
+            loopCoroutine = StartCoroutine(TimeLoop());
+        }
+        public void StopCoroutine_Loop()
+        {
+            if (loopCoroutine != null)
+            {
+                StopCoroutine(loopCoroutine);
+                loopCoroutine = null;
+            }
+        }
+        public void StartCoroutine_VoteStart()
+        {
+            voteTimer = voteIniTime;
+            if (voteCoroutine != null) StopCoroutine(voteCoroutine);
+            voteCoroutine = StartCoroutine(Cor_VoteStartTimer());
+        }
+        public void StartCoroutine_RoundStart()
+        {
+            voteTimer = voteIniTime;
+            if (voteCoroutine != null)
+            {
+                StopCoroutine(voteCoroutine);
+                voteCoroutine = null;
+            }
+            if (roundStartCoroutine != null) StopCoroutine(roundStartCoroutine);
+            roundStartCoroutine = StartCoroutine(Cor_RoundStartTimer());
+        }
+        public IEnumerator Cor_VoteStartTimer()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                voteTimer--;
+                if (voteTimer == 0)
+                {
+                    roundInfo.EndVote();
+                    RoundSystem.RefreshUIVoteTimerToEveryone();
+                    break;
+                }
+                RoundSystem.RefreshUIVoteTimerToEveryone();
+            }
+        }
+        public IEnumerator Cor_RoundStartTimer()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                voteTimer--;
+                if (voteTimer == 0)
+                {
+                    roundInfo.OnRoundStart();
+                    RoundSystem.RefreshUIRoundStartTimerToEveryone();
+                    break;
+                }
+                RoundSystem.RefreshUIRoundStartTimerToEveryone();
+            }
+        }
+        public IEnumerator TimeLoop()
         {
             PluginConfiguration configuration = Configuration.Instance;
             int timer = 0;
             while (true)
             {
                 yield return new WaitForSeconds(1f);
-                if (!isRoundStart)
-                {
-                    if (!isVoteEnd)
-                    {
-                        voteTimer--;
-                        if (voteTimer == 0)
-                            roundInfo.EndVote();
-                        RoundSystem.RefreshUIVoteTimerToEveryone();
-                    }
-                    else
-                    {
-                        voteTimer--;
-                        if (voteTimer == 0)
-                            roundInfo.OnRoundStart();
-                        RoundSystem.RefreshUIRoundStartTimerToEveryone();
-                    }
-                }
-                else
+                if(isRoundStart)
                 {
                     // 라운드 종류별로 처리
                     switch (roundInfo.roundType)
@@ -1011,6 +1056,7 @@ namespace KoreanWarPlugin
     5. 무적 상태 애니메이션 고치기
     6. 탄약 보급 구역이랑 제한구역 분리하기
     7. 게임 시작 시 점수 얼마나 줄지 콘피그에서 수정 가능하게 하기
+    8. 사람 수 계산해서 라운드 시작 시 점수 배정
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
     2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기

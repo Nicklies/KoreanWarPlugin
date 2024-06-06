@@ -259,7 +259,7 @@ namespace KoreanWarPlugin.KWSystem
         public static void SetUIState_RoundEnd(Player _player, ITransportConnection _tc) // 사망 UI 상태로 변환
         {
             PlayerComponent pc = _player.GetComponent<PlayerComponent>();
-            pc.localUIState = EnumTable.EPlayerUIState.RoundEnd;
+            pc.localUIState = EPlayerUIState.RoundEnd;
             _player.enablePluginWidgetFlag(EPluginWidgetFlags.Modal);
             if (!pc.isJoinedTeam || PluginManager.roundInfo.roundType == ERoundType.Free) EffectManager.sendUIEffectText(47, _tc, false, "T_Victory", "게임종료");
             else

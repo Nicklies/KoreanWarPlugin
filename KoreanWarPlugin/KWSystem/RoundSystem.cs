@@ -18,7 +18,6 @@ namespace KoreanWarPlugin.KWSystem
     {
         public static void RoundEnd()
         {
-            PluginManager.instance.voteTimer = PluginManager.instance.voteIniTime;
             PluginManager.instance.isRoundStart = false;
             if (PluginManager.roundInfo.playerCount < PluginManager.instance.Configuration.Instance.freeModeReadyCount)
             {
@@ -26,13 +25,14 @@ namespace KoreanWarPlugin.KWSystem
                 PluginManager.roundInfo.roundType = EnumTable.ERoundType.Free;
                 PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.freeModeMapIndex;
                 PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
+                PluginManager.instance.StartCoroutine_RoundStart();
             }
             else
             {
                 PluginManager.instance.isVoteEnd = false;
+                PluginManager.roundInfo.ReloadVote();
             }
             PluginManager.teamInfo.OnRoundEnd();
-            PluginManager.roundInfo.ReloadVote();
             List<PlayerTeamRecordInfo> team_0_resultList = new List<PlayerTeamRecordInfo>();
             List<PlayerTeamRecordInfo> team_1_resultList = new List<PlayerTeamRecordInfo>();
             foreach (var recordInfoDir in PluginManager.teamInfo.playerRecordInfoList)

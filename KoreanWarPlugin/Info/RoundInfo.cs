@@ -70,6 +70,7 @@ namespace KoreanWarPlugin.Info
         }
         public void OnRoundStart()
         {
+            PluginManager.instance.StartCoroutine_Loop();
             PluginManager.instance.isRoundStart = true;
             PluginManager.roundInfo.isFreeModeReady = false;
             // 게임모드 별로 정보 처리
@@ -179,6 +180,7 @@ namespace KoreanWarPlugin.Info
         }
         public void OnRoundOver(bool _winner)
         {
+            PluginManager.instance.StopCoroutine_Loop();
             isGamemodeChanged = false;
             winner = _winner;
             RoundSystem.RoundEnd();
@@ -188,7 +190,7 @@ namespace KoreanWarPlugin.Info
             if (_amount == 0) return;
             // 공방전인경우 방어팀은 점수를 잃지 않으므로 리턴
             if (PluginManager.roundInfo.roundType == ERoundType.Battle && deffenseTeam == _team) return;
-            //_amount = 300;
+            _amount = 300;
             if (_team)
             {
                 team_0_score = (ushort)Mathf.Clamp(team_0_score - _amount, 0, ushort.MaxValue);
@@ -226,6 +228,8 @@ namespace KoreanWarPlugin.Info
         }
         public void ReloadVote() // 투표 정보 초기화
         {
+            // 투표 코르틴 시작
+            PluginManager.instance.StartCoroutine_VoteStart();
             playerVote = new Dictionary<CSteamID, byte>();
             byte mapCount = 6;
             byte gamemodeCount = (byte)PluginManager.instance.Configuration.Instance.gameModePresets.Length;
@@ -258,7 +262,6 @@ namespace KoreanWarPlugin.Info
                 if(roundType == ERoundType.Free)
                 {
                     ReloadVote();
-                    PluginManager.instance.voteTimer = PluginManager.instance.voteIniTime;
                     RoundSystem.RefreshUIVoteTimerToEveryone();
                     RoundSystem.RefreshUIVoteCountInfoAllToEveryone();
                 }
@@ -269,7 +272,6 @@ namespace KoreanWarPlugin.Info
                     PluginManager.instance.isVoteEnd = true;
                     PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
                     PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
-                    PluginManager.instance.voteTimer = PluginManager.instance.voteIniTime;
                     List<SteamPlayer> steamPlayers = Provider.clients;
                     foreach (SteamPlayer steamPlayer in steamPlayers)
                     {
@@ -304,7 +306,6 @@ namespace KoreanWarPlugin.Info
                     PluginManager.instance.isVoteEnd = true;
                     PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
                     PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
-                    PluginManager.instance.voteTimer = PluginManager.instance.voteIniTime;
                     foreach (SteamPlayer steamPlayer in steamPlayers)
                     {
                         PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
@@ -321,10 +322,15 @@ namespace KoreanWarPlugin.Info
                     roundType = (ERoundType)(result - 6);
                     isGamemodeChanged = true;
                     ReloadVote();
-                    PluginManager.instance.voteTimer = PluginManager.instance.voteIniTime;
                     RoundSystem.RefreshUIVoteMapInfoToEveryone();
                     RoundSystem.RefreshUIVoteCountInfoAllToEveryone();
                 }
+                // 투표가 종료 되었다면 라운드 시작
+                if(PluginManager.instance.isVoteEnd)
+                {
+                    PluginManager.instance.StartCoroutine_RoundStart();
+                }
+
                 foreach (SteamPlayer steamPlayer in steamPlayers)
                 {
                     ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
