@@ -65,6 +65,7 @@ namespace KoreanWarPlugin.KWSystem
                     VehiclePresetTable vPreset = configuration.vehiclePresets[vGroupInfo.vPresetIndex];
                     InteractableVehicle interactableVehicle = VehicleManager.spawnVehicleV2(vPreset.itemID, spawnPoint.position, Quaternion.Euler(0, spawnPoint.rotation, 0));
                     VehicleManager.ServerSetVehicleLock(interactableVehicle, CSteamID.NonSteamGS, _uPlayer.Player.quests.groupID, true); // 차량 락 지정
+                    GiveVehicleAmmo(interactableVehicle, vPreset, false);
                     if (vPreset.isDeployable)
                     {
                         SteamPlayerID steamPlayerID = _uPlayer.SteamPlayer().playerID;
@@ -80,7 +81,6 @@ namespace KoreanWarPlugin.KWSystem
                         if (crew.CSteamID != _uPlayer.CSteamID) Deploy(crew, _team, false);
                         VehicleManager.ServerForcePassengerIntoVehicle(crew.Player, interactableVehicle);
                     }
-                    GiveVehicleAmmo(interactableVehicle, vPreset, false);
                     // 배치된 차량그룹 정보 추가
                     PluginManager.teamInfo.AddDeployVehicleInfo(interactableVehicle, vGroupInfo.vTypeIndex, vPreset, vGroupInfo.vehicleTypePreset, interactableVehicle, _team);
                     // 차량그룹 정보 제거

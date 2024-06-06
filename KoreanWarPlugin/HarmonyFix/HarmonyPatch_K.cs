@@ -40,10 +40,10 @@ namespace KoreanWarPlugin.HarmonyFix
         [HarmonyPostfix]
         static void TryAddPlayerPostfix(ref bool __result, InteractableVehicle __instance, ref byte seat, Player player)
         {
+            if (!__result) return;
             PlayerComponent pc = player.GetComponent<PlayerComponent>();
             if (pc.isVehicleSpawn) // 차량스폰인지 여부
             {
-                if (!__result) return; // 원래 false 였다면 리턴
                 __result = false;
                 for (byte i = 1; i < __instance.passengers.Length; i++)
                 {
@@ -55,6 +55,17 @@ namespace KoreanWarPlugin.HarmonyFix
                     }
                 }
                 pc.isVehicleSpawn = false;
+            }
+            // 탑승하려는 좌석에 터렛이 있다면 차고내에 탄약 받기
+            if (__instance.passengers[seat].turret != null)
+            {
+                ItemGunAsset gunAsset = new Item(__instance.passengers[seat].turret.itemID, false).GetAsset<ItemGunAsset>();
+                if (gunAsset != null)
+                {
+                    IngameSystem.RefillAmmoFromVehicle(__instance, player, gunAsset);
+                    ITransportConnection tc = player.channel.GetOwnerTransportConnection();
+                    IngameSystem.UpdateUIGun_RestAmmo(tc, gunAsset.magazineCalibers, player.inventory, __instance);
+                }
             }
         }
     } // 차량 탑승 관련 패치

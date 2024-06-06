@@ -51,7 +51,16 @@ namespace KoreanWarPlugin.Info
             {
                 if (seat.cSteamID != CSteamID.NonSteamGS) // 좌석에 사람이 있다면
                 {
+                    // 좌석의 유저가 접속한 상태인지 체크하고, 유저가 없을 시 제거하고 건너뛰기
+                    UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(seat.cSteamID);
+                    if (uPlayer == null)
+                    {
+                        seat.cSteamID = CSteamID.NonSteamGS;
+                        crewCount--;
+                        continue;
+                    }
                     leaderID = seat.cSteamID;
+                    return;
                 }
             }
         }

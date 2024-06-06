@@ -24,6 +24,7 @@ namespace KoreanWarPlugin.KWSystem
             PlayerComponent pc = _uPlayer_Death.Player.GetComponent<PlayerComponent>();
             pc.fireMode = 255;
             pc.isKnockDown = false;
+            pc.isEnterRestrictArea = false;
             KillRecordInfo killRecordInfo = new KillRecordInfo("", "", "", "", "", false, false, false, false, (CSteamID)0, null);
             PlayerInfo deathInfo = PluginManager.teamInfo.GetPlayerInfo(_uPlayer_Death.CSteamID);
             // 사망한 유저 정보 처리
@@ -90,6 +91,7 @@ namespace KoreanWarPlugin.KWSystem
                 {
                     if (passenger.player == null || passenger.player.player == _player) continue;
                     ItemGunAsset gunAsset = new Item(passenger.turret.itemID, false).GetAsset<ItemGunAsset>();
+                    if (gunAsset == null) continue;
                     bool hasCommonCaliber = _gunAsset.magazineCalibers.Intersect(gunAsset.magazineCalibers).Any();
                     if (hasCommonCaliber)
                     {

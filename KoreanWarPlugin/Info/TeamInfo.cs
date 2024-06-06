@@ -101,7 +101,13 @@ namespace KoreanWarPlugin.Info
             if (!playerInfoList.ContainsKey(_cSteamID)) return null;
             else
             {
-                PlayerComponent pc = UnturnedPlayer.FromCSteamID(_cSteamID).Player.GetComponent<PlayerComponent>();
+                UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(_cSteamID);
+                if(uPlayer == null)
+                {
+                    playerInfoList.Remove(_cSteamID);
+                    return null;
+                }
+                PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (!pc.isJoinedTeam)
                 {
                     playerInfoList.Remove(_cSteamID);
@@ -114,6 +120,12 @@ namespace KoreanWarPlugin.Info
         {
             if (_team) return team_0_VehicleGroups.Find(x => x.instanceID == _instanceID);
             else return team_1_VehicleGroups.Find(x => x.instanceID == _instanceID);
+        }
+        public VehicleGroupInfo GetVehicleGroupInfo(ushort _instanceID, bool _team, out byte _index)
+        {
+            VehicleGroupInfo vGroupInfo = _team ? team_0_VehicleGroups.Find(x => x.instanceID == _instanceID) : team_1_VehicleGroups.Find(x => x.instanceID == _instanceID);
+            _index = _team ? (byte)team_0_VehicleGroups.IndexOf(vGroupInfo) : (byte)team_1_VehicleGroups.IndexOf(vGroupInfo);
+            return vGroupInfo;
         }
         public VehicleDeployInfo GetVehicleDeployInfo(InteractableVehicle _vehicle, out bool team)
         {

@@ -54,112 +54,238 @@ namespace KoreanWarPlugin
                     name = "M1 카빈",
                     iconUrl = "https://drive.google.com/uc?id=16DkIZw9nirAr2ZIMJyd3Fg-IlwiA5lQh",
                     isImageLarge = true
-                }, // 0. M1카빈
+                }, // M1카빈
                 new WeaponInfoPreset
                 {
                     id = 46002,
                     name = "M2 카빈",
                     iconUrl = "https://drive.google.com/uc?id=1BBdJ1vMmSec3FI2woMpLUUuRWCXJW-Vv",
                     isImageLarge = true
-                }, // 1. M2카빈
+                }, // M2카빈
                 new WeaponInfoPreset
                 {
                     id = 46004,
                     name = "M1 개런드",
                     iconUrl = "https://drive.google.com/uc?id=1RcZhzNdSRAXAoeRZdzG-NhyEUKzkRFnT",
                     isImageLarge = true
-                }, // 2. M1개런드
+                }, // M1개런드
                 new WeaponInfoPreset
                 {
                     id = 46006,
                     name = "M3 그리스건",
                     iconUrl = "https://drive.google.com/uc?id=1eAJUe8P5yNCDwCZTTRMTbNxszejnhMlg",
                     isImageLarge = true
-                }, // 3. M3그리스건
+                }, // M3그리스건
                 new WeaponInfoPreset
                 {
                     id = 46008,
                     name = "B.A.R",
                     iconUrl = "https://drive.google.com/uc?id=1m_obAklktwePCkXwiKrhCcbpGwNuSd9v",
                     isImageLarge = true
-                }, // 4. B.A.R
+                }, // B.A.R
                 new WeaponInfoPreset
                 {
                     id = 46010,
                     name = "M1911 콜트",
                     iconUrl = "https://drive.google.com/uc?id=1pJHVRNxBv-jWKbstk_ZpkNZzwvY4j7XV",
                     isImageLarge = false
-                }, // 5. M1911콜트
+                }, // M1911콜트
                 new WeaponInfoPreset
                 {
                     id = 46012,
                     name = "M1903 스프링필드",
                     iconUrl = "https://drive.google.com/uc?id=1HRNQSyR6f-bjd8Y4eO1rp0tAQye8TpD0",
                     isImageLarge = true
-                }, // 6. M1908스프링필드
+                }, // M1908스프링필드
                 new WeaponInfoPreset
                 {
                     id = 46014,
                     name = "모신나강",
                     iconUrl = "https://drive.google.com/uc?id=1H2NH5f-wLXM1ea-ECHp2-df3Vozgru8v",
                     isImageLarge = true
-                }, // 7. 모신난강
+                }, // 모신나강
                 new WeaponInfoPreset
                 {
                     id = 46016,
                     name = "PPSH-41",
                     iconUrl = "https://drive.google.com/uc?id=1k8FIBor-lD43zQhyrvEGuUYs1HBV5g4D",
                     isImageLarge = true
-                }, // 8. PPSH-41
+                }, // PPSH-41
                 new WeaponInfoPreset
                 {
                     id = 46019,
                     name = "DP-28",
                     iconUrl = "https://drive.google.com/uc?id=1m9K_piYaW3ncvB1eKV55dC6JACkJb2XU",
                     isImageLarge = true
-                }, // 9. DP-28
+                }, // DP-28
                 new WeaponInfoPreset
                 {
                     id = 46021,
                     name = "SVT-40",
                     iconUrl = "https://drive.google.com/uc?id=1tWQSO9gcPAwrsySQD1WdwaLKmwiX0oIw",
                     isImageLarge = true
-                }, // 10. SVT-40
+                }, // SVT-40
                 new WeaponInfoPreset
                 {
                     id = 46023,
                     name = "TT33",
                     iconUrl = "https://drive.google.com/uc?id=1-oRwP41syw7EwU4fgHCo-O6hxB1lNDtb",
                     isImageLarge = false
-                }, // 11. TT33
+                }, // TT33
                 new WeaponInfoPreset
                 {
                     id = 46025,
                     name = "M9A1 바주카",
                     iconUrl = "https://drive.google.com/uc?id=1ZeM1B0pfurFuJCPtuDwKmIfMENdDwqNX",
                     isImageLarge = false
-                }, // 12. M9A1바주카
+                }, // M9A1바주카
                 new WeaponInfoPreset
                 {
                     id = 46027,
                     name = "M20 바주카",
                     iconUrl = "https://drive.google.com/uc?id=1lE8WEYV6X_ECdH5djIdgFwwrNTVHbwe9",
                     isImageLarge = false
-                }, // 13. M20바주카
+                }, // M20바주카
                 new WeaponInfoPreset
                 {
                     id = 46029,
                     name = "PPS-43",
                     iconUrl = "https://drive.google.com/uc?id=1l7ShnBzah8-uOgD3WCuL5cT6Nqx4bgii",
-                    isImageLarge = false
-                }, // 14. PPS-43
+                    isImageLarge = true
+                }, // PPS-43
                 new WeaponInfoPreset
                 {
                     id = 46031,
                     name = "PTRS-41",
                     iconUrl = "https://drive.google.com/uc?id=1Gvb3VY_5sIj97_VHtMuzY2AEYS2UkdvV",
                     isImageLarge = false
-                }, // 15. PTRS=41
+                }, // PTRS=41
+                new WeaponInfoPreset
+                {
+                    id = 46718,
+                    name = "M1919 브라우닝",
+                    iconUrl = "https://drive.google.com/uc?id=1UNGTpGz1fUzUyFjBcaJfDflzrSMz0a-w",
+                    isImageLarge = true
+                }, // M1919브라우닝
+                new WeaponInfoPreset
+                {
+                    id = 46719,
+                    name = "M2 브라우닝",
+                    iconUrl = "https://drive.google.com/uc?id=1UNGTpGz1fUzUyFjBcaJfDflzrSMz0a-w",
+                    isImageLarge = true
+                }, // M2브라우닝
+                new WeaponInfoPreset
+                {
+                    id = 46720,
+                    name = "맥심기관총",
+                    iconUrl = "https://drive.google.com/uc?id=1UNGTpGz1fUzUyFjBcaJfDflzrSMz0a-w",
+                    isImageLarge = true
+                }, // 맥심기관총
+                new WeaponInfoPreset
+                {
+                    id = 46721,
+                    name = "DHSK",
+                    iconUrl = "https://drive.google.com/uc?id=1UNGTpGz1fUzUyFjBcaJfDflzrSMz0a-w",
+                    isImageLarge = true
+                }, // DHSK
+                new WeaponInfoPreset
+                {
+                    id = 46722,
+                    name = "75mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M4A3주포
+                new WeaponInfoPreset
+                {
+                    id = 46723,
+                    name = "76mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M4A3E8주포
+                new WeaponInfoPreset
+                {
+                    id = 46725,
+                    name = "76mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // T34/76주포
+                new WeaponInfoPreset
+                {
+                    id = 46726,
+                    name = "DT-29 공축기관총",
+                    iconUrl = "https://drive.google.com/uc?id=1UNGTpGz1fUzUyFjBcaJfDflzrSMz0a-w",
+                    isImageLarge = true
+                }, // DT-29 공축기관총
+                new WeaponInfoPreset
+                {
+                    id = 46728,
+                    name = "85mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // T34/85 주포
+                new WeaponInfoPreset
+                {
+                    id = 46729,
+                    name = "90mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M26퍼싱 주포
+                new WeaponInfoPreset
+                {
+                    id = 46730,
+                    name = "37mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // 그레이하운드 주포
+                new WeaponInfoPreset
+                {
+                    id = 46731,
+                    name = "45mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // BA-11 주포
+                new WeaponInfoPreset
+                {
+                    id = 46733,
+                    name = "75mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M24채피 주포
+                new WeaponInfoPreset
+                {
+                    id = 46734,
+                    name = "122mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // IS-2 주포
+                new WeaponInfoPreset
+                {
+                    id = 46737,
+                    name = "57mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M1대전차포 주포
+                new WeaponInfoPreset
+                {
+                    id = 46738,
+                    name = "76mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M5대전차포 주포
+                new WeaponInfoPreset
+                {
+                    id = 46739,
+                    name = "45mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // M1942대전차포 주포
+                new WeaponInfoPreset
+                {
+                    id = 46740,
+                    name = "76mm 주포",
+                    iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
+                    isImageLarge = true
+                }, // ZIS-3대전차포 주포
             }; // 무기 정보 프리셋
             magazineInfoPresets = new MagazineInfoPreset[]
             {
@@ -213,7 +339,7 @@ namespace KoreanWarPlugin
                     teamName = "대한민국 육군",
                     teamImageUrl = "https://drive.google.com/uc?id=1DuskqHq8ySyRD03xsOnuDLPLiZiRrJUz",
                     teamIconUrl = "https://drive.google.com/uc?id=1NeiuYPwvBOjBWiMToZl6vlfachTgh-Bm",
-                    classList = new ushort[] { 0,1,2,3 },
+                    classList = new ushort[] { 0,1,2,3,6,7 },
                     vehicleTypeList = new ushort[] { 0,1,2 },
                     levelPresets = new LevelPreset[]
                     {
@@ -232,7 +358,7 @@ namespace KoreanWarPlugin
                     teamName = "조선인민군",
                     teamImageUrl = "https://drive.google.com/uc?id=1JZeYOMQorr8aSVwdAaxZJWRvzeK5nnx0",
                     teamIconUrl = "https://drive.google.com/uc?id=1_coLkxN2mvZIeoiYcF5Ke32HkBZiwoKc",
-                    classList = new ushort[] { 4,5,6,7 },
+                    classList = new ushort[] { 8,9,10,11,14,15 },
                     vehicleTypeList = new ushort[] { 3,4,5 },
                     levelPresets = new LevelPreset[]
                     {
@@ -261,18 +387,18 @@ namespace KoreanWarPlugin
                    isMedic = false,
                    primaryList = new ushort[] { 0, 2 },
                    secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0, 1 },
+                   explosiveList = new ushort[] { 2,0 },
                    equipmentInstanceID = 0,
                    utilityList = new ushort[] { },
                    primaryDefaultIndex = 2,
-                   secondaryDefaultIndex = 0,
-                   explosive_0DefaultIndex = ushort.MaxValue,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 0,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 0. 국군 소총병
+                }, // 0. 한국군 소총병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.infantary,
@@ -283,9 +409,81 @@ namespace KoreanWarPlugin
                    playerMax = 3,
                    supplyPoint = 10,
                    isMedic = true,
+                   primaryList = new ushort[] { 0, 2 },
+                   secondaryList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2 },
+                   equipmentInstanceID = 2,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 0,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = ushort.MaxValue,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46502, 46502, 46506, 46506, 46506, 46506, 46506 }
+                }, // 1. 한국군 의생병
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "돌격병",
+                   iconUrl = "https://drive.google.com/uc?id=1oYDd031JV1Zv3GlTYKNAPUMixlzc06gh",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
                    primaryList = new ushort[] { 4, 7 },
                    secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2,0,4,5 },
+                   equipmentInstanceID = 0,
+                   utilityList = new ushort[] { 0 },
+                   primaryDefaultIndex = 4,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 0,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 2. 한국군 돌격병
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "탄약수",
+                   iconUrl = "https://drive.google.com/uc?id=13ZtLCd8APX3N1zIgLUl7j403Kaf67ZSA",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 9 },
+                   secondaryList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2,0 },
+                   equipmentInstanceID = 0,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 9,
+                   secondaryDefaultIndex = 0,
+                   explosive_0DefaultIndex = 0,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 3. 한국군 탄약수
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "저격수",
+                   iconUrl = "https://drive.google.com/uc?id=1XfuGHZvS83Qq--0KzSJGSVRTu9lDzTVO",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 4, 7 },
+                   secondaryList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2,0 },
                    equipmentInstanceID = 0,
                    utilityList = new ushort[] { 0 },
                    primaryDefaultIndex = 4,
@@ -293,10 +491,34 @@ namespace KoreanWarPlugin
                    explosive_0DefaultIndex = 0,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = 0,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 4. 한국군 저격수
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "공병",
+                   iconUrl = "https://drive.google.com/uc?id=1ChuW7lkuehhKwwqRz_ocRZWR_XCGn3vy",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 4, 7 },
+                   secondaryList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2,0 },
+                   equipmentInstanceID = 0,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 4,
+                   secondaryDefaultIndex = 0,
+                   explosive_0DefaultIndex = 0,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46502, 46502, 46506, 46506, 46506, 46506, 46506 }
-                }, // 1. 국군 의생병
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 5. 한국군 공병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.driver,
@@ -309,18 +531,18 @@ namespace KoreanWarPlugin
                    isMedic = false,
                    primaryList = new ushort[] { 6 },
                    secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
+                   explosiveList = new ushort[] { 2,0 },
                    equipmentInstanceID = 0,
-                   utilityList = new ushort[] { 0 },
+                   utilityList = new ushort[] { },
                    primaryDefaultIndex = 6,
                    secondaryDefaultIndex = 0,
                    explosive_0DefaultIndex = 0,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
-                   utility_0DefaultIndex = 0,
+                   utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 2. 국군 운전병
+                }, // 6. 한국군 운전병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.driver,
@@ -333,8 +555,8 @@ namespace KoreanWarPlugin
                    isMedic = false,
                    primaryList = new ushort[] { 4 },
                    secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
-                   equipmentInstanceID = 0,
+                   explosiveList = new ushort[] { },
+                   equipmentInstanceID = 4,
                    utilityList = new ushort[] { 0 },
                    primaryDefaultIndex = ushort.MaxValue,
                    secondaryDefaultIndex = 0,
@@ -344,7 +566,7 @@ namespace KoreanWarPlugin
                    utility_0DefaultIndex = 0,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 3. 국군 전차병
+                }, // 7. 한국군 전차병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.infantary,
@@ -356,19 +578,19 @@ namespace KoreanWarPlugin
                    supplyPoint = 10,
                    isMedic = false,
                    primaryList = new ushort[] { 1, 3 },
-                   secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0, 1 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1 },
                    equipmentInstanceID = 1,
                    utilityList = new ushort[] { },
-                   primaryDefaultIndex = 1,
-                   secondaryDefaultIndex = 0,
-                   explosive_0DefaultIndex = ushort.MaxValue,
+                   primaryDefaultIndex = 3,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 1,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 4. 북한군 소총병
+                }, // 8. 북한군 소총병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.infantary,
@@ -379,20 +601,116 @@ namespace KoreanWarPlugin
                    playerMax = 3,
                    supplyPoint = 10,
                    isMedic = true,
+                   primaryList = new ushort[] { 1, 3 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3 },
+                   equipmentInstanceID = 3,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 1,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = ushort.MaxValue,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46502, 46502,46506, 46506, 46506, 46506, 46506 }
+                }, // 9. 북한군 의생병
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "돌격병",
+                   iconUrl = "https://drive.google.com/uc?id=1oYDd031JV1Zv3GlTYKNAPUMixlzc06gh",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
                    primaryList = new ushort[] { 5, 8 },
-                   secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1,6,4 },
+                   equipmentInstanceID = 1,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 5,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 1,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 10. 북한군 돌격병
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "탄약수",
+                   iconUrl = "https://drive.google.com/uc?id=13ZtLCd8APX3N1zIgLUl7j403Kaf67ZSA",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 10 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1 },
+                   equipmentInstanceID = 1,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 10,
+                   secondaryDefaultIndex = 1,
+                   explosive_0DefaultIndex = 1,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 11. 북한군 탄약수
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "저격수",
+                   iconUrl = "https://drive.google.com/uc?id=1XfuGHZvS83Qq--0KzSJGSVRTu9lDzTVO",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 5, 8 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1 },
                    equipmentInstanceID = 1,
                    utilityList = new ushort[] { 0 },
                    primaryDefaultIndex = 5,
-                   secondaryDefaultIndex = 0,
-                   explosive_0DefaultIndex = 0,
+                   secondaryDefaultIndex = 1,
+                   explosive_0DefaultIndex = 1,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = 0,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46502, 46502,46506, 46506, 46506, 46506, 46506 }
-                }, // 5. 북한군 의생병
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 12. 북한군 저격수
+                new ClassPresetTable
+                {
+                   classType = EnumTable.EClassType.infantary,
+                   name = "공병",
+                   iconUrl = "https://drive.google.com/uc?id=1ChuW7lkuehhKwwqRz_ocRZWR_XCGn3vy",
+                   timer = 0,
+                   levelLimit = 0,
+                   playerMax = 3,
+                   supplyPoint = 10,
+                   isMedic = true,
+                   primaryList = new ushort[] { 5, 8 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1 },
+                   equipmentInstanceID = 1,
+                   utilityList = new ushort[] { },
+                   primaryDefaultIndex = 5,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 1,
+                   explosive_1DefaultIndex = ushort.MaxValue,
+                   equipmentDefaultIndex = 1,
+                   utility_0DefaultIndex = ushort.MaxValue,
+                   utility_1DefaultIndex = ushort.MaxValue,
+                   loadoutList = new ushort[] { 46506, 46506 }
+                }, // 13. 북한군 공병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.driver,
@@ -404,19 +722,19 @@ namespace KoreanWarPlugin
                    supplyPoint = 10,
                    isMedic = false,
                    primaryList = new ushort[] { 6 },
-                   secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { 3,1 },
                    equipmentInstanceID = 1,
-                   utilityList = new ushort[] { 0 },
+                   utilityList = new ushort[] { },
                    primaryDefaultIndex = 6,
-                   secondaryDefaultIndex = 0,
-                   explosive_0DefaultIndex = 0,
+                   secondaryDefaultIndex = ushort.MaxValue,
+                   explosive_0DefaultIndex = 1,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
-                   utility_0DefaultIndex = 0,
+                   utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 6. 북한군 운전병
+                }, // 14. 북한군 운전병
                 new ClassPresetTable
                 {
                    classType = EnumTable.EClassType.driver,
@@ -427,20 +745,20 @@ namespace KoreanWarPlugin
                    playerMax = 0,
                    supplyPoint = 10,
                    isMedic = false,
-                   primaryList = new ushort[] { 4 },
-                   secondaryList = new ushort[] { 0 },
-                   explosiveList = new ushort[] { 0 },
-                   equipmentInstanceID = 1,
+                   primaryList = new ushort[] { 5 },
+                   secondaryList = new ushort[] { 1 },
+                   explosiveList = new ushort[] { },
+                   equipmentInstanceID = 5,
                    utilityList = new ushort[] { 0 },
                    primaryDefaultIndex = ushort.MaxValue,
-                   secondaryDefaultIndex = 0,
+                   secondaryDefaultIndex = 1,
                    explosive_0DefaultIndex = ushort.MaxValue,
                    explosive_1DefaultIndex = ushort.MaxValue,
-                   equipmentDefaultIndex = 1,
+                   equipmentDefaultIndex = 0,
                    utility_0DefaultIndex = 0,
                    utility_1DefaultIndex = ushort.MaxValue,
                    loadoutList = new ushort[] { 46506, 46506 }
-                }, // 7. 북한군 전차병
+                }, // 15. 북한군 전차병
             }; // 병과 프리셋
             for (ushort i = 0; i < classPresets.Length; i++) classPresets[i].instanceID = i; // 병과 인스턴스 아이디 부여
 
@@ -465,7 +783,7 @@ namespace KoreanWarPlugin
                 }, // 0.M1908스프링필드
                 new PrimaryPresetTable
                 {
-                    name = "모신난강",
+                    name = "모신나강",
                     iconUrl = "https://drive.google.com/uc?id=1ZMwza9UbM7pqUAL2t-HR8-lTQLIBO-jd",
                     itemID = 46014,
                     supplyCost = 1,
@@ -750,12 +1068,23 @@ namespace KoreanWarPlugin
                     magazineAmount = 0, // 장구류 구분없이 탄창 똑같이 줄거면 이거 사용
                     amount_equipment = new byte[]{ 2, 3, 4 } // 장구류에 따른 탄창 개수
                 }, // 0. M1911콜트
+                new SecondaryPresetTable
+                {
+                    name = "TT-33",
+                    iconUrl = "https://drive.google.com/uc?id=1Fflgrm1BLPmQKLcQ94UlSLbpVmp2M3Cq",
+                    itemID = 46023,
+                    supplyCost = 1,
+                    amount = 1,
+                    magazineItemID = 46024,
+                    magazineAmount = 0, // 장구류 구분없이 탄창 똑같이 줄거면 이거 사용
+                    amount_equipment = new byte[]{ 2, 3, 4 } // 장구류에 따른 탄창 개수
+                }, // 1. TT-33
             }; // 부무장 프리셋
             explosivePresets = new SecondaryPresetTable[]
             {
                 new SecondaryPresetTable
                 {
-                    name = "F1 슈류탄",
+                    name = "F1슈류탄",
                     iconUrl = "https://drive.google.com/uc?id=1mrElNeWellpyefWSXgoOSSlNThu7YcP8",
                     itemID = 46400,
                     amount = 1,
@@ -764,16 +1093,67 @@ namespace KoreanWarPlugin
                 }, // 0. F1 슈류탄
                 new SecondaryPresetTable
                 {
-                    name = "M9A1 바주카",
+                    name = "RGD-33",
+                    iconUrl = "https://drive.google.com/uc?id=1szoPYCYDDR6Abq4WsnjTDpHvPodPliBz",
+                    itemID = 46401,
+                    amount = 1,
+                    supplyCost = 1,
+                    isDuplicatable = true
+                }, // 1. RGD-33
+                new SecondaryPresetTable
+                {
+                    name = "M18연막탄",
+                    iconUrl = "https://drive.google.com/uc?id=1EeBBZomyiygR05GdxppuskJonzTVwpuQ",
+                    itemID = 46404,
+                    amount = 1,
+                    supplyCost = 1,
+                    isDuplicatable = true
+                }, // 2. M18연막탄(흰색)
+                new SecondaryPresetTable
+                {
+                    name = "RGD-2연막탄",
+                    iconUrl = "https://drive.google.com/uc?id=18b54H4VW6KD3vx0JMJnDZz6RhpM05GH2",
+                    itemID = 46408,
+                    amount = 1,
+                    supplyCost = 1,
+                    isDuplicatable = true
+                }, // 3. RGD-2연막탄(흰색)
+                new SecondaryPresetTable
+                {
+                    name = "M9A1바주카",
                     iconUrl = "https://drive.google.com/uc?id=1UfQq1OZZ52f-5sG1jCNlq-2hHLTtZJgY",
                     itemID = 46025,
                     amount = 1,
-                    supplyCost = 4,
+                    supplyCost = 5,
                     magazineItemID = 46026,
                     magazineAmount = 0,
                     amount_equipment = new byte[] { 1, 2, 3 },
                     isDuplicatable = false
-                }, // 1. M9A1바주카
+                }, // 4. M9A1바주카
+                new SecondaryPresetTable
+                {
+                    name = "M20바주카",
+                    iconUrl = "https://drive.google.com/uc?id=1Lp5RJnABH7Fc1WVgQKqK4tU3XG219JhH",
+                    itemID = 46027,
+                    amount = 1,
+                    supplyCost = 7,
+                    magazineItemID = 46028,
+                    magazineAmount = 0,
+                    amount_equipment = new byte[] { 1, 2, 3 },
+                    isDuplicatable = false
+                }, // 5. M20바주카
+                new SecondaryPresetTable
+                {
+                    name = "PTRS-41",
+                    iconUrl = "https://drive.google.com/uc?id=1cFlpHhfeles_66ldxdSkH2Cqxt2x4fUi",
+                    itemID = 46031,
+                    amount = 1,
+                    supplyCost = 3,
+                    magazineItemID = 46032,
+                    magazineAmount = 0,
+                    amount_equipment = new byte[] { 2, 3, 4 },
+                    isDuplicatable = false
+                }, // 6. PTRS-41
             };
             equipmentPresets = new EquipmentPresetTable[]
             {
@@ -848,7 +1228,7 @@ namespace KoreanWarPlugin
                             equipment_Mask = new ushort[] {},
                             equipment_Glasses = new ushort[]{  },
                             equipment_Vest = new ushort[]{ 46210 },
-                            equipment_Backpack = new ushort[]{  },
+                            equipment_Backpack = new ushort[]{ 46601 },
                             equipment_shirt = new ushort[]{ 46311, 46312, 46313, 46314, 46315, 46316, 46317, 46318 },
                             equipment_Pant = new ushort[]{  },
                         },
@@ -867,6 +1247,134 @@ namespace KoreanWarPlugin
                         }
                     }
                 }, // 1. 북한군 소총병 장구류
+                new EquipmentPresetTable
+                {
+                    clothPresetList = new ClothPresetTable[]
+                    {
+                        new ClothPresetTable
+                        {
+                            name = "비무장",
+                            iconUrl = "https://drive.google.com/uc?id=1Q4i5y3qDo7ROTyWd-o4VxKqDsyv-Qr32",
+                            supplyCost = 0,
+                            equipment_Head = new ushort[]{ 46108 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{  },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46304 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 비무장
+                        new ClothPresetTable
+                        {
+                            name = "경무장",
+                            iconUrl = "https://drive.google.com/uc?id=1IhLPr6N2lox2qSimdFNyNObIPlRXrw59",
+                            supplyCost = 2,
+                            equipment_Head = new ushort[]{ 46108 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46207 },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46304 },
+                            equipment_Pant = new ushort[]{  },
+                        },
+                        new ClothPresetTable
+                        {
+                            name = "중무장",
+                            iconUrl = "https://drive.google.com/uc?id=1lxXg35MPZQGxSuzhHEUMtD1gGCcLCAza",
+                            supplyCost = 4,
+                            equipment_Head = new ushort[]{ 46101 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46207 },
+                            equipment_Backpack = new ushort[]{ 46600 },
+                            equipment_shirt = new ushort[]{ 46304 },
+                            equipment_Pant = new ushort[]{  },
+                        }
+                    }
+                }, // 2. 한국군 의생병 장구류
+                new EquipmentPresetTable
+                {
+                    clothPresetList = new ClothPresetTable[]
+                    {
+                        new ClothPresetTable
+                        {
+                            name = "비무장",
+                            iconUrl = "https://drive.google.com/uc?id=1Q4i5y3qDo7ROTyWd-o4VxKqDsyv-Qr32",
+                            supplyCost = 0,
+                            equipment_Head = new ushort[]{ 46104, 46104, 46104, 46104, 46109, 46109, 46109, 46109 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{  },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46328 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 비무장
+                        new ClothPresetTable
+                        {
+                            name = "경무장",
+                            iconUrl = "https://drive.google.com/uc?id=1IhLPr6N2lox2qSimdFNyNObIPlRXrw59",
+                            supplyCost = 2,
+                            equipment_Head = new ushort[]{ 46104, 46104, 46104, 46104, 46109, 46109, 46109, 46109 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46217 },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46328 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 경무장
+                        new ClothPresetTable
+                        {
+                            name = "중무장",
+                            iconUrl = "https://drive.google.com/uc?id=1lxXg35MPZQGxSuzhHEUMtD1gGCcLCAza",
+                            supplyCost = 4,
+                            equipment_Head = new ushort[]{ 46106 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46217 },
+                            equipment_Backpack = new ushort[]{ 46601 },
+                            equipment_shirt = new ushort[]{ 46328 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 중무장
+                    }
+                }, // 3. 북한군 의생병 장구류
+                new EquipmentPresetTable
+                {
+                    clothPresetList = new ClothPresetTable[]
+                    {
+                        new ClothPresetTable
+                        {
+                            name = "전차병 무장",
+                            iconUrl = "https://drive.google.com/uc?id=1Q4i5y3qDo7ROTyWd-o4VxKqDsyv-Qr32",
+                            supplyCost = 0,
+                            equipment_Head = new ushort[]{ 46103 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46206 },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46305 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 전차병 무장
+                    }
+                }, // 4. 한국군 전차병 장구류
+                new EquipmentPresetTable
+                {
+                    clothPresetList = new ClothPresetTable[]
+                    {
+                        new ClothPresetTable
+                        {
+                            name = "전차병 무장",
+                            iconUrl = "https://drive.google.com/uc?id=1Q4i5y3qDo7ROTyWd-o4VxKqDsyv-Qr32",
+                            supplyCost = 0,
+                            equipment_Head = new ushort[]{ 46107 },
+                            equipment_Mask = new ushort[] {},
+                            equipment_Glasses = new ushort[]{  },
+                            equipment_Vest = new ushort[]{ 46216 },
+                            equipment_Backpack = new ushort[]{  },
+                            equipment_shirt = new ushort[]{ 46327 },
+                            equipment_Pant = new ushort[]{  },
+                        }, // 전차병 무장
+                    }
+                }, // 5. 북한군 전차병 장구류
             }; // 장구류 프리셋
             utilityPresets = new LoadoutTable[]
             {
@@ -919,7 +1427,7 @@ namespace KoreanWarPlugin
                 }, // 1. 한국 경전차
                 new VehicleTypePresetTable
                 {
-                    name = "중전차",
+                    name = "중형전차",
                     iconUrl = "https://drive.google.com/uc?id=1_L86f8Z__AdHiVmwQ0UN6-Rb0XABO0qi",
                     levelLimit = 3,
                     timer = 25,
@@ -934,7 +1442,7 @@ namespace KoreanWarPlugin
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = true
-                }, // 2. 한국 중전차
+                }, // 2. 한국 중형전차
                 new VehicleTypePresetTable
                 {
                     name = "수송차량",
@@ -973,7 +1481,7 @@ namespace KoreanWarPlugin
                 }, // 4. 북한 경전차
                 new VehicleTypePresetTable
                 {
-                    name = "중전차",
+                    name = "중형전차",
                     iconUrl = "https://drive.google.com/uc?id=1_L86f8Z__AdHiVmwQ0UN6-Rb0XABO0qi",
                     levelLimit = 3,
                     timer = 0,
@@ -988,7 +1496,7 @@ namespace KoreanWarPlugin
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = true
-                } // 5. 북한 중전차
+                } // 5. 북한 중형전차
             };
             for (ushort i = 0; i < vehicleTypePresets.Length; i++)
             {
@@ -1275,7 +1783,7 @@ namespace KoreanWarPlugin
             supplyCooltime_Inf = 30;
             spawnRot = 180f;
             teamChangeDelay = 0;
-            freeModeReadyCount = 2;
+            freeModeReadyCount = 4;
             freeModeMapIndex = 0;
         }
     }

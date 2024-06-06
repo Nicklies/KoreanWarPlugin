@@ -112,7 +112,7 @@ namespace KoreanWarPlugin.KWSystem
                     {
                         EffectManager.sendUIEffectVisibility(47, tc, false, $"L_VehicleInfo", true);
                     }
-                    vGroupInfo = vehicleGroupList.FirstOrDefault(x => x.instanceID == _vGroupInstanceID);
+                    vGroupInfo = PluginManager.teamInfo.GetVehicleGroupInfo(_vGroupInstanceID, _team, out byte _vIndex);
                     playerInfo.vGroupInstanceID = vGroupInfo.instanceID;
                     playerInfo.vTypeIndex = vGroupInfo.vTypeIndex;
                     vGroupInfo.crewCount++;
@@ -123,6 +123,7 @@ namespace KoreanWarPlugin.KWSystem
                         break;
                     }
                     RefreshUIVehicleGroupAllToEveryone(_team); // 대기차량 탭 정보 갱신
+                    //RefreshUIVehicleGroupToEveryone(_vIndex, _team); // 대기차량 탭 정보 갱신
                     RefreshUIVehicleGroupInfoToMembers(vGroupInfo); // 차량그룹 정보 탭 갱신
                     // 거점 정보 갱신
                    DeploySystem.ActiveDeployMarker_Static(tc, _team, playerInfo);
@@ -378,28 +379,7 @@ namespace KoreanWarPlugin.KWSystem
                 }
             }
         }
-        public static void RefreshUIVehicleGroupToEveryone(byte _vIndex, bool _team) // 같은 팀 유저에게 특정 대기차량의 정보 갱신
-        {
-            List<SteamPlayer> steamPlayers = Provider.clients;
-            foreach (SteamPlayer steamPlayer in steamPlayers)
-            {
-                PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
-
-                ITransportConnection tc = steamPlayer.transportConnection;
-                RefreshUIVehicleGroup(tc, _vIndex, _team);
-            }
-        }
-        public static void RefreshUIVehicleGroup(ITransportConnection _tc, byte _vIndex, bool _team) // 대기차량의 정보 갱신
-        {
-            VehicleGroupInfo vGroupInfo = _team ? PluginManager.teamInfo.team_0_VehicleGroups[_vIndex] : PluginManager.teamInfo.team_1_VehicleGroups[_vIndex];
-            EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleGroupCount_{_vIndex}", $"{vGroupInfo.crewCount}/{vGroupInfo.maxSeats}");
-            VehiclePresetTable vehiclePreset = PluginManager.instance.Configuration.Instance.vehiclePresets[vGroupInfo.vPresetIndex];
-            EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleGroupName_{_vIndex}", $"{vehiclePreset.name}");
-            if(vGroupInfo.isLocked) EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{_vIndex}", $"{PluginManager.icons["lock"]}");
-            else EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{_vIndex}", $"{PluginManager.icons["player"]}");
-        }
-        public static void RefreshUIVehicleGroupAllToEveryone(bool _team) // 같은 팀 유저에게 모든 대기차량 정보 갱신
+        public static void RefreshUIVehicleGroupAllToEveryone(bool _team) // 같은 팀 유저에게 모든 대기차량 정보 초기화 후  갱신
         {
             foreach (var playerInfoDir in PluginManager.teamInfo.playerInfoList)
             {
@@ -412,7 +392,7 @@ namespace KoreanWarPlugin.KWSystem
                 RefreshUIVehicleGroupAll(tc, playerInfoDir.Value.vGroupInstanceID, _team);
             }
         }
-        public static void RefreshUIVehicleGroupAll(ITransportConnection _tc, ushort _vGroupInstanceID, bool _team) // 모든 대기차량 정보 갱신
+        public static void RefreshUIVehicleGroupAll(ITransportConnection _tc, ushort _vGroupInstanceID, bool _team) // 모든 대기차량 정보 초기화 후 갱신
         {
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_RemoveClass_VehicleGroup", true);
             EffectManager.sendUIEffectVisibility(47, _tc, false, "Trigger_RemoveVehicleGroupBlock", true);
@@ -429,6 +409,27 @@ namespace KoreanWarPlugin.KWSystem
                 if (vehicleGroupList[i].isLocked) EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{i}", $"{PluginManager.icons["lock"]}");
                 else EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{i}", $"{PluginManager.icons["player"]}");
             }
+        }
+        public static void RefreshUIVehicleGroupToEveryone(byte _vIndex, bool _team) // 같은 팀 유저에게 특정 대기차량의 정보 갱신
+        {
+            List<SteamPlayer> steamPlayers = Provider.clients;
+            foreach (SteamPlayer steamPlayer in steamPlayers)
+            {
+                PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
+                if (pc.team != _team || pc.localUIState != EnumTable.EPlayerUIState.Loadout) continue;
+
+                ITransportConnection tc = steamPlayer.transportConnection;
+                RefreshUIVehicleGroup(tc, _vIndex, _team);
+            }
+        }
+        public static void RefreshUIVehicleGroup(ITransportConnection _tc, byte _vIndex, bool _team) // 대기차량의 정보 갱신
+        {
+            VehicleGroupInfo vGroupInfo = _team ? PluginManager.teamInfo.team_0_VehicleGroups[_vIndex] : PluginManager.teamInfo.team_1_VehicleGroups[_vIndex];
+            VehiclePresetTable vehiclePreset = PluginManager.instance.Configuration.Instance.vehiclePresets[vGroupInfo.vPresetIndex];
+            EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleGroupCount_{_vIndex}", $"{vGroupInfo.crewCount}/{vGroupInfo.maxSeats}");
+            EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleGroupName_{_vIndex}", $"{vehiclePreset.name}");
+            if (vGroupInfo.isLocked) EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{_vIndex}", $"{PluginManager.icons["lock"]}");
+            else EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleGroupIcon_{_vIndex}", $"{PluginManager.icons["player"]}");
         }
         public static void RefreshUIVehicleDeployAllToEveryone(bool _team) // 같은 팀 유저에게 모든 대기차량 정보 갱신
         {

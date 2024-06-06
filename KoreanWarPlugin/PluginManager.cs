@@ -163,6 +163,7 @@ namespace KoreanWarPlugin
         private void VehicleManager_OnToggleVehicleLockRequested(InteractableVehicle vehicle, ref bool shouldAllow)
         {
             shouldAllow = false;
+            Enumerable.Range(3, 10).ToArray();
         }
         private void PlayerEquipment_OnUseableChanged_Global(PlayerEquipment _equipment) // 플레이어의 장비가 변경되었을 시 실행
         {
@@ -184,7 +185,7 @@ namespace KoreanWarPlugin
                 {
                     ItemGunAsset asset = new Item(_equipment.itemID, false).GetAsset<ItemGunAsset>();
                     UnturnedPlayer uPlayer = UnturnedPlayer.FromPlayer(_equipment.player);
-                    if(asset.isTurret && uPlayer.IsInVehicle)
+                    if (uPlayer.CurrentVehicle != null && uPlayer.IsInVehicle)
                     {
                         IngameSystem.RefillAmmoFromVehicle(uPlayer.CurrentVehicle, _equipment.player, asset);
                     }
@@ -1016,7 +1017,6 @@ namespace KoreanWarPlugin
     3. 버튼를 누르면 작업이 완료되기 전까지 다른 버튼 눌러도 기능 실행되지 않게 하기 (대기열쪽만 먼저 했음 나머지는 나중에 해도 됨 아마도)
     4. 다운 됫을대 제대로 눕게 만들기
     버그
-    1. 차량 장전 버그
     2. 팀 선택창에서 인원제한 걸리는지 테스트
     3. 투표 선택할때 분명 게임모드 선택되잇는데 잠김 안뜨는 버그잇음
     4. 팀 선택할때 유저가 접속 안했는데 유저가 이미 접속해있다고 뜨는 버그 있음 / 이전에 접속한 전적에서 문제가 발생한거 같음 / 이미 있으면 제거하고 추가시키기 / 유저정보를 찾앗을 때 유저가 나간 상태거나 팀 배정이 안되있으면 제거하기
@@ -1024,6 +1024,8 @@ namespace KoreanWarPlugin
     6. 점령 했을대 에러 뜨는거 있음 로그에는 안떳는데 어쩃든 멈추게 만듬
     7. 코르틴 멈추면 다시 실행되게 할수있으며 해보기
     9. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
+    10. 데미지 입을 때 데미지 총량이 방어구의 방어력에 포함 안되는거 같음
+    11. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
     기타정보
     1. 섬멸전할때 특별히 뜨는 버그는 안보임
     2. 차량 관련해서 뜨는 버그가 좀 있음 / 장전관련이 좀 있음 나중에 사람 하나 불러서 테스트 하면 좋을거 같음
