@@ -340,7 +340,7 @@ namespace KoreanWarPlugin
                     teamImageUrl = "https://drive.google.com/uc?id=1DuskqHq8ySyRD03xsOnuDLPLiZiRrJUz",
                     teamIconUrl = "https://drive.google.com/uc?id=1NeiuYPwvBOjBWiMToZl6vlfachTgh-Bm",
                     classList = new ushort[] { 0,1,2,3,6,7 },
-                    vehicleTypeList = new ushort[] { 0,1,2 },
+                    vehicleTypeList = new ushort[] { 0,6,1,2 },
                     levelPresets = new LevelPreset[]
                     {
                         new LevelPreset{ iconUrl = "https://drive.google.com/uc?id=1iHdzq98tM3vgvZZN3aZ5GERU9rOH9xan", name = "이등병" }, // 0. 이등병
@@ -359,7 +359,7 @@ namespace KoreanWarPlugin
                     teamImageUrl = "https://drive.google.com/uc?id=1JZeYOMQorr8aSVwdAaxZJWRvzeK5nnx0",
                     teamIconUrl = "https://drive.google.com/uc?id=1_coLkxN2mvZIeoiYcF5Ke32HkBZiwoKc",
                     classList = new ushort[] { 8,9,10,11,14,15 },
-                    vehicleTypeList = new ushort[] { 3,4,5 },
+                    vehicleTypeList = new ushort[] { 3,7,4,5 },
                     levelPresets = new LevelPreset[]
                     {
                         new LevelPreset{ iconUrl = "https://drive.google.com/uc?id=1vEkMxiI4hmyZEFX3h9mkV-MpeJqEimI8", name = "전사" }, // 0. 전사
@@ -1397,12 +1397,12 @@ namespace KoreanWarPlugin
                     timer = 0,
                     vehicleMax = 5,
                     playerMinCount = 0,
-                    crewMinCount = 1,
+                    crewMinCount = 0,
                     classIndex = 0,
                     vehicleList = new ushort[]{ 6 },
                     respawnTime = 30,
                     abandonTime = 600,
-                    destroyCost = 5,
+                    destroyCost = 1,
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = false
@@ -1411,16 +1411,16 @@ namespace KoreanWarPlugin
                 {
                     name = "경전차",
                     iconUrl = "https://drive.google.com/uc?id=1v2FoM2sP5Zo4LPLrhLIpPxNvJlPjlOsy",
-                    levelLimit = 0,
-                    timer = 15,
+                    levelLimit = 2,
+                    timer = 300,
                     vehicleMax = 3,
-                    playerMinCount = 0,
-                    crewMinCount = 1,
+                    playerMinCount = 6,
+                    crewMinCount = 2,
                     classIndex = 1,
                     vehicleList = new ushort[]{ 0 },
                     respawnTime = 30,
                     abandonTime = 240,
-                    destroyCost = 5,
+                    destroyCost = 3,
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = true
@@ -1430,10 +1430,10 @@ namespace KoreanWarPlugin
                     name = "중형전차",
                     iconUrl = "https://drive.google.com/uc?id=1_L86f8Z__AdHiVmwQ0UN6-Rb0XABO0qi",
                     levelLimit = 3,
-                    timer = 25,
-                    vehicleMax = 2,
-                    playerMinCount = 0,
-                    crewMinCount = 1,
+                    timer = 300,
+                    vehicleMax = 1,
+                    playerMinCount = 6,
+                    crewMinCount = 2,
                     classIndex = 1,
                     vehicleList = new ushort[]{ 1,2 },
                     respawnTime = 30,
@@ -1451,12 +1451,12 @@ namespace KoreanWarPlugin
                     timer = 0,
                     vehicleMax = 5,
                     playerMinCount = 0,
-                    crewMinCount = 1,
+                    crewMinCount = 0,
                     classIndex = 0,
                     vehicleList = new ushort[]{ 7 },
                     respawnTime = 30,
                     abandonTime = 600,
-                    destroyCost = 5,
+                    destroyCost = 1,
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = false
@@ -1465,16 +1465,16 @@ namespace KoreanWarPlugin
                 {
                     name = "경전차",
                     iconUrl = "https://drive.google.com/uc?id=1v2FoM2sP5Zo4LPLrhLIpPxNvJlPjlOsy",
-                    levelLimit = 0,
-                    timer = 0,
+                    levelLimit = 2,
+                    timer = 300,
                     vehicleMax = 3,
-                    playerMinCount = 2,
-                    crewMinCount = 1,
+                    playerMinCount = 6,
+                    crewMinCount = 2,
                     classIndex = 1,
                     vehicleList = new ushort[]{ 3 },
                     respawnTime = 30,
                     abandonTime = 240,
-                    destroyCost = 5,
+                    destroyCost = 3,
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = true
@@ -1484,10 +1484,10 @@ namespace KoreanWarPlugin
                     name = "중형전차",
                     iconUrl = "https://drive.google.com/uc?id=1_L86f8Z__AdHiVmwQ0UN6-Rb0XABO0qi",
                     levelLimit = 3,
-                    timer = 0,
-                    vehicleMax = 2,
+                    timer = 300,
+                    vehicleMax = 1,
                     playerMinCount = 12,
-                    crewMinCount = 1,
+                    crewMinCount = 2,
                     classIndex = 1,
                     vehicleList = new ushort[]{ 4,5 },
                     respawnTime = 30,
@@ -1496,7 +1496,43 @@ namespace KoreanWarPlugin
                     reward_score = 100,
                     reward_credit = 5,
                     classPlayerOnly = true
-                } // 5. 북한 중형전차
+                }, // 5. 북한 중형전차
+                new VehicleTypePresetTable
+                {
+                    name = "장갑차",
+                    iconUrl = "https://drive.google.com/uc?id=1Hf2hXqMOS88r5tXkhUTYyLrB3GSpnjN8",
+                    levelLimit = 0,
+                    timer = 0,
+                    vehicleMax = 2,
+                    playerMinCount = 0,
+                    crewMinCount = 2,
+                    classIndex = 1,
+                    vehicleList = new ushort[]{ 8,9 },
+                    respawnTime = 30,
+                    abandonTime = 240,
+                    destroyCost = 2,
+                    reward_score = 100,
+                    reward_credit = 5,
+                    classPlayerOnly = true
+                }, // 6. 한국 장갑차
+                new VehicleTypePresetTable
+                {
+                    name = "장갑차",
+                    iconUrl = "https://drive.google.com/uc?id=1Hf2hXqMOS88r5tXkhUTYyLrB3GSpnjN8",
+                    levelLimit = 0,
+                    timer = 0,
+                    vehicleMax = 2,
+                    playerMinCount = 0,
+                    crewMinCount = 2,
+                    classIndex = 1,
+                    vehicleList = new ushort[]{ 10,11 },
+                    respawnTime = 30,
+                    abandonTime = 240,
+                    destroyCost = 2,
+                    reward_score = 100,
+                    reward_credit = 5,
+                    classPlayerOnly = true
+                }, // 7. 북한 장갑차
             };
             for (ushort i = 0; i < vehicleTypePresets.Length; i++)
             {
@@ -1514,6 +1550,7 @@ namespace KoreanWarPlugin
                     {
                         new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
                         new SeatPresetTable {name = "주포사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
                     },
                     ammos = new VAmmoPresetTable[]
                     {
@@ -1523,7 +1560,7 @@ namespace KoreanWarPlugin
                     },
                     isDeployable = false,
                     isSupplyable = true,
-                     supplyCooltime = 20
+                     supplyCooltime = 60
                 }, // 0. M5A1 스튜어트
                 new VehiclePresetTable
                 {
@@ -1545,7 +1582,7 @@ namespace KoreanWarPlugin
                     },
                     isDeployable = false,
                     isSupplyable = true,
-                    supplyCooltime = 20
+                    supplyCooltime = 60
                 }, // 1. M4A3 셔먼
                 new VehiclePresetTable
                 {
@@ -1568,7 +1605,7 @@ namespace KoreanWarPlugin
                     },
                     isDeployable = false,
                     isSupplyable = true,
-                    supplyCooltime = 20
+                    supplyCooltime = 60
                 }, // 2. M4A3E8 셔먼
                 new VehiclePresetTable
                 {
@@ -1580,6 +1617,7 @@ namespace KoreanWarPlugin
                     {
                         new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
                         new SeatPresetTable {name = "주포사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
                     },
                     ammos = new VAmmoPresetTable[]
                     {
@@ -1665,6 +1703,88 @@ namespace KoreanWarPlugin
                      isSupplyable = false,
                      supplyCooltime = 60
                 }, // 7. ZIS-151 (수송)
+                new VehiclePresetTable
+                {
+                    name = "M20 정찰차량",
+                    iconUrl = "https://drive.google.com/uc?id=1z4a1WTE5XbFmAZKrx6UpNL5zBaPIXet5",
+                    itemID = 4614,
+                    creditCost = 3,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                     ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46808 ,amount = 4 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                    supplyCooltime = 60
+                }, // 8. M20 정찰장갑차
+                new VehiclePresetTable
+                {
+                    name = "M8 그레이하운드",
+                    iconUrl = "https://drive.google.com/uc?id=1CK2X1aDC7rZq5C5crcyIBL9dYme_r0zB",
+                    itemID = 4612,
+                    creditCost = 4,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "주포 사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총 사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                     ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46700 ,amount = 15 },
+                        new VAmmoPresetTable{ itemID = 46701 ,amount = 15 },
+                        new VAmmoPresetTable{ itemID = 46808 ,amount = 2 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                    supplyCooltime = 60
+                }, // 9. M20 정찰장갑차
+                new VehiclePresetTable
+                {
+                    name = "BA-64",
+                    iconUrl = "https://drive.google.com/uc?id=1noSh_c-y5FaNW_9qEMRTJDmfKZoAir7i",
+                    itemID = 4614,
+                    creditCost = 3,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                     ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46727 ,amount = 9 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                    supplyCooltime = 60
+                }, // 10. BA-64
+                new VehiclePresetTable
+                {
+                    name = "BA-11",
+                    iconUrl = "https://drive.google.com/uc?id=1jB91tXkcgZfNZmwujbqFDK6nXG4dDqbS",
+                    itemID = 4612,
+                    creditCost = 4,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "주포 사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총 사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                     ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46710 ,amount = 15 },
+                        new VAmmoPresetTable{ itemID = 46711 ,amount = 15 },
+                        new VAmmoPresetTable{ itemID = 46727 ,amount = 5 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                    supplyCooltime = 60
+                }, // 11. BA-11
             };
             mapPresets = new MapPreset[]
             {

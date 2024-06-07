@@ -271,49 +271,49 @@ namespace KoreanWarPlugin.KWSystem
                 RefreshVehicleTypeState(tc, _team, _vTypeIndex, uPlayer);
             }
         }
-        public static void RefreshVehicleTypeState(ITransportConnection _tc, bool _team, byte _vTypeIndex, UnturnedPlayer _uPlayer)
+        public static void RefreshVehicleTypeState(ITransportConnection _tc, bool _team, byte _vIndex, UnturnedPlayer _uPlayer)
         {
-            VehicleTypePresetTable[] presetList = PluginManager.instance.Configuration.Instance.vehicleTypePresets;
+            List<VehicleTypeInfo> infoList = _team ? PluginManager.teamInfo.team_0_VehicleTypes : PluginManager.teamInfo.team_1_VehicleTypes;
 
-            EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_0", false);
-            EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_1", false);
-            uint creditCost = PluginManager.instance.Configuration.Instance.vehiclePresets[presetList[_vTypeIndex].vehicleList[0]].creditCost;
+            EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_0", false);
+            EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_1", false);
+            uint creditCost = PluginManager.instance.Configuration.Instance.vehiclePresets[infoList[_vIndex].presetInfo.vehicleList[0]].creditCost;
             Dictionary<byte, DateTime> timerList = _team ? PluginManager.teamInfo.team_0_vehicleTimer : PluginManager.teamInfo.team_1_vehicleTimer;
-            if (timerList.ContainsKey(_vTypeIndex))
+            if (timerList.ContainsKey(_vIndex))
             {
-                if (timerList[_vTypeIndex] > DateTime.UtcNow)
+                if (timerList[_vIndex] > DateTime.UtcNow)
                 {
-                    double _time = (timerList[_vTypeIndex] - DateTime.UtcNow).TotalSeconds;
+                    double _time = (timerList[_vIndex] - DateTime.UtcNow).TotalSeconds;
                     int minutes = (int)(_time / 60);
                     int seconds = (int)(_time % 60);
                     string timeText = minutes.ToString("00") + ":" + seconds.ToString("00");
-                    EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vTypeIndex}Block_0", timeText);
-                    EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vTypeIndex}Block_0", $"{PluginManager.icons["time"]}");
-                    EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_0", true);
+                    EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vIndex}Block_0", timeText);
+                    EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vIndex}Block_0", $"{PluginManager.icons["time"]}");
+                    EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_0", true);
                     return;
                 }
             }
-            if (Provider.clients.Count < presetList[_vTypeIndex].playerMinCount)
+            if (Provider.clients.Count < infoList[_vIndex].presetInfo.playerMinCount)
             {
-                EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vTypeIndex}Block_0", $"{PluginManager.icons["noPlayer"]}");
-                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vTypeIndex}Block_0", $"최소 {presetList[_vTypeIndex].playerMinCount}명이 접속해야함");
-                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_0", true);
+                EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vIndex}Block_0", $"{PluginManager.icons["noPlayer"]}");
+                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vIndex}Block_0", $"최소 {infoList[_vIndex].presetInfo.playerMinCount}명이 접속해야함");
+                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_0", true);
                 return;
             }
             PlayerTeamRecordInfo pTeamRecordInfo = _team ? PluginManager.teamInfo.playerRecordInfoList[_uPlayer.CSteamID].team_0_RecordInfo : PluginManager.teamInfo.playerRecordInfoList[_uPlayer.CSteamID].team_1_RecordInfo;
             PlayerData pData = PluginManager.playerDatabase.FindData(_uPlayer.CSteamID);
-            if (presetList[_vTypeIndex].levelLimit > pTeamRecordInfo.level)
+            if (infoList[_vIndex].presetInfo.levelLimit > pTeamRecordInfo.level)
             {
-                LevelPreset levelPreset = _team ? PluginManager.teamInfo.teamPreset_0.levelPresets[presetList[_vTypeIndex].levelLimit] : PluginManager.teamInfo.teamPreset_1.levelPresets[presetList[_vTypeIndex].levelLimit];
-                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vTypeIndex}Block_0", $"LV.{presetList[_vTypeIndex].levelLimit} {levelPreset.name} 달성 시 해제");
-                EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vTypeIndex}Block_0", $"{levelPreset.iconUrl}");
-                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_0", true);
+                LevelPreset levelPreset = _team ? PluginManager.teamInfo.teamPreset_0.levelPresets[infoList[_vIndex].presetInfo.levelLimit] : PluginManager.teamInfo.teamPreset_1.levelPresets[infoList[_vIndex].presetInfo.levelLimit];
+                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vIndex}Block_0", $"LV.{infoList[_vIndex].presetInfo.levelLimit} {levelPreset.name} 달성 시 해제");
+                EffectManager.sendUIEffectImageURL(47, _tc, false, $"I_VehicleType_{_vIndex}Block_0", $"{levelPreset.iconUrl}");
+                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_0", true);
                 return;
             }
             if (pData.credit < creditCost)
             {
-                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vTypeIndex}Block_1", $"최소 {creditCost} 필요");
-                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vTypeIndex}Block_1", true);
+                EffectManager.sendUIEffectText(47, _tc, false, $"T_VehicleType_{_vIndex}Block_1", $"최소 {creditCost} 필요");
+                EffectManager.sendUIEffectVisibility(47, _tc, false, $"P_VehicleType_{_vIndex}Block_1", true);
                 return;
             }
         }
