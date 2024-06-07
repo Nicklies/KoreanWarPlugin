@@ -21,8 +21,8 @@ namespace KoreanWarPlugin.Info
         public ERoundType roundType { get; set; } // 라운드 종류
         public ushort team_0_score { get; set; } // 팀 0 점수
         public ushort team_1_score { get; set; } // 팀 1 점수
-        public ushort team_0_scoreIni { get; set; } // 팀 0 초기화 점수
-        public ushort team_1_scoreIni { get; set; } // 팀 1 초기화 점수
+        public ushort team_0_scoreMax { get; set; } // 팀 0 초기화 점수
+        public ushort team_1_scoreMax { get; set; } // 팀 1 초기화 점수
         public Dictionary<SteamPlayer, byte> restrictArea_Players { get; set; } // 제한구역에 들어간 유저들
         public Dictionary<InteractableVehicle, byte> restrictArea_Vehicles { get; set; } // 제한구역에 들어간 차량들
         public List<VehicleDeployInfo> allyArea_Vehicles { get; set; } // 아군구역에 들어간 차량들
@@ -49,8 +49,8 @@ namespace KoreanWarPlugin.Info
             currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[currentMapIndex];
             team_0_score = 0;
             team_1_score = 0;
-            team_0_scoreIni = 500;
-            team_1_scoreIni = 500;
+            team_0_scoreMax = 0;
+            team_1_scoreMax = 0;
             restrictArea_Players = new Dictionary<SteamPlayer, byte>();
             restrictArea_Vehicles = new Dictionary<InteractableVehicle, byte>();
             allyArea_Vehicles = new List<VehicleDeployInfo>();
@@ -73,7 +73,7 @@ namespace KoreanWarPlugin.Info
             PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
             PluginManager.instance.StartCoroutine_Loop();
             PluginManager.instance.isRoundStart = true;
-            PluginManager.roundInfo.isFreeModeReady = false;
+            isFreeModeReady = false;
             // 게임모드 별로 정보 처리
             int playerCount = (PluginManager.roundInfo.playerCount / 2 + PluginManager.roundInfo.playerCount % 2);
             switch (roundType)
@@ -82,8 +82,10 @@ namespace KoreanWarPlugin.Info
                     objectives = new ObjectiveInfo[0];
                     // 점수 초기화
                     // *********************************점수 콘피그에서 수정 가능하게 다시 변경 / 다른 게임모드도 ********************
-                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
-                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
+                    team_0_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
+                    team_0_scoreMax = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
+                    team_1_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
+                    team_1_scoreMax = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
                     break;
                 case ERoundType.CaptureTheFlag:
                     // 거점 초기화
@@ -94,8 +96,10 @@ namespace KoreanWarPlugin.Info
                         objectives[i].locked = false;
                     }
                     // 점수 초기화
-                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
-                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    team_0_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    team_0_scoreMax = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    team_1_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    team_1_scoreMax = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
                     break;
                 case ERoundType.Battle:
                     deffenseTeam = Random.Range(0, 2) == 0 ? true : false;
@@ -117,14 +121,16 @@ namespace KoreanWarPlugin.Info
                         }
                     }
                     // 점수 초기화
-                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
-                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    team_0_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    team_0_scoreMax = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    team_1_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    team_1_scoreMax = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
                     break;
                 case ERoundType.Free:
                     objectives = new ObjectiveInfo[0];
                     if (playerCount >= PluginManager.instance.Configuration.Instance.freeModeReadyCount)
                     {
-                        PluginManager.roundInfo.isFreeModeReady = true;
+                        isFreeModeReady = true;
                         PluginManager.instance.freeModeEnd = PluginManager.instance.StartCoroutine(RoundSystem.Cor_FreeModeEnd());
                     }
                     break;
@@ -160,7 +166,8 @@ namespace KoreanWarPlugin.Info
                 pc.Initialize();
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 UISystem.SetUIState_TeamSelection(steamPlayer.player, tc);
-                if(steamPlayer.player.life.isDead) steamPlayer.player.life.ServerRespawn(false);
+                if (steamPlayer.player.life.isDead) 
+                steamPlayer.player.life.ServerRespawn(false);
                 else steamPlayer.player.teleportToLocationUnsafe(configuration.spawnPos, configuration.spawnRot);
                 // 거점 이펙트 갱신
                 foreach (string guid in PluginManager.instance.Configuration.Instance.objectiveEffectGuid)
@@ -168,11 +175,11 @@ namespace KoreanWarPlugin.Info
                     Guid effectGuid = Guid.Parse(guid);
                     EffectManager.ClearEffectByGuid(effectGuid, tc);
                 }
-                for (int i = 0; i < PluginManager.roundInfo.objectives.Length; i++)
+                for (int i = 0; i < objectives.Length; i++)
                 {
                     Guid effectGuid = Guid.Parse(PluginManager.instance.Configuration.Instance.objectiveEffectGuid[i]);
                     TriggerEffectParameters triggerEffect = new TriggerEffectParameters(effectGuid);
-                    triggerEffect.position = PluginManager.roundInfo.objectives[i].position;
+                    triggerEffect.position = objectives[i].position;
                     triggerEffect.SetUniformScale(1f);
                     triggerEffect.SetRelevantPlayer(steamPlayer);
                     EffectManager.triggerEffect(triggerEffect);
@@ -190,7 +197,7 @@ namespace KoreanWarPlugin.Info
         {
             if (_amount == 0) return;
             // 공방전인경우 방어팀은 점수를 잃지 않으므로 리턴
-            if (PluginManager.roundInfo.roundType == ERoundType.Battle && deffenseTeam == _team) return;
+            if (roundType == ERoundType.Battle && deffenseTeam == _team) return;
             //_amount = 300;
             if (_team)
             {
@@ -272,8 +279,8 @@ namespace KoreanWarPlugin.Info
                     // 랜덤으로 맵을 선택해 결과 적용
                     result = (byte)Random.Range(0, PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps.Length);
                     PluginManager.instance.isVoteEnd = true;
-                    PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
-                    PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
+                    currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
+                    currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
                     List<SteamPlayer> steamPlayers = Provider.clients;
                     // 투표가 종료 되었다면 라운드 시작
                     if (PluginManager.instance.isVoteEnd)
@@ -294,8 +301,8 @@ namespace KoreanWarPlugin.Info
                 if (result < 6) // 맵이 뽑힌경우
                 {
                     PluginManager.instance.isVoteEnd = true;
-                    PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
-                    PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
+                    currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
+                    currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
                 }
                 else // 게임모드가 뽑힌경우
                 {

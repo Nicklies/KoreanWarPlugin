@@ -271,8 +271,8 @@ namespace KoreanWarPlugin.KWSystem
         public static void RefreshUIRoundInfo(ITransportConnection _tc, bool _team) // 라운드 정보 갱신
         {
             if (PluginManager.roundInfo.roundType == EnumTable.ERoundType.Free) return;
-            int score_team0 = (int)(((float)PluginManager.roundInfo.team_0_score / (float)PluginManager.roundInfo.team_0_scoreIni) * 100);
-            int score_team1 = (int)(((float)PluginManager.roundInfo.team_1_score / (float)PluginManager.roundInfo.team_1_scoreIni) * 100);
+            int score_team0 = (int)(((float)PluginManager.roundInfo.team_0_score / (float)PluginManager.roundInfo.team_0_scoreMax) * 100);
+            int score_team1 = (int)(((float)PluginManager.roundInfo.team_1_score / (float)PluginManager.roundInfo.team_1_scoreMax) * 100);
             string score_team0_str = "", score_team1_str = "";
             string scoreText_Team_0 = "", scoreText_Team_1 = "";
             // 섬멸전, 깃발 점령에만 사용

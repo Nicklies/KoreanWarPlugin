@@ -191,8 +191,9 @@ namespace KoreanWarPlugin.KWSystem
                     else if (playerInfo.secondaryIndex != ushort.MaxValue) _uPlayer.Player.equipment.ServerEquip(1, 0, 0);
                     _uPlayer.Player.teleportToLocationUnsafe(spawnPos, spawnRot);
                 }
-                _uPlayer.Heal(100);
+                _uPlayer.Player.stance.checkStance(EPlayerStance.STAND, true);
             }
+            _uPlayer.Heal(100);
             playerInfo.isDeployed = true;
             if (pRecordInfo.teamChangeableDatetime < DateTime.UtcNow) pRecordInfo.teamChangeableDatetime = DateTime.UtcNow.AddSeconds(PluginManager.instance.Configuration.Instance.teamChangeDelay);
             // 설정 갱신
