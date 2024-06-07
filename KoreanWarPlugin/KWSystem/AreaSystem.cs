@@ -291,7 +291,7 @@ namespace KoreanWarPlugin.KWSystem
                     // 점수 및 점령상태에 따라 거점의 점령상태 갱신    
                     if (objectiveInfo.team == EObjectiveTeam.Team_0)
                     {
-                        if (objectiveInfo.point >= 100)
+                        if (objectiveInfo.point >= 100) // 0 팀 점령 => 중립화
                         {
                             objectiveInfo.team = EObjectiveTeam.Netural; isStateChange = true;
                             DeploySystem.ActiveDeployMarker_ObjectiveToEveryone(true, i);
@@ -311,7 +311,7 @@ namespace KoreanWarPlugin.KWSystem
                     }
                     else if (objectiveInfo.team == EObjectiveTeam.Team_1)
                     {
-                        if (objectiveInfo.point <= 100)
+                        if (objectiveInfo.point <= 100) // 1 팀 점령 => 중립화
                         {
                             objectiveInfo.team = EObjectiveTeam.Netural; isStateChange = true;
                             DeploySystem.ActiveDeployMarker_ObjectiveToEveryone(false, i);
@@ -329,7 +329,7 @@ namespace KoreanWarPlugin.KWSystem
                             foreach (SteamPlayer steamPlayer in team_1_steamPlayers) { RoundSystem.RefreshObjectiveHighlightState(steamPlayer.transportConnection, false, i); }
                         }
                     }
-                    else if (objectiveInfo.point == 0)
+                    else if (objectiveInfo.point == 0) // 중립 => 0 팀 점령
                     {
                         objectiveInfo.team = EObjectiveTeam.Team_0; isStateChange = true;
                         objectiveInfo.isCapturing = false;
@@ -343,7 +343,7 @@ namespace KoreanWarPlugin.KWSystem
                         foreach (var effort in objectiveInfo.team_0_effort)
                         {
                             SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, effort.Value, (ushort)(effort.Value / 10), ""); }
+                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, effort.Value, (ushort)(effort.Value / 10), ""); }
                         }
                         objectiveInfo.team_0_effort.Clear();
                         objectiveInfo.team_1_effort.Clear();
@@ -400,7 +400,7 @@ namespace KoreanWarPlugin.KWSystem
                             }
                         }
                     }
-                    else if (objectiveInfo.point == 200)
+                    else if (objectiveInfo.point == 200) // 중립 => 1 팀 점령
                     {
                         objectiveInfo.team = EObjectiveTeam.Team_1; isStateChange = true;
                         objectiveInfo.isCapturing = false;
@@ -413,7 +413,7 @@ namespace KoreanWarPlugin.KWSystem
                         foreach (var effort in objectiveInfo.team_1_effort)
                         {
                             SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, effort.Value, (ushort)(effort.Value / 10), ""); }
+                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, effort.Value, (ushort)(effort.Value / 10), ""); }
                         }
                         objectiveInfo.team_0_effort.Clear();
                         objectiveInfo.team_1_effort.Clear();
@@ -698,6 +698,8 @@ namespace KoreanWarPlugin.KWSystem
                 if(timer == 0)
                 {
                     UnturnedPlayer uPlayer = UnturnedPlayer.FromSteamPlayer(steamPlayer);
+                    uPlayer.Player.movement.forceRemoveFromVehicle();
+                    uPlayer.Player.teleportToLocationUnsafe(PluginManager.instance.Configuration.Instance.spawnPos,0);
                     uPlayer.Damage(255, uPlayer.Position, EDeathCause.ARENA, ELimb.SPINE, (CSteamID)0);
                     PluginManager.roundInfo.restrictArea_Players.Remove(steamPlayer);
                 }

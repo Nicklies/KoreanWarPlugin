@@ -432,8 +432,9 @@ namespace KoreanWarPlugin.KWSystem
             int elapsedTime = timer;
             while (elapsedTime >= 0)
             {
-                if (!PluginManager.instance.isRoundStart || _uPlayer.Dead)
+                if (!PluginManager.instance.isRoundStart || _uPlayer.Dead || pc.isKnockDown)
                 {
+                    EffectManager.sendUIEffectVisibility(47, _tc, false, "P_Redeploying", false);
                     pc.isRedeploying = false;
                     yield break;
                 }

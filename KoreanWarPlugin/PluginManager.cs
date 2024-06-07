@@ -139,6 +139,7 @@ namespace KoreanWarPlugin
         }
         private void UseableConsumeable_onPerformingAid(Player instigator, Player target, ItemConsumeableAsset asset, ref bool shouldAllow)
         {
+            //123
             PlayerComponent targetPc = target.GetComponent<PlayerComponent>();
             if (targetPc.isKnockDown)
             {
@@ -437,7 +438,7 @@ namespace KoreanWarPlugin
         {
             if (!isRoundStart) return;
             PlayerComponent pc = parameters.player.GetComponent<PlayerComponent>();
-            if (pc.isInvincible)
+            if (pc.isInvincible || !pc.isJoinedTeam)
             {
                 _canDamage = false;
                 return;
@@ -456,7 +457,18 @@ namespace KoreanWarPlugin
                     return;
                 }
             }
-            if (parameters.player.life.health - parameters.damage <= 0 && !pc.isKnockDown)
+            float damage = parameters.damage;
+            float times = parameters.times;
+            if (parameters.respectArmor)
+            {
+                times *= DamageTool.getPlayerArmor(parameters.limb, parameters.player);
+            }
+            if (parameters.applyGlobalArmorMultiplier)
+            {
+                times *= Provider.modeConfigData.Players.Armor_Multiplier;
+            }
+            int num = Mathf.FloorToInt(parameters.damage * parameters.times);
+            if (parameters.player.life.health - num <= 0 && !pc.isKnockDown)
             {
                 // 피해입은 유저 무력화 처리
                 ITransportConnection tc = parameters.player.channel.GetOwnerTransportConnection();
@@ -1057,6 +1069,8 @@ namespace KoreanWarPlugin
     6. 탄약 보급 구역이랑 제한구역 분리하기
     7. 게임 시작 시 점수 얼마나 줄지 콘피그에서 수정 가능하게 하기
     8. 사람 수 계산해서 라운드 시작 시 점수 배정
+    9. 적 다운시키면 살해자에게 알려주기
+    10. 리스폰 할때 서있게 하기
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
     2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
@@ -1070,8 +1084,9 @@ namespace KoreanWarPlugin
     6. 점령 했을대 에러 뜨는거 있음 로그에는 안떳는데 어쩃든 멈추게 만듬
     7. 코르틴 멈추면 다시 실행되게 할수있으며 해보기
     9. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
-    10. 데미지 입을 때 데미지 총량이 방어구의 방어력에 포함 안되는거 같음
     11. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
+    12. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
+    13. 사람 부족해서 자유모드로 넘어갈때 코르틴 작동 안되는 버그
     기타정보
     1. 섬멸전할때 특별히 뜨는 버그는 안보임
     2. 차량 관련해서 뜨는 버그가 좀 있음 / 장전관련이 좀 있음 나중에 사람 하나 불러서 테스트 하면 좋을거 같음

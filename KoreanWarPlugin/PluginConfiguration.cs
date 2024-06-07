@@ -1727,7 +1727,8 @@ namespace KoreanWarPlugin
                     playerCount = 24,
                     description = "적을 사살하여 상대의 점수를 낮춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=10MK6wcTRCGaDSlkNfQTjJ5SgxGEOJDj1",
-                    maps = new byte[] { 0 }
+                    maps = new byte[] { 0 },
+                    scoreMultipier = 5
                 }, // 0. 섬멸전
                 new GameModePreset
                 {
@@ -1735,7 +1736,8 @@ namespace KoreanWarPlugin
                     playerCount = 24,
                     description = "적을 사살하거나 거점을 점령하고 유지해 상대의 점수를 낯춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=14ZolrjQNQSJ8b1eVqOfPgle3sXoU0WK9",
-                    maps = new byte[] { 0 }
+                    maps = new byte[] { 0 },
+                    scoreMultipier = 10
                 }, // 1. 깃발점령전
                 new GameModePreset
                 {
@@ -1743,7 +1745,8 @@ namespace KoreanWarPlugin
                     playerCount = 24,
                     description = "공격 혹은 방어팀이 되어 각자 임무를 달성하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=1dzB67DeAjJe_y04eI5Gav5xNnX8qG9M6",
-                    maps = new byte[] { 0 }
+                    maps = new byte[] { 0 },
+                    scoreMultipier = 5
                 }, // 2. 공방전
             };
             levelExpPresets = new ushort[]
@@ -1773,17 +1776,17 @@ namespace KoreanWarPlugin
                 "8cc568f03f0d419ba9085fcc8686854b",
                 "c436b8f3380d4bc4b4447cd12556a854"
             }; // 거점 이펙트 GUID
-            discordUrl = "https://discord.gg/kYRnznXS";
+            discordUrl = "https://discord.gg/du53pnGG3z";
             teamPresetIndex_0 = 0;
             teamPresetIndex_1 = 1;
             respawnTimer = 5;
             classInterval = 24;
             teamRestrictCount = 2;
             spawnPos = new Vector3(1972.71f, 30.16f, 1974.63f);
-            supplyCooltime_Inf = 30;
+            supplyCooltime_Inf = 60;
             spawnRot = 180f;
-            teamChangeDelay = 0;
-            freeModeReadyCount = 4;
+            teamChangeDelay = 600;
+            freeModeReadyCount = 1;
             freeModeMapIndex = 0;
         }
     }

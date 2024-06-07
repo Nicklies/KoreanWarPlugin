@@ -189,6 +189,7 @@ namespace KoreanWarPlugin.KWSystem
             else PluginManager.teamInfo.team_1_PlayerCount++;
             
             await LoadAvatar(uPlayer, playerInfo);
+            if (!PluginManager.instance.isRoundStart) return;
             pc.isJoinedTeam = true;
             pc.team = _team;
             PlayerRecordInfo pRecordInfo = PluginManager.teamInfo.playerRecordInfoList[uPlayer.CSteamID];

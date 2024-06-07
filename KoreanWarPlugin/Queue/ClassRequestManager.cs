@@ -40,27 +40,30 @@ namespace KoreanWarPlugin.Queue
         void ProcessClassRequest()
         {
             bool success = false;
-            UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(currentClassRequest.cSteamID);
-            if (uPlayer != null)
+            if (PluginManager.instance.isRoundStart)
             {
-                PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
-                if (pc.isJoinedTeam)
+                UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(currentClassRequest.cSteamID);
+                if (uPlayer != null)
                 {
-                    List<ClassInfo> classList = new List<ClassInfo>();
-                    switch (currentClassRequest.type)
+                    PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
+                    if (pc.isJoinedTeam)
                     {
-                        case EnumTable.EClassType.infantary:
-                            classList = currentClassRequest.team ? PluginManager.teamInfo.team_0_ClassInf : PluginManager.teamInfo.team_1_ClassInf;
-                            break;
-                        case EnumTable.EClassType.driver:
-                            classList = currentClassRequest.team ? PluginManager.teamInfo.team_0_ClassDriver : PluginManager.teamInfo.team_1_ClassDriver;
-                            break;
-                    }
-                    if (classList[currentClassRequest.index].presetInfo.playerMax == 0) success = true; // 병력 제한이 없다면 바로 통과
-                    else
-                    {
-                        if (classList[currentClassRequest.index].playerCount >= classList[currentClassRequest.index].maxPlayerCount) success = false; // 인원을 초과한경우
-                        else success = true;
+                        List<ClassInfo> classList = new List<ClassInfo>();
+                        switch (currentClassRequest.type)
+                        {
+                            case EnumTable.EClassType.infantary:
+                                classList = currentClassRequest.team ? PluginManager.teamInfo.team_0_ClassInf : PluginManager.teamInfo.team_1_ClassInf;
+                                break;
+                            case EnumTable.EClassType.driver:
+                                classList = currentClassRequest.team ? PluginManager.teamInfo.team_0_ClassDriver : PluginManager.teamInfo.team_1_ClassDriver;
+                                break;
+                        }
+                        if (classList[currentClassRequest.index].presetInfo.playerMax == 0) success = true; // 병력 제한이 없다면 바로 통과
+                        else
+                        {
+                            if (classList[currentClassRequest.index].playerCount >= classList[currentClassRequest.index].maxPlayerCount) success = false; // 인원을 초과한경우
+                            else success = true;
+                        }
                     }
                 }
             }

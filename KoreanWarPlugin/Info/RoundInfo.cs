@@ -70,18 +70,20 @@ namespace KoreanWarPlugin.Info
         }
         public void OnRoundStart()
         {
+            PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
             PluginManager.instance.StartCoroutine_Loop();
             PluginManager.instance.isRoundStart = true;
             PluginManager.roundInfo.isFreeModeReady = false;
             // 게임모드 별로 정보 처리
+            int playerCount = (PluginManager.roundInfo.playerCount / 2 + PluginManager.roundInfo.playerCount % 2);
             switch (roundType)
             {
                 case ERoundType.Annihilation:
                     objectives = new ObjectiveInfo[0];
                     // 점수 초기화
                     // *********************************점수 콘피그에서 수정 가능하게 다시 변경 / 다른 게임모드도 ********************
-                    PluginManager.roundInfo.team_0_score = 10;
-                    PluginManager.roundInfo.team_1_score = 10;
+                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
+                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
                     break;
                 case ERoundType.CaptureTheFlag:
                     // 거점 초기화
@@ -92,8 +94,8 @@ namespace KoreanWarPlugin.Info
                         objectives[i].locked = false;
                     }
                     // 점수 초기화
-                    PluginManager.roundInfo.team_0_score = 50;
-                    PluginManager.roundInfo.team_1_score = 50;
+                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
                     break;
                 case ERoundType.Battle:
                     deffenseTeam = Random.Range(0, 2) == 0 ? true : false;
@@ -115,8 +117,8 @@ namespace KoreanWarPlugin.Info
                         }
                     }
                     // 점수 초기화
-                    PluginManager.roundInfo.team_0_score = 15;
-                    PluginManager.roundInfo.team_1_score = 15;
+                    PluginManager.roundInfo.team_0_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    PluginManager.roundInfo.team_1_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
                     break;
                 case ERoundType.Free:
                     objectives = new ObjectiveInfo[0];
@@ -158,7 +160,6 @@ namespace KoreanWarPlugin.Info
                 pc.Initialize();
                 ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
                 UISystem.SetUIState_TeamSelection(steamPlayer.player, tc);
-                PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
                 if(steamPlayer.player.life.isDead) steamPlayer.player.life.ServerRespawn(false);
                 else steamPlayer.player.teleportToLocationUnsafe(configuration.spawnPos, configuration.spawnRot);
                 // 거점 이펙트 갱신
@@ -190,7 +191,7 @@ namespace KoreanWarPlugin.Info
             if (_amount == 0) return;
             // 공방전인경우 방어팀은 점수를 잃지 않으므로 리턴
             if (PluginManager.roundInfo.roundType == ERoundType.Battle && deffenseTeam == _team) return;
-            _amount = 300;
+            //_amount = 300;
             if (_team)
             {
                 team_0_score = (ushort)Mathf.Clamp(team_0_score - _amount, 0, ushort.MaxValue);
@@ -257,6 +258,7 @@ namespace KoreanWarPlugin.Info
                 }
             }
             // 투표 결과 처리
+            byte result = byte.MaxValue;
             if (maxCount == 0) // 아무것도 투표가 안되어 있다면 랜덤으로 맵을 선택해 진행 / 자유모드인 경우 게임모드 선택할 때 까지 초기화
             {
                 if(roundType == ERoundType.Free)
@@ -268,32 +270,20 @@ namespace KoreanWarPlugin.Info
                 else
                 {
                     // 랜덤으로 맵을 선택해 결과 적용
-                    byte result = (byte)Random.Range(0, PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps.Length);
+                    result = (byte)Random.Range(0, PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps.Length);
                     PluginManager.instance.isVoteEnd = true;
                     PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
                     PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
                     List<SteamPlayer> steamPlayers = Provider.clients;
-                    foreach (SteamPlayer steamPlayer in steamPlayers)
+                    // 투표가 종료 되었다면 라운드 시작
+                    if (PluginManager.instance.isVoteEnd)
                     {
-                        PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                        if (pc.localUIState != EPlayerUIState.RoundEnd) continue;
-                        ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
-                        // 하이라이트 황성화
-                        if (result < 6) EffectManager.sendUIEffectVisibility(47, tc, false, $"P_MapVote_{result}Highlight", true);
-                        else EffectManager.sendUIEffectVisibility(47, tc, false, $"P_GameModeVote_{result - 6}Highlight", true);
-                        // 유저에게 정보 제공
-                        EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_MapName", $"{PluginManager.roundInfo.currentMapPreset.name}");
-                        EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_GameMode", $"{PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].name}");
-                        RoundSystem.RefreshUIRoundStartTimer(tc);
-                        EffectManager.sendUIEffectVisibility(47, tc, false, "A_VoteEnd", true);
-                        EffectManager.sendUIEffectVisibility(47, tc, false, "P_MapVote_Block", true);
+                        PluginManager.instance.StartCoroutine_RoundStart();
                     }
                 }
             }
-            else // 투표가 정상적으로 진행됬을 시
+            else // 한명이라도 투표를 선택했을 시
             {
-                byte result = 0;
-                List<SteamPlayer> steamPlayers = Provider.clients;
                 if (maxIndex.Count < 2) result = maxIndex[0]; // 중복 투표가 없다면 결과 반환
                 else // 중복 투표가 있다면 랜덤으로 하나만 선정해 결과 반환
                 {
@@ -306,16 +296,6 @@ namespace KoreanWarPlugin.Info
                     PluginManager.instance.isVoteEnd = true;
                     PluginManager.roundInfo.currentMapIndex = PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].maps[result];
                     PluginManager.roundInfo.currentMapPreset = PluginManager.instance.Configuration.Instance.mapPresets[PluginManager.roundInfo.currentMapIndex];
-                    foreach (SteamPlayer steamPlayer in steamPlayers)
-                    {
-                        PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
-                        if (pc.localUIState != EPlayerUIState.RoundEnd) continue;
-                        ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
-                        EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_MapName", $"{PluginManager.roundInfo.currentMapPreset.name}");
-                        EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_GameMode", $"{PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].name}");
-                        RoundSystem.RefreshUIRoundStartTimer(tc);
-                        EffectManager.sendUIEffectVisibility(47, tc, false, "A_VoteEnd", true);
-                    }
                 }
                 else // 게임모드가 뽑힌경우
                 {
@@ -325,18 +305,31 @@ namespace KoreanWarPlugin.Info
                     RoundSystem.RefreshUIVoteMapInfoToEveryone();
                     RoundSystem.RefreshUIVoteCountInfoAllToEveryone();
                 }
-                // 투표가 종료 되었다면 라운드 시작
-                if(PluginManager.instance.isVoteEnd)
+            }
+            // 투표가 종료 되었다면 라운드 시작 코르틴 작동
+            if (PluginManager.instance.isVoteEnd)
+            {
+                PluginManager.instance.StartCoroutine_RoundStart();
+            }
+            foreach (SteamPlayer steamPlayer in Provider.clients)
+            {
+                PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
+                if (pc.localUIState != EPlayerUIState.RoundEnd) continue;
+                ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
+                // 하이라이트 황성화
+                if (result != byte.MaxValue)
                 {
-                    PluginManager.instance.StartCoroutine_RoundStart();
-                }
-
-                foreach (SteamPlayer steamPlayer in steamPlayers)
-                {
-                    ITransportConnection tc = steamPlayer.player.channel.GetOwnerTransportConnection();
-                    // 하이라이트 황성화
                     if (result < 6) EffectManager.sendUIEffectVisibility(47, tc, false, $"P_MapVote_{result}Highlight", true);
                     else EffectManager.sendUIEffectVisibility(47, tc, false, $"P_GameModeVote_{result - 6}Highlight", true);
+                }
+                if (PluginManager.instance.isVoteEnd)
+                {
+                    // 유저에게 정보 제공
+                    EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_MapName", $"{PluginManager.roundInfo.currentMapPreset.name}");
+                    EffectManager.sendUIEffectText(47, tc, false, "T_RoundInfo_GameMode", $"{PluginManager.instance.Configuration.Instance.gameModePresets[(int)PluginManager.roundInfo.roundType].name}");
+                    RoundSystem.RefreshUIRoundStartTimer(tc);
+                    EffectManager.sendUIEffectVisibility(47, tc, false, "A_VoteEnd", true);
+                    EffectManager.sendUIEffectVisibility(47, tc, false, "P_MapVote_Block", true);
                 }
             }
         }

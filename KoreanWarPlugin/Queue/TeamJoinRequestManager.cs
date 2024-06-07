@@ -41,7 +41,7 @@ namespace KoreanWarPlugin.Queue
         {
             bool success = false;
             UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(currentTeamJoinRequest.cSteamID);
-            if (uPlayer != null)
+            if (uPlayer != null && PluginManager.instance.isRoundStart)
             {
                 PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
                 if (PluginManager.teamInfo.playerRecordInfoList.ContainsKey(uPlayer.CSteamID) || pc.isJoinedTeam)
