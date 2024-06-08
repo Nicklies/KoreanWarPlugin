@@ -430,7 +430,7 @@ namespace KoreanWarPlugin
                    iconUrl = "https://drive.google.com/uc?id=1oYDd031JV1Zv3GlTYKNAPUMixlzc06gh",
                    timer = 0,
                    levelLimit = 0,
-                   playerMax = 3,
+                   playerMax = 2,
                    supplyPoint = 10,
                    isMedic = true,
                    primaryList = new ushort[] { 4, 7 },
@@ -535,7 +535,7 @@ namespace KoreanWarPlugin
                    equipmentInstanceID = 0,
                    utilityList = new ushort[] { },
                    primaryDefaultIndex = 6,
-                   secondaryDefaultIndex = 0,
+                   secondaryDefaultIndex = ushort.MaxValue,
                    explosive_0DefaultIndex = 0,
                    explosive_1DefaultIndex = ushort.MaxValue,
                    equipmentDefaultIndex = 1,
@@ -622,7 +622,7 @@ namespace KoreanWarPlugin
                    iconUrl = "https://drive.google.com/uc?id=1oYDd031JV1Zv3GlTYKNAPUMixlzc06gh",
                    timer = 0,
                    levelLimit = 0,
-                   playerMax = 3,
+                   playerMax = 2,
                    supplyPoint = 10,
                    isMedic = true,
                    primaryList = new ushort[] { 5, 8 },
@@ -773,7 +773,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 14 },
                     magazines = new ushort[] { 0 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -790,7 +790,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 15 },
                     magazines = new ushort[] { 1 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -807,7 +807,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 13 },
                     magazines = new ushort[] { 2 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -824,7 +824,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 16 },
                     magazines = new ushort[] { 3 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -875,7 +875,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 12 },
                     magazines = new ushort[] { 6, 7 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -892,7 +892,7 @@ namespace KoreanWarPlugin
                     creditCost = 0,
                     amount = 1,
                     sights = new ushort[] {  },
-                    tacticals = new ushort[] {  },
+                    tacticals = new ushort[] { 12 },
                     magazines = new ushort[] { 6, 7 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
@@ -1054,6 +1054,51 @@ namespace KoreanWarPlugin
                     supplyCost = 0,
                     amount_equipment = new byte[]{ 1, 2, 3 }
                 }, // 11. DP-28 탄창
+                new LoadoutTable
+                {
+                    name = "총검",
+                    iconUrl = "https://drive.google.com/uc?id=1zIYM0s69K2gJhYeFYCT5FioGqm2F6MSr",
+                    itemID = 46034,
+                    supplyCost = 1,
+                    amount = 0,
+                    amount_equipment = new byte[]{ }
+                }, // 12. 카빈 총검
+                new LoadoutTable
+                {
+                    name = "총검",
+                    iconUrl = "https://drive.google.com/uc?id=1C1W6cEHWwq0Nmk2STOLIeqRIWql2X2RQ",
+                    itemID = 46035,
+                    supplyCost = 1,
+                    amount = 0,
+                    amount_equipment = new byte[]{ }
+                }, // 13. 개런드 총검
+                new LoadoutTable
+                {
+                    name = "총검",
+                    iconUrl = "https://drive.google.com/uc?id=127Zc8VdJAWSu1WSMQ-GOZJw52KBiR6ol",
+                    itemID = 46037,
+                    supplyCost = 1,
+                    amount = 0,
+                    amount_equipment = new byte[]{ }
+                }, // 14. 스프링필드 총검
+                new LoadoutTable
+                {
+                    name = "총검",
+                    iconUrl = "https://drive.google.com/uc?id=1QSDy5pYxL83Yc5t45w-v86S9o-_eMISd",
+                    itemID = 46036,
+                    supplyCost = 1,
+                    amount = 0,
+                    amount_equipment = new byte[]{ }
+                }, // 15. 모신나강 총검
+                new LoadoutTable
+                {
+                    name = "총검",
+                    iconUrl = "https://drive.google.com/uc?id=11_ptgnfV-o_1mmUMF1zbPI6w0WEk92mH",
+                    itemID = 46038,
+                    supplyCost = 1,
+                    amount = 0,
+                    amount_equipment = new byte[]{ }
+                }, // 16. SVT-40 총검
             }; // 총기 부착물 프리셋
             secondaryPresets = new SecondaryPresetTable[]
             {
@@ -1127,7 +1172,7 @@ namespace KoreanWarPlugin
                     supplyCost = 5,
                     magazineItemID = 46026,
                     magazineAmount = 0,
-                    amount_equipment = new byte[] { 1, 2, 3 },
+                    amount_equipment = new byte[] { 0, 1, 2 },
                     isDuplicatable = false
                 }, // 4. M9A1바주카
                 new SecondaryPresetTable
@@ -1139,7 +1184,7 @@ namespace KoreanWarPlugin
                     supplyCost = 7,
                     magazineItemID = 46028,
                     magazineAmount = 0,
-                    amount_equipment = new byte[] { 1, 2, 3 },
+                    amount_equipment = new byte[] { 0, 1, 2 },
                     isDuplicatable = false
                 }, // 5. M20바주카
                 new SecondaryPresetTable
@@ -1413,7 +1458,7 @@ namespace KoreanWarPlugin
                     iconUrl = "https://drive.google.com/uc?id=1v2FoM2sP5Zo4LPLrhLIpPxNvJlPjlOsy",
                     levelLimit = 2,
                     timer = 300,
-                    vehicleMax = 3,
+                    vehicleMax = 2,
                     playerMinCount = 6,
                     crewMinCount = 2,
                     classIndex = 1,
@@ -1467,7 +1512,7 @@ namespace KoreanWarPlugin
                     iconUrl = "https://drive.google.com/uc?id=1v2FoM2sP5Zo4LPLrhLIpPxNvJlPjlOsy",
                     levelLimit = 2,
                     timer = 300,
-                    vehicleMax = 3,
+                    vehicleMax = 2,
                     playerMinCount = 6,
                     crewMinCount = 2,
                     classIndex = 1,
@@ -1486,7 +1531,7 @@ namespace KoreanWarPlugin
                     levelLimit = 3,
                     timer = 300,
                     vehicleMax = 1,
-                    playerMinCount = 12,
+                    playerMinCount = 6,
                     crewMinCount = 2,
                     classIndex = 1,
                     vehicleList = new ushort[]{ 4,5 },
@@ -1748,7 +1793,7 @@ namespace KoreanWarPlugin
                 {
                     name = "BA-64",
                     iconUrl = "https://drive.google.com/uc?id=1noSh_c-y5FaNW_9qEMRTJDmfKZoAir7i",
-                    itemID = 4614,
+                    itemID = 4615,
                     creditCost = 3,
                     seats = new SeatPresetTable[]
                     {
@@ -1767,7 +1812,7 @@ namespace KoreanWarPlugin
                 {
                     name = "BA-11",
                     iconUrl = "https://drive.google.com/uc?id=1jB91tXkcgZfNZmwujbqFDK6nXG4dDqbS",
-                    itemID = 4612,
+                    itemID = 4613,
                     creditCost = 4,
                     seats = new SeatPresetTable[]
                     {
@@ -1866,7 +1911,7 @@ namespace KoreanWarPlugin
                     description = "공격 혹은 방어팀이 되어 각자 임무를 달성하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=1dzB67DeAjJe_y04eI5Gav5xNnX8qG9M6",
                     maps = new byte[] { 0 },
-                    scoreMultipier = 5
+                    scoreMultipier = 10
                 }, // 2. 공방전
             };
             levelExpPresets = new ushort[]
@@ -1905,7 +1950,7 @@ namespace KoreanWarPlugin
             spawnPos = new Vector3(1972.71f, 30.16f, 1974.63f);
             supplyCooltime_Inf = 60;
             spawnRot = 180f;
-            teamChangeDelay = 600;
+            teamChangeDelay = 300;
             freeModeReadyCount = 1;
             freeModeMapIndex = 0;
         }

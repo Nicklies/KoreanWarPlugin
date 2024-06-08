@@ -138,6 +138,8 @@ namespace KoreanWarPlugin.Info
             // 맵 초기화
             foreach (InteractableVehicle vehicle in VehicleManager.vehicles)
             {
+                if (vehicle == null) continue;
+                if (vehicle.isDead) continue;
                 int count = vehicle.trunkItems.items.Count;
                 for (int i = 0; i < count; i++)
                 {
@@ -157,8 +159,7 @@ namespace KoreanWarPlugin.Info
             team_0_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.spawnPos_0.position);
             team_1_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.spawnPos_1.position);
             // 유저 정보 초기화
-            List<SteamPlayer> steamPlayers = Provider.clients;
-            foreach (SteamPlayer steamPlayer in steamPlayers)
+            foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 PlayerComponent pc = steamPlayer.player.GetComponent<PlayerComponent>();
                 // 미접속 상태일 시 예외처리
@@ -198,7 +199,7 @@ namespace KoreanWarPlugin.Info
             if (_amount == 0) return;
             // 공방전인경우 방어팀은 점수를 잃지 않으므로 리턴
             if (roundType == ERoundType.Battle && deffenseTeam == _team) return;
-            //_amount = 300;
+            _amount = 300;
             if (_team)
             {
                 team_0_score = (ushort)Mathf.Clamp(team_0_score - _amount, 0, ushort.MaxValue);

@@ -120,6 +120,10 @@ namespace KoreanWarPlugin
             UseableGun.OnReloading_Global += UseableGun_OnReloading_Global;
             UseableGun.onBulletSpawned += UseableGun_onBulletSpawned;
             UseableGun.onProjectileSpawned += UseableGun_onProjectileSpawned;
+            UseableGun.onChangeSightRequested += UseableGun_onChangeSightRequested;
+            UseableGun.onChangeTacticalRequested += UseableGun_onChangeTacticalRequested;
+            UseableGun.onChangeGripRequested += UseableGun_onChangeGripRequested;
+            UseableGun.onChangeBarrelRequested += UseableGun_onChangeBarrelRequested;
             UseableConsumeable.onPerformingAid += UseableConsumeable_onPerformingAid;
             EffectManager.onEffectButtonClicked += OnEffectButtonClicked;
             EffectManager.onEffectTextCommitted += OnEffectTextCommitted;
@@ -137,6 +141,27 @@ namespace KoreanWarPlugin
             Rocket.Core.Logging.Logger.Log(Configuration.Instance.LoadMessage);
             Rocket.Core.Logging.Logger.Log($"{Name} {Assembly.GetName().Version} has been loaded!");
         }
+
+        private void UseableGun_onChangeBarrelRequested(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
+        {
+            shouldAllow = false;
+        }
+
+        private void UseableGun_onChangeGripRequested(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
+        {
+            shouldAllow = false;
+        }
+
+        private void UseableGun_onChangeTacticalRequested(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
+        {
+            shouldAllow = false;
+        }
+
+        private void UseableGun_onChangeSightRequested(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
+        {
+            shouldAllow = false;
+        }
+
         private void UseableConsumeable_onPerformingAid(Player instigator, Player target, ItemConsumeableAsset asset, ref bool shouldAllow)
         {
             //123
@@ -351,6 +376,7 @@ namespace KoreanWarPlugin
                 if (vDeployInfo.vTypePreset.classIndex != playerInfo.classIndex)
                 {
                     _shouldAllow = false;
+                    UnturnedChat.Say(uPlayer, "전용병과를 가진 인원만 탑승 가능합니다.");
                     return;
                 }
             }
@@ -639,7 +665,10 @@ namespace KoreanWarPlugin
                         break;
                 }
                 if (isKillLog)
+                {
+                    if (roundInfo.killRecordList.ContainsKey(uPlayer_Death.CSteamID)) roundInfo.killRecordList.Remove(uPlayer_Death.CSteamID);
                     roundInfo.killRecordList.Add(uPlayer_Death.CSteamID, new KillRecordInfo(killerAvatarUrl, killerName, deathName, deathCause, deathCauseUrl, headShot, isImageLarge, killerTeam, deathTeam, uPlayer_Killer.CSteamID, uPlayer_Killer.SteamPlayer().playerID));
+                }
             }
         }
         private void Events_OnDeath(UnturnedPlayer uPlayer_Death, EDeathCause cause, ELimb limb, CSteamID murderer)
@@ -1065,13 +1094,11 @@ namespace KoreanWarPlugin
     1. 차량 파괴되면 트렁크내 아이템 제거
     2. 특정 아이템은 죽을때 떨구게 하기
     3. 터렛에서 나갈때 탄약 돌려주기
-    5. 무적 상태 애니메이션 고치기
     6. 탄약 보급 구역이랑 제한구역 분리하기
-    7. 게임 시작 시 점수 얼마나 줄지 콘피그에서 수정 가능하게 하기
-    8. 사람 수 계산해서 라운드 시작 시 점수 배정
     9. 적 다운시키면 살해자에게 알려주기
     10. 리스폰 할때 서있게 하기
     11. 특정 병과에게 레벨 제한 조건 걸기
+    12. 상대 팀이 더 많으면 팀 제한 무시하고 들가게 만들기
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
     2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
@@ -1088,6 +1115,9 @@ namespace KoreanWarPlugin
     11. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
     12. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
     13. 사람 부족해서 자유모드로 넘어갈때 코르틴 작동 안되는 버그
+    14. 다운되고 살리면 킬 정보 지우기
+    15. 부상당한 상태로 차량이 타짐
+    16. 라운드 끝날떄마다 버그 터짐
     기타정보
     1. 섬멸전할때 특별히 뜨는 버그는 안보임
     2. 차량 관련해서 뜨는 버그가 좀 있음 / 장전관련이 좀 있음 나중에 사람 하나 불러서 테스트 하면 좋을거 같음
