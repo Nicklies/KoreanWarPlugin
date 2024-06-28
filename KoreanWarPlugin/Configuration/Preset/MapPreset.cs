@@ -18,8 +18,10 @@ namespace KoreanWarPlugin.Configuration.Preset
         public byte playerCount; // 권장 플레이어 수
         public ObjectivePreset[] ObjectivePresets; // 거점 개수와 위치값
         public Vector3 mapPositon; // 맵의 원점 위치
-        public SpawnPreset spawnPos_0; // 0 팀 스폰 위치
-        public SpawnPreset spawnPos_1; // 1 팀 스폰 위치
+        public Vector3 basePos_0; // 0 팀 스폰 위치
+        public Vector3 basePos_1; // 1 팀 스폰 위치
+        public SpawnPreset[] baseSpawnPos_0; // 0 팀 스폰 위치
+        public SpawnPreset[] baseSpawnPos_1; // 1 팀 스폰 위치
         public RestrictPreset baseRestrict_0; // 0 팀 입장 제한 구역
         public RestrictPreset baseRestrict_1; // 1 팀 입장 제한 구역
         public SpawnPreset[] vehicleSpawnPos_0; // 0 팀 차량 스폰 위치

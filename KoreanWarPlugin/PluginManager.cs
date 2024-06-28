@@ -178,6 +178,8 @@ namespace KoreanWarPlugin
                 ITransportConnection tc = target.channel.GetOwnerTransportConnection();
                 EffectManager.sendUIEffectVisibility(47, tc, false, "L_Down", false);
                 IngameSystem.GiveScoreAndCredit(UnturnedPlayer.FromPlayer(instigator), EScoreGainType.FriendlyRevive, 5, 5, "");
+                UnturnedPlayer uPlayer_Target = UnturnedPlayer.FromPlayer(target);
+                if (roundInfo.killRecordList.ContainsKey(uPlayer_Target.CSteamID)) roundInfo.killRecordList.Remove(uPlayer_Target.CSteamID);
             }
         }
 
@@ -362,7 +364,7 @@ namespace KoreanWarPlugin
         private void VehicleManager_onEnterVehicleRequested(Player _player, InteractableVehicle _vehicle, ref bool _shouldAllow) // 차량 입장 전 실행
         {
             PlayerComponent pc = _player.GetComponent<PlayerComponent>();
-            if (pc.isRedeploying)
+            if (pc.isRedeploying || pc.isKnockDown)
             {
                 _shouldAllow = false;
                 return;
@@ -1099,29 +1101,25 @@ namespace KoreanWarPlugin
     10. 리스폰 할때 서있게 하기
     11. 특정 병과에게 레벨 제한 조건 걸기
     12. 상대 팀이 더 많으면 팀 제한 무시하고 들가게 만들기
+    13. 사람 일정수 만큼 나가면 자유모드로 바꾸기
+    14. 제한구역 들어가면 장비 못하게 바꾸기 / 차량 터렛은 어떻게 할지 고민하기
+    15. 기지 제한구역은 동그라미로 하는게 좋을거 같음 / 아니면 모양 선택 가능하게 하기
+    16. 다운되면 계속 체력 깍이게 하기
+    17. 투표 중 사람이 부족하면 맵에 경고 붙이기
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
     2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
     3. 버튼를 누르면 작업이 완료되기 전까지 다른 버튼 눌러도 기능 실행되지 않게 하기 (대기열쪽만 먼저 했음 나머지는 나중에 해도 됨 아마도)
     4. 다운 됫을대 제대로 눕게 만들기
     버그
-    2. 팀 선택창에서 인원제한 걸리는지 테스트
-    3. 투표 선택할때 분명 게임모드 선택되잇는데 잠김 안뜨는 버그잇음
-    4. 팀 선택할때 유저가 접속 안했는데 유저가 이미 접속해있다고 뜨는 버그 있음 / 이전에 접속한 전적에서 문제가 발생한거 같음 / 이미 있으면 제거하고 추가시키기 / 유저정보를 찾앗을 때 유저가 나간 상태거나 팀 배정이 안되있으면 제거하기
-    5. 라운드 끝나고 팀 선택할 때 무한로딩 걸리는 사람 있음
-    6. 점령 했을대 에러 뜨는거 있음 로그에는 안떳는데 어쩃든 멈추게 만듬
-    7. 코르틴 멈추면 다시 실행되게 할수있으며 해보기
-    9. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
-    11. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
-    12. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
-    13. 사람 부족해서 자유모드로 넘어갈때 코르틴 작동 안되는 버그
-    14. 다운되고 살리면 킬 정보 지우기
-    15. 부상당한 상태로 차량이 타짐
-    16. 라운드 끝날떄마다 버그 터짐
+    1. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
+    2. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
+    3. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
+    4. 차량에서 터져 죽으면 폭사 판정은 되는데 로그에 안뜸
+    5. 제한구역에서 죽으면 로그에 안뜨고 점수 기록 안됨
+    6. 사람 부족해서 자유모드로 전환된 상태로 라운드 준비 하는중에 사람 들와서 4명 맟추면 스코어보드랑 투표가 같이듬
+    7. 라운드 끝나기 직전에 전투배치 시도하면 움직일 수 있는 버그 있음
     기타정보
-    1. 섬멸전할때 특별히 뜨는 버그는 안보임
-    2. 차량 관련해서 뜨는 버그가 좀 있음 / 장전관련이 좀 있음 나중에 사람 하나 불러서 테스트 하면 좋을거 같음
-    3. 점령 관련 기능을 이용할때도 버그가 좀 있음
     4. 하나의 버그에 의해 다른 버그가 발생하는 경우가 있을수도 있음
     5. 라운드를 완전히 다시 시작시키는 기능을 추가하는것도 좋을거 같음
     */

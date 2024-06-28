@@ -27,18 +27,18 @@ namespace KoreanWarPlugin.Command
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            /*
+            
             if (command.Length < 1) return;
             string cmd = command[0].ToLower(); // 소문자로 변환
             var target = UnturnedPlayer.FromName(cmd);
             if (target != null)
             {
                 UnturnedChat.Say($"{target.Position}, {target.Rotation}");
-                TriggerEffectParameters triggerEffect = new TriggerEffectParameters(Guid.Parse("dc3ddb05d89945088180c83bacaad4df"));
-                triggerEffect.position = target.Position;
-                EffectManager.triggerEffect(triggerEffect)
-            }*/
-            UnturnedPlayer uPlayer = (UnturnedPlayer)caller;
+                //TriggerEffectParameters triggerEffect = new TriggerEffectParameters(Guid.Parse("dc3ddb05d89945088180c83bacaad4df"));
+                //triggerEffect.position = target.Position;
+                //EffectManager.triggerEffect(triggerEffect)
+            }
+            //UnturnedPlayer uPlayer = (UnturnedPlayer)caller;
         }
     }
 }

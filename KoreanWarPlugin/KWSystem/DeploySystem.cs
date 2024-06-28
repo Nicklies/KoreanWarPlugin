@@ -170,8 +170,11 @@ namespace KoreanWarPlugin.KWSystem
                 }
                 else if(playerInfo.spawnIndex == 5) // 기지스폰인 경우
                 {
-                    spawnPos = _team ? PluginManager.roundInfo.currentMapPreset.spawnPos_0.position : PluginManager.roundInfo.currentMapPreset.spawnPos_1.position;
-                    spawnRot = _team ? PluginManager.roundInfo.currentMapPreset.spawnPos_0.rotation : PluginManager.roundInfo.currentMapPreset.spawnPos_1.rotation;
+                    SpawnPreset[] spawnPresets = _team ? PluginManager.roundInfo.currentMapPreset.baseSpawnPos_0 : PluginManager.roundInfo.currentMapPreset.baseSpawnPos_1;
+                    int random = Random.Range(0, spawnPresets.Length);
+                    SpawnPreset spawnPreset = _team ? spawnPresets[random] : spawnPresets[random];
+                    spawnPos = _team ? spawnPreset.position : spawnPreset.position;
+                    spawnRot = _team ? spawnPreset.rotation : spawnPreset.rotation;
                 }
                 else if(6 <= playerInfo.spawnIndex && playerInfo.spawnIndex <= 15) // 차량 스폰인경우
                 {

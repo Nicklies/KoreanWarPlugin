@@ -286,6 +286,13 @@ namespace KoreanWarPlugin
                     iconUrl = "https://drive.google.com/uc?id=1pjamN_WeZPUHdj5aT76wf9kiyqd-uptm",
                     isImageLarge = true
                 }, // ZIS-3대전차포 주포
+                new WeaponInfoPreset
+                {
+                    id = 46041,
+                    name = "M1A1톰슨",
+                    iconUrl = "https://drive.google.com/uc?id=1uRVjTzDCmBshUXyKN7YXVM0f80GDEWcd",
+                    isImageLarge = true
+                }, // M1A1톰슨
             }; // 무기 정보 프리셋
             magazineInfoPresets = new MagazineInfoPreset[]
             {
@@ -306,6 +313,8 @@ namespace KoreanWarPlugin
                 new MagazineInfoPreset{ id = 46028, name = "M20 발사체",iconUrl = ""}, // M20 발사체
                 new MagazineInfoPreset{ id = 46030, name = "PPS-43 탄창",iconUrl = ""}, // PPS-43 탄창
                 new MagazineInfoPreset{ id = 46032, name = "PTRS-41 탄창",iconUrl = ""}, // PTRS-41 탄창
+                new MagazineInfoPreset{ id = 46042, name = "톰슨 탄창",iconUrl = ""}, // 톰슨 탄창
+                new MagazineInfoPreset{ id = 46043, name = "톰슨 드럼 탄창",iconUrl = ""}, // 톰슨 드럼 탄창
                 /// 차량용 탄창
                 new MagazineInfoPreset{ id = 46806, name = "30구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 30구경 탄통
                 new MagazineInfoPreset{ id = 46808, name = "50구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 50구경 탄통
@@ -433,7 +442,7 @@ namespace KoreanWarPlugin
                    playerMax = 2,
                    supplyPoint = 10,
                    isMedic = true,
-                   primaryList = new ushort[] { 4, 7 },
+                   primaryList = new ushort[] { 4, 11 },
                    secondaryList = new ushort[] { 0 },
                    explosiveList = new ushort[] { 2,0,4,5 },
                    equipmentInstanceID = 0,
@@ -541,7 +550,7 @@ namespace KoreanWarPlugin
                    equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46506, 46506 }
+                   loadoutList = new ushort[] { 46506, 46506, 277 }
                 }, // 6. 한국군 운전병
                 new ClassPresetTable
                 {
@@ -565,7 +574,7 @@ namespace KoreanWarPlugin
                    equipmentDefaultIndex = 0,
                    utility_0DefaultIndex = 0,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46506, 46506 }
+                   loadoutList = new ushort[] { 46506, 46506, 277 }
                 }, // 7. 한국군 전차병
                 new ClassPresetTable
                 {
@@ -733,7 +742,7 @@ namespace KoreanWarPlugin
                    equipmentDefaultIndex = 1,
                    utility_0DefaultIndex = ushort.MaxValue,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46506, 46506 }
+                   loadoutList = new ushort[] { 46506, 46506, 277 }
                 }, // 14. 북한군 운전병
                 new ClassPresetTable
                 {
@@ -757,7 +766,7 @@ namespace KoreanWarPlugin
                    equipmentDefaultIndex = 0,
                    utility_0DefaultIndex = 0,
                    utility_1DefaultIndex = ushort.MaxValue,
-                   loadoutList = new ushort[] { 46506, 46506 }
+                   loadoutList = new ushort[] { 46506, 46506, 277 }
                 }, // 15. 북한군 전차병
             }; // 병과 프리셋
             for (ushort i = 0; i < classPresets.Length; i++) classPresets[i].instanceID = i; // 병과 인스턴스 아이디 부여
@@ -951,6 +960,23 @@ namespace KoreanWarPlugin
                     magazineDefaultIndex = 11,
                     gripDefaultIndex = ushort.MaxValue
                 }, // 10.DP-28
+                new PrimaryPresetTable
+                {
+                    name = "M1A1톰슨",
+                    iconUrl = "https://drive.google.com/uc?id=1w4JTnNbMHZwQq2uMj_TasfPLARLVGKrK",
+                    itemID = 46041,
+                    supplyCost = 4,
+                    creditCost = 0,
+                    amount = 1,
+                    sights = new ushort[] {  },
+                    tacticals = new ushort[] {  },
+                    magazines = new ushort[] { 17, 18 },
+                    grips = new ushort[] {  },
+                    sightDefaultIndex = ushort.MaxValue,
+                    tacticalDefaultIndex = ushort.MaxValue,
+                    magazineDefaultIndex = 17,
+                    gripDefaultIndex = ushort.MaxValue
+                }, // 11.M1A1톰슨
             }; // 주무장 프리셋
             attachmentPresets = new LoadoutTable[]
             {
@@ -1099,6 +1125,22 @@ namespace KoreanWarPlugin
                     amount = 0,
                     amount_equipment = new byte[]{ }
                 }, // 16. SVT-40 총검
+                new LoadoutTable
+                {
+                    name = "톰슨 탄창",
+                    iconUrl = "https://drive.google.com/uc?id=1v9pF0vyTR7-8VRORi8zEMufRxipknqAm",
+                    itemID = 46042,
+                    supplyCost = 0,
+                    amount_equipment = new byte[]{ 4, 5, 6 }
+                }, // 17. 톰슨 탄창
+                new LoadoutTable
+                {
+                    name = "톰슨 드럼 탄창",
+                    iconUrl = "https://drive.google.com/uc?id=1bKsQjLVCxGq7ef_HmLJYUlQy6xl2geGz",
+                    itemID = 46043,
+                    supplyCost = 2,
+                    amount_equipment = new byte[]{ 3, 4, 5 }
+                }, // 18. 톰슨 드럼 탄창
             }; // 총기 부착물 프리셋
             secondaryPresets = new SecondaryPresetTable[]
             {
@@ -1835,14 +1877,14 @@ namespace KoreanWarPlugin
             {
                 new MapPreset
                 {
-                    name = "테스트맵",
-                    mapImageUrl = "https://drive.google.com/uc?id=12dOZgfoHgWFbTDPMdaz4M328_AffJway",
-                    mapIconUrl = "https://drive.google.com/uc?id=12pvu_DMBcZMcZpsIPIF5VdhzzKksD0jV",
-                    mapSize = EnumTable.EMapSize.Small,
+                    name = "고지전",
+                    mapImageUrl = "https://drive.google.com/uc?id=18DIJWaImH_d0G2Fz4xKOj7q5ahaN6sHv",
+                    mapIconUrl = "https://drive.google.com/uc?id=1dhBERwnPd1yZlrty-pnxN5O0Smx5Dk6V",
+                    mapSize = EnumTable.EMapSize.Large,
+                    playerCount = 16,
                     // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
-                    playerCount = 24,
                     roundType = new byte[] { 2 ,3 },
-                    mapPositon = new Vector3(-1984,30,-1984),
+                    mapPositon = new Vector3(960,30,-1984),
                     ObjectivePresets = new ObjectivePreset[]
                     {
                         new ObjectivePreset
@@ -1866,21 +1908,26 @@ namespace KoreanWarPlugin
                             team_1_Restrict = new RestrictPreset{position = new Vector3(-1792,30,-1792), rotation = 0, size = new Vector3(2f,10f,2f) }
                         }, // A 거점
                     },
-                    spawnPos_0 = new SpawnPreset{ position = new Vector3(-1979,30,-1979), rotation = 45 }, // 0 팀 기지 스폰
-                    spawnPos_1 = new SpawnPreset{ position = new Vector3(-1733,30,-1733), rotation = 225 }, // 1 팀 기지 스폰
+                    basePos_0 = new Vector3(-1979,30,-1979), // 0 팀 기지 마커 위치
+                    basePos_1 = new Vector3(-1979,30,-1979), // 1 팀 기지 마커 위치
+                    baseSpawnPos_0 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(1789,59,-1840), rotation = 0 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1807,59,-1842), rotation = 0 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1827,57,-1844), rotation = 0 }, // 3 번 기지 스폰 위치
+
+                    }, // 0 팀 기지 스폰 위치
                     baseRestrict_0 = new RestrictPreset{position = new Vector3(-1984,30,-1984), rotation = 0, size = new Vector3(96f,20f,96f)},
                     baseRestrict_1 = new RestrictPreset{position = new Vector3(-1728,30,-1728), rotation = 0, size = new Vector3(96f,20f,96f)},
                     vehicleSpawnPos_0 = new SpawnPreset[]
                     {
-                        new SpawnPreset{ position = new Vector3(-1964,30,-1974), rotation = 0 }, // 1 번 차량 스폰 위치
-                        new SpawnPreset{ position = new Vector3(-1954,30,-1974), rotation = 0 }, // 2 번 차량 스폰 위치
-                        new SpawnPreset{ position = new Vector3(-1944,30,-1974), rotation = 0 }, // 3 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1763,35,-1895), rotation = 0 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1777,35,-1901), rotation = 0 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1787,35,-1903), rotation = 0 }, // 3 번 차량 스폰 위치
                     }, // 0 팀 차랑 스폰 위치
                     vehicleSpawnPos_1 = new SpawnPreset[]
                     {
-                        new SpawnPreset{ position = new Vector3(-1748,30,-1738), rotation = 180 }, // 1 번 차량 스폰 위치
-                        new SpawnPreset{ position = new Vector3(-1758,30,-1738), rotation = 180 }, // 2 번 차량 스폰 위치
-                        new SpawnPreset{ position = new Vector3(-1768,30,-1738), rotation = 180 }, // 3 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-1748,30,-1895), rotation = 180 }, // 1 번 차량 스폰 위치
                     }, // 1 팀 차랑 스폰 위치
                 }, // 0. 무명고지 맵
             }; // 맵 프리셋
@@ -1930,7 +1977,6 @@ namespace KoreanWarPlugin
             };
             supplyObject = new ushort[]
             {
-                745,
                 4700
             }; // 보급 오브젝트
             objectiveEffectGuid = new string[]
@@ -1951,7 +1997,7 @@ namespace KoreanWarPlugin
             supplyCooltime_Inf = 60;
             spawnRot = 180f;
             teamChangeDelay = 300;
-            freeModeReadyCount = 1;
+            freeModeReadyCount = 4;
             freeModeMapIndex = 0;
         }
     }

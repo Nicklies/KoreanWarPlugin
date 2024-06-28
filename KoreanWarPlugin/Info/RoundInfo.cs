@@ -156,8 +156,8 @@ namespace KoreanWarPlugin.Info
             allyArea_Vehicles.Clear();
             killRecordList.Clear();
             killRecordList_Vehicle.Clear();
-            team_0_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.spawnPos_0.position);
-            team_1_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.spawnPos_1.position);
+            team_0_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.basePos_0);
+            team_1_baseTextPos = DeploySystem.SpawnMarkerPositon(currentMapPreset.basePos_1);
             // 유저 정보 초기화
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
@@ -199,7 +199,7 @@ namespace KoreanWarPlugin.Info
             if (_amount == 0) return;
             // 공방전인경우 방어팀은 점수를 잃지 않으므로 리턴
             if (roundType == ERoundType.Battle && deffenseTeam == _team) return;
-            _amount = 300;
+            //_amount = 300;
             if (_team)
             {
                 team_0_score = (ushort)Mathf.Clamp(team_0_score - _amount, 0, ushort.MaxValue);
