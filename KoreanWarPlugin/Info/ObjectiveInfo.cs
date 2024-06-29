@@ -24,8 +24,7 @@ namespace KoreanWarPlugin.Info
         public bool isCapturing;
         public bool locked; // 점령이 불가능한지 여부 / 공방전에서 사용
         public string textPos_Center;
-        public string textPos_0;
-        public string textPos_1;
+        public SpawnPreset[] objectiveSpawn;
         public SpawnPreset[] team_0_spawn;
         public SpawnPreset[] team_1_spawn;
         public Dictionary<SteamPlayerID, ushort> team_0_effort; // 거점에서 점수를 얻은 0팀 유저들
@@ -45,8 +44,7 @@ namespace KoreanWarPlugin.Info
             isCapturing = false;
             locked = false;
             textPos_Center = DeploySystem.SpawnMarkerPositon(_objectivePreset.position);
-            textPos_0 = DeploySystem.SpawnMarkerPositon(_objectivePreset.team_0_MarkerPos);
-            textPos_1 = DeploySystem.SpawnMarkerPositon(_objectivePreset.team_1_MarkerPos);
+            objectiveSpawn = _objectivePreset.objectiveSpawn;
             team_0_spawn = _objectivePreset.team_0_spawn;
             team_1_spawn = _objectivePreset.team_1_spawn;
             team_0_effort = new Dictionary<SteamPlayerID, ushort>();

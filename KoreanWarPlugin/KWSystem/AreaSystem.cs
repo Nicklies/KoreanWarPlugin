@@ -65,8 +65,8 @@ namespace KoreanWarPlugin.KWSystem
                 objectiveInfo.team_1_Players = team_1_steamPlayers;
                 // 점수 변동 처리
                 byte beforePoint = objectiveInfo.point;
-                //byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_Players.Count - team_0_Players.Count) * 30, 0, 200);
-                byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count), 0, 200);
+                //byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count), 0, 200);
+                byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count) * 30, 0, 200);
                 objectiveInfo.point = newPoint;
                 bool isStateChange = false;
                 #region yee

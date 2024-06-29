@@ -43,6 +43,7 @@ namespace KoreanWarPlugin.KWSystem
                     {
                         // 스폰 위치가 전부 막힌 관계로 리턴
                         UISystem.SendPopUpInfo(tc, "현재 모든 차량 스폰 위치가 막힌 상태입니다.\n다른 유저가 스폰 위치를 떠날때까지 기다려야 합니다.");
+                        EffectManager.sendUIEffectVisibility(47, tc, false, "P_Loading", false);
                         return;
                     }
                     foreach (SeatInfo seat in vGroupInfo.seats)
@@ -161,7 +162,15 @@ namespace KoreanWarPlugin.KWSystem
                 bool isVehicleSpawn = false;
                 if(0 <= playerInfo.spawnIndex && playerInfo.spawnIndex <= 4) // 거점 스폰인경우
                 {
-                    SpawnPreset[] spawnPresets = _team ? PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_0_spawn : PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_1_spawn;
+                    // 조건에 따라 스폰 위치 할당
+                    SpawnPreset[] spawnPresets = null;
+                    if (playerInfo.team && PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_1_Players.Count > 0)
+                        spawnPresets = PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_0_spawn;
+                    else if (!playerInfo.team && PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_0_Players.Count > 0)
+                        spawnPresets = PluginManager.roundInfo.objectives[playerInfo.spawnIndex].team_1_spawn;
+                    else
+                        spawnPresets = PluginManager.roundInfo.objectives[playerInfo.spawnIndex].objectiveSpawn;
+                    // 랜덤으로 스폰위치 선택 후 위치 이동
                     int random = Random.Range(0, spawnPresets.Length);
                     SpawnPreset spawnPreset = _team ? spawnPresets[random] : spawnPresets[random];
                     spawnPos = _team ? spawnPreset.position : spawnPreset.position;
@@ -353,7 +362,7 @@ namespace KoreanWarPlugin.KWSystem
             for (byte i = 0; i < PluginManager.roundInfo.objectives.Length; i++)
             {
                 ObjectiveInfo objective = PluginManager.roundInfo.objectives[i];
-                string textPos = _team ? objective.textPos_0 : objective.textPos_1;
+                string textPos = objective.textPos_Center;
                 EffectManager.sendUIEffectText(47, _tc, false, $"T_Marker_Objective_{i}", $"{textPos}");
             }
         }
@@ -535,12 +544,17 @@ namespace KoreanWarPlugin.KWSystem
         }
         public static string SpawnMarkerPositon(Vector3 _spawnPos)
         {
+            Vector2 spawnPos = new Vector2(_spawnPos.x, _spawnPos.z);
+            return SpawnMarkerPositon(spawnPos);
+        }
+        public static string SpawnMarkerPositon(Vector2 _spawnPos)
+        {
             // 마커 위치 계산
             float mapSize = (float)PluginManager.roundInfo.currentMapPreset.mapSize;
-            Vector3 mapOrigionPos = PluginManager.roundInfo.currentMapPreset.mapPositon;
-            Vector3 markerPos = _spawnPos - mapOrigionPos;
+            Vector2 mapOrigionPos = PluginManager.roundInfo.currentMapPreset.mapPositon;
+            Vector2 markerPos = _spawnPos - mapOrigionPos;
             float uiRatio = 600 / mapSize;
-            Vector2Int uiMarkerPos = new Vector2Int(Mathf.Clamp((int)(markerPos.x * uiRatio), 40, 560), Mathf.Clamp((int)(markerPos.z * uiRatio) - 4, 36, 556));
+            Vector2Int uiMarkerPos = new Vector2Int(Mathf.Clamp((int)(markerPos.x * uiRatio), 40, 560), Mathf.Clamp((int)(markerPos.y * uiRatio) - 4, 36, 556));
             string textPos = "";
             for (int i = 0; i < uiMarkerPos.y; i++) { textPos += "\n"; }
             textPos += ".".PadLeft(uiMarkerPos.x);

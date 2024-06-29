@@ -17,9 +17,9 @@ namespace KoreanWarPlugin.Configuration.Preset
         public byte[] roundType; // 라운드 종류
         public byte playerCount; // 권장 플레이어 수
         public ObjectivePreset[] ObjectivePresets; // 거점 개수와 위치값
-        public Vector3 mapPositon; // 맵의 원점 위치
-        public Vector3 basePos_0; // 0 팀 스폰 위치
-        public Vector3 basePos_1; // 1 팀 스폰 위치
+        public Vector2 mapPositon; // 맵의 원점 위치
+        public Vector2 basePos_0; // 0 팀 스폰 위치
+        public Vector2 basePos_1; // 1 팀 스폰 위치
         public SpawnPreset[] baseSpawnPos_0; // 0 팀 스폰 위치
         public SpawnPreset[] baseSpawnPos_1; // 1 팀 스폰 위치
         public RestrictPreset baseRestrict_0; // 0 팀 입장 제한 구역
@@ -32,11 +32,10 @@ namespace KoreanWarPlugin.Configuration.Preset
         public Vector3 position;
         public Vector3 size;
         public Quaternion rotation;
-        public Vector3 team_0_MarkerPos;
-        public Vector3 team_1_MarkerPos;
 
-        public SpawnPreset[] team_0_spawn;
-        public SpawnPreset[] team_1_spawn;
+        public SpawnPreset[] objectiveSpawn; // 오브젝트 내에서 스폰 시 스폰 될 위치값
+        public SpawnPreset[] team_0_spawn; // 오브젝트에 적이 있을 시 0 팀이 스폰 될 위치값
+        public SpawnPreset[] team_1_spawn; // 오브젝트에 적이 있을 시 1 팀이 스폰 될 위치값
         public RestrictPreset team_0_Restrict;
         public RestrictPreset team_1_Restrict;
     }

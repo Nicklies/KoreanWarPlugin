@@ -1884,32 +1884,35 @@ namespace KoreanWarPlugin
                     playerCount = 16,
                     // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
                     roundType = new byte[] { 2 ,3 },
-                    mapPositon = new Vector3(960,30,-1984),
+                    mapPositon = new Vector2(960,-1984),
                     ObjectivePresets = new ObjectivePreset[]
                     {
                         new ObjectivePreset
                         {
-                            position = new Vector3(-1856,30,-1856), rotation = Quaternion.Euler(0,0,0), size = new Vector3(10,10,10),
-                            team_0_MarkerPos = new Vector3(-1920, 30, -1920),
-                            team_1_MarkerPos = new Vector3(-1792,30,-1792),
+                            position = new Vector3(1792,104,-1664), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1770,100,-1616), rotation = 152 }, // E 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1794,101,-1676), rotation = 217 }, // E 거점 2번 스폰
+                            },
                             team_0_spawn = new SpawnPreset[]
                             {
-                                new SpawnPreset{ position = new Vector3(-1930,30,-1920), rotation = 45 }, // 1팀 A 거점 1번 스폰
-                                new SpawnPreset{ position = new Vector3(-1920,30,-1930), rotation = 45 }, // 1팀 A 거점 2번 스폰
-                                new SpawnPreset{ position = new Vector3(-1930,30,-1930), rotation = 45 }, // 1팀 A 거점 3번 스폰
+                                new SpawnPreset{ position = new Vector3(1839,71,-1774), rotation = 334 }, // 1팀 E 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1865,70,-1766), rotation = 332 }, // 1팀 E 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1884,68,-1743), rotation = 320 }, // 1팀 E 거점 3번 스폰
                             },
                             team_1_spawn = new SpawnPreset[]
                             {
-                                new SpawnPreset{ position = new Vector3(-1782,30,-1792), rotation = 135 }, // 2팀 A 거점 1번 스폰
-                                new SpawnPreset{ position = new Vector3(-1792,30,-1782), rotation = 135 }, // 2팀 A 거점 2번 스폰
-                                new SpawnPreset{ position = new Vector3(-1782,30,-1782), rotation = 135 }, // 2팀 A 거점 3번 스폰
+                                new SpawnPreset{ position = new Vector3(1881,69,-1578), rotation = 234 }, // 2팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1869,64,-1564), rotation = 243 }, // 2팀 A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1851,65,-1549), rotation = 216 }, // 2팀 A 거점 3번 스폰
                             },
-                            team_0_Restrict = new RestrictPreset{position = new Vector3(-1920,30,-1920), rotation = 0, size = new Vector3(2f,10f,2f) },
-                            team_1_Restrict = new RestrictPreset{position = new Vector3(-1792,30,-1792), rotation = 0, size = new Vector3(2f,10f,2f) }
-                        }, // A 거점
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(-0,0,-0), rotation = 0, size = new Vector3(0,0,0) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(1920,54,-1536), rotation = 0, size = new Vector3(64f,50f,64f) }
+                        }, // E 거점
                     },
-                    basePos_0 = new Vector3(-1979,30,-1979), // 0 팀 기지 마커 위치
-                    basePos_1 = new Vector3(-1979,30,-1979), // 1 팀 기지 마커 위치
+                    basePos_0 = new Vector2(1792,-1896), // 0 팀 기지 마커 위치
+                    basePos_1 = new Vector2(1152,-1088), // 1 팀 기지 마커 위치
                     baseSpawnPos_0 = new SpawnPreset[]
                     {
                         new SpawnPreset{ position = new Vector3(1789,59,-1840), rotation = 0 }, // 1 번 기지 스폰 위치
@@ -1917,8 +1920,15 @@ namespace KoreanWarPlugin
                         new SpawnPreset{ position = new Vector3(1827,57,-1844), rotation = 0 }, // 3 번 기지 스폰 위치
 
                     }, // 0 팀 기지 스폰 위치
-                    baseRestrict_0 = new RestrictPreset{position = new Vector3(-1984,30,-1984), rotation = 0, size = new Vector3(96f,20f,96f)},
-                    baseRestrict_1 = new RestrictPreset{position = new Vector3(-1728,30,-1728), rotation = 0, size = new Vector3(96f,20f,96f)},
+                    baseSpawnPos_1 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(1178,55,-1107), rotation = 180 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1159,53,-1103), rotation = 180 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1134,51,-1100), rotation = 180 }, // 3 번 기지 스폰 위치
+
+                    }, // 1 팀 기지 스폰 위치
+                    baseRestrict_0 = new RestrictPreset{position = new Vector3(1728,30,-1856), rotation = 0, size = new Vector3(256f,20f,128f)},
+                    baseRestrict_1 = new RestrictPreset{position = new Vector3(1216,30,-1088), rotation = 0, size = new Vector3(256f,20f,128f)},
                     vehicleSpawnPos_0 = new SpawnPreset[]
                     {
                         new SpawnPreset{ position = new Vector3(1763,35,-1895), rotation = 0 }, // 1 번 차량 스폰 위치
@@ -1927,7 +1937,9 @@ namespace KoreanWarPlugin
                     }, // 0 팀 차랑 스폰 위치
                     vehicleSpawnPos_1 = new SpawnPreset[]
                     {
-                        new SpawnPreset{ position = new Vector3(-1748,30,-1895), rotation = 180 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1193,39,-1068), rotation = 180 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1182,37,-1065), rotation = 180 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(1171,36,-1063), rotation = 180 }, // 3 번 차량 스폰 위치
                     }, // 1 팀 차랑 스폰 위치
                 }, // 0. 무명고지 맵
             }; // 맵 프리셋
@@ -1949,7 +1961,7 @@ namespace KoreanWarPlugin
                     description = "적을 사살하거나 거점을 점령하고 유지해 상대의 점수를 낯춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=14ZolrjQNQSJ8b1eVqOfPgle3sXoU0WK9",
                     maps = new byte[] { 0 },
-                    scoreMultipier = 10
+                    scoreMultipier = 500
                 }, // 1. 깃발점령전
                 new GameModePreset
                 {
@@ -1997,7 +2009,7 @@ namespace KoreanWarPlugin
             supplyCooltime_Inf = 60;
             spawnRot = 180f;
             teamChangeDelay = 300;
-            freeModeReadyCount = 4;
+            freeModeReadyCount = 1;
             freeModeMapIndex = 0;
         }
     }
