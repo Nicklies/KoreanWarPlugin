@@ -175,6 +175,7 @@ namespace KoreanWarPlugin
                     return;
                 }
                 targetPc.isKnockDown = false;
+                target.life.serverSetBleeding(false);
                 ITransportConnection tc = target.channel.GetOwnerTransportConnection();
                 EffectManager.sendUIEffectVisibility(47, tc, false, "L_Down", false);
                 IngameSystem.GiveScoreAndCredit(UnturnedPlayer.FromPlayer(instigator), EScoreGainType.FriendlyRevive, 5, 5, "");
@@ -503,6 +504,7 @@ namespace KoreanWarPlugin
                 EffectManager.sendUIEffectVisibility(47, tc, false, "L_Down", true);
                 pc.isKnockDown = true;
                 _canDamage = false;
+                uPlayer_Death.Player.life.serverSetBleeding(true);
                 parameters.player.equipment.dequip();
                 parameters.player.stance.checkStance(EPlayerStance.PRONE, true);
                 parameters.player.life.ReceiveHealth(40);
@@ -1104,7 +1106,6 @@ namespace KoreanWarPlugin
     13. 사람 일정수 만큼 나가면 자유모드로 바꾸기
     14. 제한구역 들어가면 장비 못하게 바꾸기 / 차량 터렛은 어떻게 할지 고민하기
     15. 기지 제한구역은 동그라미로 하는게 좋을거 같음 / 아니면 모양 선택 가능하게 하기
-    16. 다운되면 계속 체력 깍이게 하기
     17. 투표 중 사람이 부족하면 맵에 경고 붙이기
     나중에 해도 되는거
     1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경

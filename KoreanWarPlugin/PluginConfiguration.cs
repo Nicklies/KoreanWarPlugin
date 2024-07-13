@@ -1877,8 +1877,8 @@ namespace KoreanWarPlugin
             {
                 new MapPreset
                 {
-                    name = "고지전",
-                    mapImageUrl = "https://drive.google.com/uc?id=18DIJWaImH_d0G2Fz4xKOj7q5ahaN6sHv",
+                    name = "무명고지 전투",
+                    mapImageUrl = "https://drive.google.com/uc?id=1WxdpEfcKw7XbEc_-DeoEcXKynnGU7ICH",
                     mapIconUrl = "https://drive.google.com/uc?id=1dhBERwnPd1yZlrty-pnxN5O0Smx5Dk6V",
                     mapSize = EnumTable.EMapSize.Large,
                     playerCount = 16,
@@ -1892,14 +1892,14 @@ namespace KoreanWarPlugin
                             position = new Vector3(1792,104,-1664), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
                             objectiveSpawn = new SpawnPreset[]
                             {
-                                new SpawnPreset{ position = new Vector3(1770,100,-1616), rotation = 152 }, // E 거점 1번 스폰
-                                new SpawnPreset{ position = new Vector3(1794,101,-1676), rotation = 217 }, // E 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1770,100,-1616), rotation = 152 }, // A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1794,101,-1676), rotation = 217 }, // A 거점 2번 스폰
                             },
                             team_0_spawn = new SpawnPreset[]
                             {
-                                new SpawnPreset{ position = new Vector3(1839,71,-1774), rotation = 334 }, // 1팀 E 거점 1번 스폰
-                                new SpawnPreset{ position = new Vector3(1865,70,-1766), rotation = 332 }, // 1팀 E 거점 2번 스폰
-                                new SpawnPreset{ position = new Vector3(1884,68,-1743), rotation = 320 }, // 1팀 E 거점 3번 스폰
+                                new SpawnPreset{ position = new Vector3(1839,71,-1774), rotation = 334 }, // 1팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1865,70,-1766), rotation = 332 }, // 1팀 A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1884,68,-1743), rotation = 320 }, // 1팀 A 거점 3번 스폰
                             },
                             team_1_spawn = new SpawnPreset[]
                             {
@@ -1908,7 +1908,99 @@ namespace KoreanWarPlugin
                                 new SpawnPreset{ position = new Vector3(1851,65,-1549), rotation = 216 }, // 2팀 A 거점 3번 스폰
                             },
                             team_0_Restrict = new RestrictPreset{position = new Vector3(-0,0,-0), rotation = 0, size = new Vector3(0,0,0) },
-                            team_1_Restrict = new RestrictPreset{position = new Vector3(1920,54,-1536), rotation = 0, size = new Vector3(64f,50f,64f) }
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(1888,54,-1536), rotation = 0, size = new Vector3(64f,100f,64f) }
+                        }, // A 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(1664,81,-1536), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1647,78,-1542), rotation = 222 }, // B 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1648,77,-1556), rotation = 303 }, // B 거점 2번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1636,64,-1670), rotation = 348 }, // 1팀 B 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1652,67,-1663), rotation = 358 }, // 1팀 B 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1641,63,-1685), rotation = 354 }, // 1팀 B 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1714,54,-1416), rotation = 199 }, // 2팀 B 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1732,50,-1427), rotation = 213 }, // 2팀 B 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1700,61,-1412), rotation = 208 }, // 2팀 B 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(1632,62,-1696), rotation = 0, size = new Vector3(64f,100f,64f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(1727,50,-1408), rotation = 0, size = new Vector3(64f,100f,64f) }
+                        }, // B 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(1472,107,-1472), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1482,107,-1454), rotation = 173 }, // C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1445,108,-1488), rotation = 360 }, // C 거점 2번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1473,74,-1589), rotation = 360 }, // 1팀 C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1506,75,-1591), rotation = 360 }, // 1팀 C 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1445,73,-1595), rotation = 11 }, // 1팀 C 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1471,74,-1366), rotation = 180 }, // 2팀 C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1442,74,-1366), rotation = 143 }, // 2팀 C 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1501,72,-1353), rotation = 208 }, // 2팀 C 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(1472,70,-1616), rotation = 0, size = new Vector3(64f,100f,64f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(1472,70,-1328), rotation = 0, size = new Vector3(64f,100f,64f) }
+                        }, // C 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(1280,81,-1408), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1297,78,-1407), rotation = 137 }, // D 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1281,79,-1400), rotation = 131 }, // D 거점 2번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1242,56,-1522), rotation = 24 }, // 1팀 D 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1226,54,-1522), rotation = 31 }, // 1팀 D 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1245,54,-1542), rotation = 11 }, // 1팀 D 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1305,68,-1260), rotation = 180 }, // 2팀 D 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1288,70,-1260), rotation = 155 }, // 2팀 D 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1319,69,-1274), rotation = 180 }, // 2팀 D 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(1216,50,-1536), rotation = 0, size = new Vector3(64f,100f,64f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(1312,67,-1248), rotation = 0, size = new Vector3(64f,100f,64f) }
+                        }, // D 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(1152,104,-1280), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1159.16f,97,-1274), rotation = 138 }, // E 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1183,96,-1319), rotation = 258 }, // E 거점 2번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1065,69,-1367), rotation = 60 }, // 1팀 E 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1087,72,-1388), rotation = 53 }, // 1팀 E 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1076,66,-1397), rotation = 47 }, // 1팀 E 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(1084,68,-1174), rotation = 138 }, // 2팀 E 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(1069,69,-1191), rotation = 145 }, // 2팀 E 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(1060,68,-1201), rotation = 132 }, // 2팀 E 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(1056,56,-1408), rotation = 0, size = new Vector3(64f,100f,64f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(0,0,-0), rotation = 0, size = new Vector3(0,0,0) }
                         }, // E 거점
                     },
                     basePos_0 = new Vector2(1792,-1896), // 0 팀 기지 마커 위치
@@ -1927,8 +2019,8 @@ namespace KoreanWarPlugin
                         new SpawnPreset{ position = new Vector3(1134,51,-1100), rotation = 180 }, // 3 번 기지 스폰 위치
 
                     }, // 1 팀 기지 스폰 위치
-                    baseRestrict_0 = new RestrictPreset{position = new Vector3(1728,30,-1856), rotation = 0, size = new Vector3(256f,20f,128f)},
-                    baseRestrict_1 = new RestrictPreset{position = new Vector3(1216,30,-1088), rotation = 0, size = new Vector3(256f,20f,128f)},
+                    baseRestrict_0 = new RestrictPreset{position = new Vector3(1728,30,-1856), rotation = 0, size = new Vector3(256f,100f,128f)},
+                    baseRestrict_1 = new RestrictPreset{position = new Vector3(1216,30,-1088), rotation = 0, size = new Vector3(256f,100f,128f)},
                     vehicleSpawnPos_0 = new SpawnPreset[]
                     {
                         new SpawnPreset{ position = new Vector3(1763,35,-1895), rotation = 0 }, // 1 번 차량 스폰 위치
@@ -1941,7 +2033,121 @@ namespace KoreanWarPlugin
                         new SpawnPreset{ position = new Vector3(1182,37,-1065), rotation = 180 }, // 2 번 차량 스폰 위치
                         new SpawnPreset{ position = new Vector3(1171,36,-1063), rotation = 180 }, // 3 번 차량 스폰 위치
                     }, // 1 팀 차랑 스폰 위치
-                }, // 0. 무명고지 맵
+                }, // 0. 무명고지 전투
+                new MapPreset
+                {
+                    name = "교두보 전투",
+                    mapImageUrl = "https://drive.google.com/uc?id=1Y1TxMKG9k3SqhBvXI0QaY8oq5Coe2BoE",
+                    mapIconUrl = "https://drive.google.com/uc?id=1u1rfU4vkj6U5Tal9YX-NAHtMY3yoRfuZ",
+                    mapSize = EnumTable.EMapSize.Medium,
+                    playerCount = 8,
+                    // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
+                    roundType = new byte[] { 2 ,3 },
+                    mapPositon = new Vector2(192,-1984),
+                    ObjectivePresets = new ObjectivePreset[]
+                    {
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(626,30,-1728), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(627,32,-1707), rotation = 145 }, // A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(587,32,-1711), rotation = 131 }, // A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(636,31,-1742), rotation = 180 }, // A 거점 3번 스폰
+                                new SpawnPreset{ position = new Vector3(616,31,-1753), rotation = 260 }, // A 거점 4번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(633,47,-1820), rotation = 197 }, // 1팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(640,46,-1825), rotation = 221 }, // 1팀 A 거점 2번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(597,33,-1597), rotation = 80 }, // 2팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(633,33,-1604), rotation = 322 }, // 2팀 A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(634,34,-1567), rotation = 188 }, // 2팀 A 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(640,30,-1824), rotation = 0, size = new Vector3(64f,100f,32f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(624,30,-1600), rotation = 0, size = new Vector3(64f,100f,64f) }
+                        }, // A 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(448,49,-1728), rotation = Quaternion.Euler(0,350.5f,0), size = new Vector3(32,20,12),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(445,29,-1723), rotation = 180 }, // B 거점 1번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(512,32,-1844), rotation = 120 }, // 1팀 B 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(516,32,-1823), rotation = 131 }, // 1팀 B 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(548,31,-1822), rotation = 316 }, // 1팀 B 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(380,32,-1633), rotation = 269 }, // 2팀 B 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(358,31,-1640), rotation = 15 }, // 2팀 B 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(357,32,-1623), rotation = 124 }, // 2팀 B 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(512,30,-1824), rotation = 0, size = new Vector3(64f,100f,32f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(384,30,-1632), rotation = 0, size = new Vector3(64f,100f,32f) }
+                        }, // B 거점
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(270,30,-1728), rotation = Quaternion.Euler(0,0,0), size = new Vector3(48,50,48),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(266,32,-1748), rotation = 282 }, // C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(270,31,-1711), rotation = 305 }, // C 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(304,32,-1719), rotation = 271 }, // C 거점 3번 스폰
+                                new SpawnPreset{ position = new Vector3(238,31,-1740), rotation = 256 }, // C 거점 3번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(292,31,-1839), rotation = 116 }, // 1팀 C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(259,32,-1848), rotation = 177 }, // 1팀 C 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(279,31,-1864), rotation = 304 }, // 1팀 C 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(244,46,-1636), rotation = 0 }, // 2팀 C 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(222,46,-1617), rotation = 110 }, // 2팀 C 거점 2번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(272,30,-1856), rotation = 0, size = new Vector3(64f,100f,64f) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(256,30,-1632), rotation = 0, size = new Vector3(64f,100f,32f) }
+                        }, // C 거점
+                    },
+                    basePos_0 = new Vector2(640,-1920), // 0 팀 기지 마커 위치
+                    basePos_1 = new Vector2(256,-1536), // 1 팀 기지 마커 위치
+                    baseSpawnPos_0 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(656,37,-1923), rotation = 0 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(623,38,-1917), rotation = 0 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(672,38,-1916), rotation = 350 }, // 3 번 기지 스폰 위치
+
+                    }, // 0 팀 기지 스폰 위치
+                    baseSpawnPos_1 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(232,39,-1526), rotation = 180 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(218,43,-1532), rotation = 170 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(266,41,-1536), rotation = 180 }, // 3 번 기지 스폰 위치
+
+                    }, // 1 팀 기지 스폰 위치
+                    baseRestrict_0 = new RestrictPreset{position = new Vector3(576,30,-1918), rotation = 0, size = new Vector3(128f,100f,64f)},
+                    baseRestrict_1 = new RestrictPreset{position = new Vector3(320,30,-1536), rotation = 0, size = new Vector3(128f,100f,64f)},
+                    vehicleSpawnPos_0 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(628,31,-1968), rotation = 0 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(616,32,-1964), rotation = 0 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(640,31,-1967), rotation = 0 }, // 3 번 차량 스폰 위치
+                    }, // 0 팀 차랑 스폰 위치
+                    vehicleSpawnPos_1 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(264,35,-1492), rotation = 180 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(278,37,-1496), rotation = 180 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(253,37,-1496), rotation = 180 }, // 3 번 차량 스폰 위치
+                    }, // 1 팀 차랑 스폰 위치
+                }, // 1. 교두보 전투
             }; // 맵 프리셋
             gameModePresets = new GameModePreset[]
             {
@@ -1960,7 +2166,7 @@ namespace KoreanWarPlugin
                     playerCount = 24,
                     description = "적을 사살하거나 거점을 점령하고 유지해 상대의 점수를 낯춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=14ZolrjQNQSJ8b1eVqOfPgle3sXoU0WK9",
-                    maps = new byte[] { 0 },
+                    maps = new byte[] { 0,1 },
                     scoreMultipier = 500
                 }, // 1. 깃발점령전
                 new GameModePreset
@@ -1969,7 +2175,7 @@ namespace KoreanWarPlugin
                     playerCount = 24,
                     description = "공격 혹은 방어팀이 되어 각자 임무를 달성하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=1dzB67DeAjJe_y04eI5Gav5xNnX8qG9M6",
-                    maps = new byte[] { 0 },
+                    maps = new byte[] { 0,1 },
                     scoreMultipier = 10
                 }, // 2. 공방전
             };
@@ -2008,9 +2214,9 @@ namespace KoreanWarPlugin
             spawnPos = new Vector3(1972.71f, 30.16f, 1974.63f);
             supplyCooltime_Inf = 60;
             spawnRot = 180f;
-            teamChangeDelay = 300;
+            teamChangeDelay = 0;
             freeModeReadyCount = 1;
-            freeModeMapIndex = 0;
+            freeModeMapIndex = 1;
         }
     }
 }
