@@ -372,8 +372,8 @@ namespace KoreanWarPlugin.KWSystem
             ObjectiveInfo objectiveInfo = PluginManager.roundInfo.objectives[_index];
             string team_0_Amount = "";
             string team_1_Amount = "";
-            if (objectiveInfo.point <= 99) { if (_team) team_0_Amount = ".".PadLeft(99 - objectiveInfo.point); else team_1_Amount = ".".PadLeft(99 - objectiveInfo.point); }
-            else if (objectiveInfo.point >= 101) { if (!_team) team_0_Amount = ".".PadLeft(objectiveInfo.point - 101); else team_1_Amount = ".".PadLeft(objectiveInfo.point - 101); }
+            if (objectiveInfo.point <= 99) { if (_team) team_0_Amount = ".".PadLeft(99 - (int)objectiveInfo.point); else team_1_Amount = ".".PadLeft(99 - (int)objectiveInfo.point); }
+            else if (objectiveInfo.point >= 101) { if (!_team) team_0_Amount = ".".PadLeft((int)objectiveInfo.point - 101); else team_1_Amount = ".".PadLeft((int)objectiveInfo.point - 101); }
             EffectManager.sendUIEffectText(47, _tc, false, $"T_Objective_{_index}_0", team_0_Amount);
             EffectManager.sendUIEffectText(47, _tc, false, $"T_Objective_{_index}_1", team_1_Amount);
         }
@@ -481,8 +481,8 @@ namespace KoreanWarPlugin.KWSystem
             ObjectiveInfo objectiveInfo = PluginManager.roundInfo.objectives[_index];
             string team_0_Amount = "";
             string team_1_Amount = "";
-            if (objectiveInfo.point <= 99) { if (_team) team_0_Amount = ".".PadLeft(99 - objectiveInfo.point); else team_1_Amount = ".".PadLeft(99 - objectiveInfo.point); }
-            else if (objectiveInfo.point >= 101) { if (!_team) team_0_Amount = ".".PadLeft(objectiveInfo.point - 101); else team_1_Amount = ".".PadLeft(objectiveInfo.point - 101); }
+            if (objectiveInfo.point <= 99) { if (_team) team_0_Amount = ".".PadLeft(99 - (int)objectiveInfo.point); else team_1_Amount = ".".PadLeft(99 - (int)objectiveInfo.point); }
+            else if (objectiveInfo.point >= 101) { if (!_team) team_0_Amount = ".".PadLeft((int)objectiveInfo.point - 101); else team_1_Amount = ".".PadLeft((int)objectiveInfo.point - 101); }
             EffectManager.sendUIEffectText(47, _tc, false, "TF_ObjectiveHighlight_0", team_0_Amount);
             EffectManager.sendUIEffectText(47, _tc, false, "TF_ObjectiveHighlight_1", team_1_Amount);
             int team_0_PlayerCount = _team ? objectiveInfo.team_0_Players.Count : objectiveInfo.team_1_Players.Count;

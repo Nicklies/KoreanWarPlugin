@@ -14,7 +14,7 @@ namespace KoreanWarPlugin.Info
 {
     public class ObjectiveInfo
     {
-        public byte point; // 거점 별로 점령상태 0 ~ 99 100 101 ~ 200
+        public float point; // 거점 별로 점령상태 0 ~ 99 100 101 ~ 200
         public EObjectiveTeam team; // 0 = 0 팀, 1 = 중립, 2 = 1 팀
         public Vector3 position;
         public Quaternion quaternion;
@@ -29,7 +29,7 @@ namespace KoreanWarPlugin.Info
         public SpawnPreset[] team_1_spawn;
         public Dictionary<SteamPlayerID, ushort> team_0_effort; // 거점에서 점수를 얻은 0팀 유저들
         public Dictionary<SteamPlayerID, ushort> team_1_effort; // 거점에서 점수를 얻은 1팀 유저들
-        public ObjectiveInfo(byte _point, ObjectivePreset _objectivePreset)
+        public ObjectiveInfo(float _point, ObjectivePreset _objectivePreset)
         {
             point = _point;
             if (_point == 0) { team = EObjectiveTeam.Team_0; }

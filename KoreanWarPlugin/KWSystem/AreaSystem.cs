@@ -19,6 +19,7 @@ namespace KoreanWarPlugin.KWSystem
     {
         public static void UpdateObjectiveCapture() // 거점 점령 상태 갱신
         {
+            PluginConfiguration configuration = PluginManager.instance.Configuration.Instance;
             LayerMask playerMask = LayerMask.GetMask("Player");
             for (byte i = 0; i < PluginManager.roundInfo.objectives.Length; i++)
             {
@@ -64,9 +65,12 @@ namespace KoreanWarPlugin.KWSystem
                 objectiveInfo.team_0_Players = team_0_steamPlayers;
                 objectiveInfo.team_1_Players = team_1_steamPlayers;
                 // 점수 변동 처리
-                byte beforePoint = objectiveInfo.point;
-                //byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count), 0, 200);
-                byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count) * 30, 0, 200);
+                int playerCount = team_1_steamPlayers.Count - team_0_steamPlayers.Count;
+                float beforePoint = objectiveInfo.point;
+                float currentTimeValue = 0;
+                if (playerCount != 0) currentTimeValue = (configuration.baseCaptureSpeed + (Mathf.Abs(playerCount) - 1) * (configuration.thresholdCaptureSpeed - configuration.baseCaptureSpeed) / (configuration.maxCapturePlayerCount - 1)) * (playerCount / Mathf.Abs(playerCount));
+                float newPoint = Mathf.Clamp(objectiveInfo.point + currentTimeValue, 0, 200);
+                //byte newPoint = (byte)Mathf.Clamp(objectiveInfo.point + (team_1_steamPlayers.Count - team_0_steamPlayers.Count) * 30, 0, 200);
                 objectiveInfo.point = newPoint;
                 bool isStateChange = false;
                 #region yee

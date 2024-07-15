@@ -284,6 +284,10 @@ namespace KoreanWarPlugin.HarmonyFix
                 Player player = context.GetPlayer();
                 PlayerComponent pc = player.GetComponent<PlayerComponent>();
                 UnturnedPlayer uPlayer = UnturnedPlayer.FromPlayer(player);
+                if (pc.isKnockDown)
+                {
+                    return false;
+                }
                 if (pc.supplyCooltime > DateTime.UtcNow)
                 {
                     UnturnedChat.Say(uPlayer, $"남은 보급 쿨타임 {(pc.supplyCooltime - DateTime.UtcNow).Seconds}초");

@@ -43,6 +43,10 @@ namespace KoreanWarPlugin
         public int teamChangeDelay { get; set; } // 팀 선택 후 다른 팀으로 변경 가능해질 때까지 걸리는 시간
         public byte freeModeReadyCount { get; set; } // 자유모드 상태에서 게임시작에 필요한 인원 수
         public byte freeModeMapIndex { get; set; } // 자유모드 일시 선택되는 맵의 인덱스
+        // 거점 점령관련 데이터
+        public float baseCaptureSpeed { get; set; } // 초당 기본 거점 점령 속도
+        public float thresholdCaptureSpeed { get; set; } // 초당 기본 거점 점령 속도 임계점
+        public int maxCapturePlayerCount { get; set; } // 점령에 영향을 줄 수 있는 최대 유저 수
         public void LoadDefaults()
         {
             LoadMessage = "this is KoreanWarPlugin";
@@ -293,6 +297,13 @@ namespace KoreanWarPlugin
                     iconUrl = "https://drive.google.com/uc?id=1uRVjTzDCmBshUXyKN7YXVM0f80GDEWcd",
                     isImageLarge = true
                 }, // M1A1톰슨
+                new WeaponInfoPreset
+                {
+                    id = 46044,
+                    name = "SKS",
+                    iconUrl = "https://drive.google.com/uc?id=17PG2C9bbw4u1T1jPY4RA9zSycDrn10-5",
+                    isImageLarge = true
+                }, // SKS
             }; // 무기 정보 프리셋
             magazineInfoPresets = new MagazineInfoPreset[]
             {
@@ -315,6 +326,7 @@ namespace KoreanWarPlugin
                 new MagazineInfoPreset{ id = 46032, name = "PTRS-41 탄창",iconUrl = ""}, // PTRS-41 탄창
                 new MagazineInfoPreset{ id = 46042, name = "톰슨 탄창",iconUrl = ""}, // 톰슨 탄창
                 new MagazineInfoPreset{ id = 46043, name = "톰슨 드럼 탄창",iconUrl = ""}, // 톰슨 드럼 탄창
+                new MagazineInfoPreset{ id = 46045, name = "SKS 클립",iconUrl = ""}, // SKS 클립
                 /// 차량용 탄창
                 new MagazineInfoPreset{ id = 46806, name = "30구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 30구경 탄통
                 new MagazineInfoPreset{ id = 46808, name = "50구경 탄통",iconUrl = "https://drive.google.com/uc?id=13Hh-5Iz34YYPgfego4EGMwHiRIaRx6dC"}, // 50구경 탄통
@@ -730,12 +742,12 @@ namespace KoreanWarPlugin
                    playerMax = 0,
                    supplyPoint = 10,
                    isMedic = false,
-                   primaryList = new ushort[] { 6 },
+                   primaryList = new ushort[] { 12 },
                    secondaryList = new ushort[] { 1 },
                    explosiveList = new ushort[] { 3,1 },
                    equipmentInstanceID = 1,
                    utilityList = new ushort[] { },
-                   primaryDefaultIndex = 6,
+                   primaryDefaultIndex = 12,
                    secondaryDefaultIndex = ushort.MaxValue,
                    explosive_0DefaultIndex = 1,
                    explosive_1DefaultIndex = ushort.MaxValue,
@@ -977,6 +989,23 @@ namespace KoreanWarPlugin
                     magazineDefaultIndex = 17,
                     gripDefaultIndex = ushort.MaxValue
                 }, // 11.M1A1톰슨
+                new PrimaryPresetTable
+                {
+                    name = "SKS",
+                    iconUrl = "https://drive.google.com/uc?id=1SkQugaeyLexBn2iZ9pxsnfayR6klAMRb",
+                    itemID = 46044,
+                    supplyCost = 2,
+                    creditCost = 0,
+                    amount = 1,
+                    sights = new ushort[] {  },
+                    tacticals = new ushort[] {  },
+                    magazines = new ushort[] { 19 },
+                    grips = new ushort[] {  },
+                    sightDefaultIndex = ushort.MaxValue,
+                    tacticalDefaultIndex = ushort.MaxValue,
+                    magazineDefaultIndex = 19,
+                    gripDefaultIndex = ushort.MaxValue
+                }, // 12.SKS
             }; // 주무장 프리셋
             attachmentPresets = new LoadoutTable[]
             {
@@ -1140,6 +1169,14 @@ namespace KoreanWarPlugin
                     itemID = 46043,
                     supplyCost = 2,
                     amount_equipment = new byte[]{ 3, 4, 5 }
+                }, // 18. 톰슨 드럼 탄창
+                new LoadoutTable
+                {
+                    name = "SKS 클립",
+                    iconUrl = "https://drive.google.com/uc?id=1SUBPA0sIj88WD_FE4SlOJmPkYnbOW3tS",
+                    itemID = 46045,
+                    supplyCost = 0,
+                    amount_equipment = new byte[]{ 5, 7, 9 }
                 }, // 18. 톰슨 드럼 탄창
             }; // 총기 부착물 프리셋
             secondaryPresets = new SecondaryPresetTable[]
@@ -1504,7 +1541,7 @@ namespace KoreanWarPlugin
                     playerMinCount = 6,
                     crewMinCount = 2,
                     classIndex = 1,
-                    vehicleList = new ushort[]{ 0 },
+                    vehicleList = new ushort[]{ 0,12 },
                     respawnTime = 30,
                     abandonTime = 240,
                     destroyCost = 3,
@@ -1558,7 +1595,7 @@ namespace KoreanWarPlugin
                     playerMinCount = 6,
                     crewMinCount = 2,
                     classIndex = 1,
-                    vehicleList = new ushort[]{ 3 },
+                    vehicleList = new ushort[]{ 3,13 },
                     respawnTime = 30,
                     abandonTime = 240,
                     destroyCost = 3,
@@ -1866,12 +1903,56 @@ namespace KoreanWarPlugin
                     {
                         new VAmmoPresetTable{ itemID = 46710 ,amount = 15 },
                         new VAmmoPresetTable{ itemID = 46711 ,amount = 15 },
-                        new VAmmoPresetTable{ itemID = 46727 ,amount = 5 },
+                        new VAmmoPresetTable{ itemID = 46806 ,amount = 2 },
                     },
                     isDeployable = false,
                     isSupplyable = true,
                     supplyCooltime = 60
                 }, // 11. BA-11
+                new VehiclePresetTable
+                {
+                    name = "M24 채피",
+                    iconUrl = "https://drive.google.com/uc?id=1xRrq-2JD8ic7WsdvWTpKoIHnajPLYcLe",
+                    itemID = 4621,
+                    creditCost = 7,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "주포사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                    ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46704 ,amount = 10 },
+                        new VAmmoPresetTable{ itemID = 46705 ,amount = 10 },
+                        new VAmmoPresetTable{ itemID = 46727 ,amount = 2 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                     supplyCooltime = 60
+                }, // 12. M24채피
+                new VehiclePresetTable
+                {
+                    name = "T-70",
+                    iconUrl = "https://drive.google.com/uc?id=1tUUpLPVN2U4DT4yJFS1OWDjKQRyPzBYp",
+                    itemID = 4623,
+                    creditCost = 7,
+                    seats = new SeatPresetTable[]
+                    {
+                        new SeatPresetTable {name = "운전석",iconUrl = "https://drive.google.com/uc?id=1O6qQwzsByU_Ly2PxUf4O1MB2FGoiJVe8"},
+                        new SeatPresetTable {name = "주포사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                        new SeatPresetTable {name = "기관총사수",iconUrl = "https://drive.google.com/uc?id=1bVPCW1qAljYbqpUa29n5TgxGq2Ieskxy"},
+                    },
+                    ammos = new VAmmoPresetTable[]
+                    {
+                        new VAmmoPresetTable{ itemID = 46710 ,amount = 20 },
+                        new VAmmoPresetTable{ itemID = 46711 ,amount = 20 },
+                        new VAmmoPresetTable{ itemID = 46727 ,amount = 5 },
+                    },
+                    isDeployable = false,
+                    isSupplyable = true,
+                     supplyCooltime = 60
+                }, // 13. T-70
             };
             mapPresets = new MapPreset[]
             {
@@ -1881,7 +1962,7 @@ namespace KoreanWarPlugin
                     mapImageUrl = "https://drive.google.com/uc?id=1WxdpEfcKw7XbEc_-DeoEcXKynnGU7ICH",
                     mapIconUrl = "https://drive.google.com/uc?id=1dhBERwnPd1yZlrty-pnxN5O0Smx5Dk6V",
                     mapSize = EnumTable.EMapSize.Large,
-                    playerCount = 16,
+                    playerCount = 18,
                     // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
                     roundType = new byte[] { 2 ,3 },
                     mapPositon = new Vector2(960,-1984),
@@ -2040,7 +2121,7 @@ namespace KoreanWarPlugin
                     mapImageUrl = "https://drive.google.com/uc?id=1Y1TxMKG9k3SqhBvXI0QaY8oq5Coe2BoE",
                     mapIconUrl = "https://drive.google.com/uc?id=1u1rfU4vkj6U5Tal9YX-NAHtMY3yoRfuZ",
                     mapSize = EnumTable.EMapSize.Medium,
-                    playerCount = 8,
+                    playerCount = 12,
                     // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
                     roundType = new byte[] { 2 ,3 },
                     mapPositon = new Vector2(192,-1984),
@@ -2148,6 +2229,74 @@ namespace KoreanWarPlugin
                         new SpawnPreset{ position = new Vector3(253,37,-1496), rotation = 180 }, // 3 번 차량 스폰 위치
                     }, // 1 팀 차랑 스폰 위치
                 }, // 1. 교두보 전투
+                new MapPreset
+                {
+                    name = "공장",
+                    mapImageUrl = "https://drive.google.com/uc?id=17zrcDarmozhJ3lEpsaSmm4dTi9bxiEsW",
+                    mapIconUrl = "https://drive.google.com/uc?id=153r3j02_Elgn9wMyZbWAFCpUsyGU0BN-",
+                    mapSize = EnumTable.EMapSize.Small,
+                    playerCount = 6,
+                    // 0 = 자유, 1 = 섬멸전, 2 = 깃발점령전, 3 = 공방전
+                    roundType = new byte[] { 2 },
+                    mapPositon = new Vector2(-1088,-1984),
+                    ObjectivePresets = new ObjectivePreset[]
+                    {
+                        new ObjectivePreset
+                        {
+                            position = new Vector3(-960,30,-1856), rotation = Quaternion.Euler(0,0,0), size = new Vector3(51,50,42),
+                            objectiveSpawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(-952,31,-1855), rotation = 221 }, // A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(-973,31,-1864), rotation = 70 }, // A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(-968,31,-1843), rotation = 108 }, // A 거점 3번 스폰
+                            },
+                            team_0_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(-1038,35,-1917), rotation = 23 }, // 1팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(-1029,35,-1926), rotation = 40 }, // 1팀 A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(-1021,35,-1932), rotation = 35 }, // 1팀 A 거점 3번 스폰
+                            },
+                            team_1_spawn = new SpawnPreset[]
+                            {
+                                new SpawnPreset{ position = new Vector3(-873,38,-1795), rotation = 222 }, // 2팀 A 거점 1번 스폰
+                                new SpawnPreset{ position = new Vector3(-884,37,-1790), rotation = 224 }, // 2팀 A 거점 2번 스폰
+                                new SpawnPreset{ position = new Vector3(-894,37,-1779), rotation = 220 }, // 2팀 A 거점 3번 스폰
+                            },
+                            team_0_Restrict = new RestrictPreset{position = new Vector3(0,0,-0), rotation = 0, size = new Vector3(0,0,0) },
+                            team_1_Restrict = new RestrictPreset{position = new Vector3(0,0,-0), rotation = 0, size = new Vector3(0,0,0) }
+                        }, // A 거점
+                    },
+                    basePos_0 = new Vector2(-1088,-1984), // 0 팀 기지 마커 위치
+                    basePos_1 = new Vector2(-832,-1728), // 1 팀 기지 마커 위치
+                    baseSpawnPos_0 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(-1069,46,-1958), rotation = 45 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-1075,47,-1952), rotation = 33 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-1059,46,-1961), rotation = 41 }, // 3 번 기지 스폰 위치
+
+                    }, // 0 팀 기지 스폰 위치
+                    baseSpawnPos_1 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(-846,45,-1749), rotation = 225 }, // 1 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-843,46,-1756), rotation = 223 }, // 2 번 기지 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-853,45,-1749), rotation = 223 }, // 3 번 기지 스폰 위치
+
+                    }, // 1 팀 기지 스폰 위치
+                    baseRestrict_0 = new RestrictPreset{position = new Vector3(-1088,30,-1984), rotation = 45, size = new Vector3(100f,100f,100f)},
+                    baseRestrict_1 = new RestrictPreset{position = new Vector3(-832,30,-1728), rotation = 45, size = new Vector3(100f,100f,100f)},
+                    vehicleSpawnPos_0 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(-1056,45,-1972), rotation = 90 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-1066,44,-1972), rotation = 90 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-1076,44,-1973), rotation = 90 }, // 3 번 차량 스폰 위치
+                    }, // 0 팀 차랑 스폰 위치
+                    vehicleSpawnPos_1 = new SpawnPreset[]
+                    {
+                        new SpawnPreset{ position = new Vector3(-860,45,-1738), rotation = 270 }, // 1 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-850,45,-1738), rotation = 270 }, // 2 번 차량 스폰 위치
+                        new SpawnPreset{ position = new Vector3(-840,44,-1738), rotation = 270 }, // 3 번 차량 스폰 위치
+                    }, // 1 팀 차랑 스폰 위치
+                }, // 3. 공장
             }; // 맵 프리셋
             gameModePresets = new GameModePreset[]
             {
@@ -2163,19 +2312,19 @@ namespace KoreanWarPlugin
                 new GameModePreset
                 {
                     name = "깃발점령전",
-                    playerCount = 24,
+                    playerCount = 8,
                     description = "적을 사살하거나 거점을 점령하고 유지해 상대의 점수를 낯춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=14ZolrjQNQSJ8b1eVqOfPgle3sXoU0WK9",
-                    maps = new byte[] { 0,1 },
+                    maps = new byte[] { 2,1,0 },
                     scoreMultipier = 500
                 }, // 1. 깃발점령전
                 new GameModePreset
                 {
                     name = "공방전",
-                    playerCount = 24,
+                    playerCount = 16,
                     description = "공격 혹은 방어팀이 되어 각자 임무를 달성하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=1dzB67DeAjJe_y04eI5Gav5xNnX8qG9M6",
-                    maps = new byte[] { 0,1 },
+                    maps = new byte[] { 1,0 },
                     scoreMultipier = 10
                 }, // 2. 공방전
             };
@@ -2216,7 +2365,11 @@ namespace KoreanWarPlugin
             spawnRot = 180f;
             teamChangeDelay = 0;
             freeModeReadyCount = 1;
-            freeModeMapIndex = 1;
+            freeModeMapIndex = 2;
+            // 거점
+            baseCaptureSpeed = 3.34f;
+            thresholdCaptureSpeed = 6.67f;
+            maxCapturePlayerCount = 10;
         }
     }
 }

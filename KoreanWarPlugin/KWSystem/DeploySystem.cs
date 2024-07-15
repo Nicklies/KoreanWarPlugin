@@ -154,12 +154,11 @@ namespace KoreanWarPlugin.KWSystem
             GiveLoadout(_uPlayer, playerInfo, classPresetTable, false, false);
             // 죽은 경우 리스폰
             if (_uPlayer.Dead) _uPlayer.Player.life.ServerRespawn(false);
-
+            bool isVehicleSpawn = false;
             if (playerInfo.vGroupInstanceID == ushort.MaxValue) // 차량에서 배치하는것이 아닌경우
             {
                 Vector3 spawnPos = Vector3.zero;
                 float spawnRot = 0;
-                bool isVehicleSpawn = false;
                 if(0 <= playerInfo.spawnIndex && playerInfo.spawnIndex <= 4) // 거점 스폰인경우
                 {
                     // 조건에 따라 스폰 위치 할당
@@ -175,7 +174,6 @@ namespace KoreanWarPlugin.KWSystem
                     SpawnPreset spawnPreset = _team ? spawnPresets[random] : spawnPresets[random];
                     spawnPos = _team ? spawnPreset.position : spawnPreset.position;
                     spawnRot = _team ? spawnPreset.rotation : spawnPreset.rotation;
-                    PluginManager.instance.StartCoroutine(IngameSystem.Cor_Invincible(_uPlayer, tc));
                 }
                 else if(playerInfo.spawnIndex == 5) // 기지스폰인 경우
                 {
@@ -205,6 +203,8 @@ namespace KoreanWarPlugin.KWSystem
                 }
                 _uPlayer.Player.stance.checkStance(EPlayerStance.STAND, true);
             }
+            // 무적상태 적용
+            if(!isVehicleSpawn) PluginManager.instance.StartCoroutine(IngameSystem.Cor_Invincible(_uPlayer, tc));
             _uPlayer.Heal(100);
             playerInfo.isDeployed = true;
             if (pRecordInfo.teamChangeableDatetime < DateTime.UtcNow) pRecordInfo.teamChangeableDatetime = DateTime.UtcNow.AddSeconds(PluginManager.instance.Configuration.Instance.teamChangeDelay);
