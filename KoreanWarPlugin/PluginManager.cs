@@ -439,6 +439,8 @@ namespace KoreanWarPlugin
         }
         private void VehicleManager_onExitVehicleRequested(Player _player, InteractableVehicle _vehicle, ref bool _shouldAllow, ref Vector3 _pendingLocation, ref float _pendingYaw) // 차량 퇴출 전 실행
         {
+            _vehicle.findPlayerSeat(_player, out byte _seat);
+            if(_vehicle.passengers[_seat].turret != null) IngameSystem.ReturnAmmoToVehicle(_vehicle, _player, _seat);
         }
         private void InteractableVehicle_OnPassengerRemoved_Global(InteractableVehicle _vehicle, int _seat, Player _player) // 차량 퇴출 후 실행
         {
@@ -458,6 +460,8 @@ namespace KoreanWarPlugin
         }
         private void VehicleManager_onSwapSeatRequested(Player _player, InteractableVehicle _vehicle, ref bool _shouldAllow, byte _fromSeatIndex, ref byte _toSeatIndex)
         {
+            _vehicle.findPlayerSeat(_player, out byte _seat);
+            if (_vehicle.passengers[_seat].turret != null) IngameSystem.ReturnAmmoToVehicle(_vehicle, _player, _seat);
         }
         private void OnPluginKeyTick(Player _player, uint _simulation, byte _key, bool _state)
         {
@@ -970,7 +974,6 @@ namespace KoreanWarPlugin
     해야 할거
     1. 차량 파괴되면 트렁크내 아이템 제거
     2. 특정 아이템은 죽을때 떨구게 하기
-    3. 터렛에서 나갈때 탄약 돌려주기
     4. 탄약 보급 구역이랑 제한구역 분리하기
     5. 리스폰 할때 서있게 하기
     6. 특정 병과에게 레벨 제한 조건 걸기

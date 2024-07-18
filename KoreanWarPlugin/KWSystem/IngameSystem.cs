@@ -297,6 +297,39 @@ namespace KoreanWarPlugin.KWSystem
                 }
             }
         }
+        public static void ReturnAmmoToVehicle(InteractableVehicle _vehicle, Player _player,byte _seat)
+        {
+            if (_vehicle.isDead) return;
+            ItemGunAsset gunAsset = new Item(_vehicle.passengers[_seat].turret.itemID, false).GetAsset<ItemGunAsset>();
+            if (gunAsset == null) return;
+            List<InventorySearch> inventorySearches = new List<InventorySearch>();
+            inventorySearches = _player.inventory.search(EItemType.MAGAZINE, gunAsset.magazineCalibers, false);
+            bool ischanged = false;
+            foreach (InventorySearch item in inventorySearches)
+            {
+                if (_vehicle.trunkItems.tryAddItem(item.jar.item))
+                {
+                    byte index = _player.inventory.getIndex(item.page, item.jar.x, item.jar.y);
+                    _player.inventory.removeItem(item.page, index);
+                    ischanged = true;
+                }
+            }
+            // 변경이 있었다면 다른 유저에게 정보 갱신
+            if (ischanged)
+            {
+                foreach (Passenger passenger in _vehicle.turrets)
+                {
+                    if (passenger.player == null || passenger.player.player == _player) continue;
+                    ItemGunAsset gunAsset2 = new Item(passenger.turret.itemID, false).GetAsset<ItemGunAsset>();
+                    if (gunAsset2 == null) continue;
+                    bool hasCommonCaliber = gunAsset.magazineCalibers.Intersect(gunAsset2.magazineCalibers).Any();
+                    if (hasCommonCaliber)
+                    {
+                        UpdateUIGun_RestAmmo(passenger.player.transportConnection, gunAsset2.magazineCalibers, passenger.player.player.inventory);
+                    }
+                }
+            }
+        }
         public static void UpdateHealthBar(UnturnedPlayer _uPlayer, byte _health)
         {
             ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
