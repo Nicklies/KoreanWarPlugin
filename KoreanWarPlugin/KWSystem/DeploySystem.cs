@@ -20,6 +20,12 @@ namespace KoreanWarPlugin.KWSystem
     {
         public static void Deploy(UnturnedPlayer _uPlayer, bool _team, bool _vLeaderDeploy) // 장비 선택 후 배치
         {
+            ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
+            if (!PluginManager.instance.isRoundStart) 
+            {
+                EffectManager.sendUIEffectVisibility(47, tc, false, "L_Loading", false);
+                return;
+            }
             PlayerInfo playerInfo = PluginManager.teamInfo.GetPlayerInfo(_uPlayer.CSteamID);
             PlayerRecordInfo pRecordInfo = PluginManager.teamInfo.playerRecordInfoList[_uPlayer.CSteamID];
             PlayerTeamRecordInfo pTeamRecordInfo = _team ? pRecordInfo.team_0_RecordInfo : pRecordInfo.team_1_RecordInfo;
@@ -31,7 +37,6 @@ namespace KoreanWarPlugin.KWSystem
             ClassPresetTable classPresetTable = configuration.classPresets[playerInfo.classPrestIndex];
             EquipmentPresetTable equipmentPresetTable = configuration.equipmentPresets[classPresetTable.equipmentInstanceID];
             ClothPresetTable clothPresetTable = equipmentPresetTable.clothPresetList[playerInfo.equipmentIndex];
-            ITransportConnection tc = _uPlayer.Player.channel.GetOwnerTransportConnection();
             if (_vLeaderDeploy) // 차량그룹 리더가 배치를 시도한경우
             {
                 VehicleGroupInfo vGroupInfo = PluginManager.teamInfo.GetVehicleGroupInfo(playerInfo.vGroupInstanceID, _team);
@@ -203,8 +208,14 @@ namespace KoreanWarPlugin.KWSystem
                 }
                 _uPlayer.Player.stance.checkStance(EPlayerStance.STAND, true);
             }
+            // 라운드가 끝난 상태면 리턴
+            if (!PluginManager.instance.isRoundStart)
+            {
+                EffectManager.sendUIEffectVisibility(47, tc, false, "L_Loading", false);
+                return;
+            }
             // 무적상태 적용
-            if(!isVehicleSpawn) PluginManager.instance.StartCoroutine(IngameSystem.Cor_Invincible(_uPlayer, tc));
+            if (!isVehicleSpawn) PluginManager.instance.StartCoroutine(IngameSystem.Cor_Invincible(_uPlayer, tc));
             _uPlayer.Heal(100);
             playerInfo.isDeployed = true;
             if (pRecordInfo.teamChangeableDatetime < DateTime.UtcNow) pRecordInfo.teamChangeableDatetime = DateTime.UtcNow.AddSeconds(PluginManager.instance.Configuration.Instance.teamChangeDelay);

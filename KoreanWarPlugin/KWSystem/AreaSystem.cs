@@ -265,11 +265,14 @@ namespace KoreanWarPlugin.KWSystem
                     {
                         foreach (SteamPlayer steamPlayer in team_0_steamPlayers)
                         {
-                            if (objectiveInfo.team_0_effort.ContainsKey(steamPlayer.playerID)) { objectiveInfo.team_0_effort[steamPlayer.playerID] = (ushort)Mathf.Clamp(++objectiveInfo.team_0_effort[steamPlayer.playerID], 0, 100); }
+                            if (objectiveInfo.team_0_effort.ContainsKey(steamPlayer.playerID))
+                            {
+                                objectiveInfo.team_0_effort[steamPlayer.playerID] = Mathf.Clamp(objectiveInfo.team_0_effort[steamPlayer.playerID] + Mathf.Abs(currentTimeValue) * 2, 0, 200);
+                            }
                             else
                             {
                                 objectiveInfo.team_0_effort.Add(steamPlayer.playerID, 0);
-                                objectiveInfo.team_0_effort[steamPlayer.playerID] = (ushort)Mathf.Clamp(objectiveInfo.team_0_effort[steamPlayer.playerID]+2, 0, 200);
+                                objectiveInfo.team_0_effort[steamPlayer.playerID] = Mathf.Clamp(objectiveInfo.team_0_effort[steamPlayer.playerID] + Mathf.Abs(currentTimeValue) * 2, 0, 200);
                             }
                         }
                     }
@@ -277,11 +280,14 @@ namespace KoreanWarPlugin.KWSystem
                     {
                         foreach (SteamPlayer steamPlayer in team_1_steamPlayers)
                         {
-                            if (objectiveInfo.team_1_effort.ContainsKey(steamPlayer.playerID)) { objectiveInfo.team_1_effort[steamPlayer.playerID] = (ushort)Mathf.Clamp(++objectiveInfo.team_1_effort[steamPlayer.playerID], 0, 100); }
+                            if (objectiveInfo.team_1_effort.ContainsKey(steamPlayer.playerID)) 
+                            { 
+                                objectiveInfo.team_1_effort[steamPlayer.playerID] = Mathf.Clamp(objectiveInfo.team_1_effort[steamPlayer.playerID] + currentTimeValue * 2, 0, 200);
+                            }
                             else
                             {
                                 objectiveInfo.team_1_effort.Add(steamPlayer.playerID, 0);
-                                objectiveInfo.team_1_effort[steamPlayer.playerID] = (ushort)Mathf.Clamp(objectiveInfo.team_1_effort[steamPlayer.playerID]+2, 0, 200);
+                                objectiveInfo.team_1_effort[steamPlayer.playerID] = Mathf.Clamp(objectiveInfo.team_1_effort[steamPlayer.playerID] + currentTimeValue * 2, 0, 200);
                             }
                         }
                     }
@@ -304,7 +310,7 @@ namespace KoreanWarPlugin.KWSystem
                             foreach (var effort in objectiveInfo.team_1_effort)
                             {
                                 SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                                if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, effort.Value, (ushort)(effort.Value / 10), ""); }
+                                if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, (ushort)effort.Value, (ushort)(effort.Value / 10), ""); }
                             }
                             objectiveInfo.team_0_effort.Clear();
                             objectiveInfo.team_1_effort.Clear();
@@ -324,7 +330,7 @@ namespace KoreanWarPlugin.KWSystem
                             foreach (var effort in objectiveInfo.team_0_effort)
                             {
                                 SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                                if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, effort.Value, (ushort)(effort.Value / 10), ""); }
+                                if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveNeturalize, (ushort)effort.Value, (ushort)(effort.Value / 10), ""); }
                             }
                             objectiveInfo.team_0_effort.Clear();
                             objectiveInfo.team_1_effort.Clear();
@@ -347,7 +353,7 @@ namespace KoreanWarPlugin.KWSystem
                         foreach (var effort in objectiveInfo.team_0_effort)
                         {
                             SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, effort.Value, (ushort)(effort.Value / 10), ""); }
+                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, (ushort)effort.Value, (ushort)(effort.Value / 10), ""); }
                         }
                         objectiveInfo.team_0_effort.Clear();
                         objectiveInfo.team_1_effort.Clear();
@@ -417,7 +423,7 @@ namespace KoreanWarPlugin.KWSystem
                         foreach (var effort in objectiveInfo.team_1_effort)
                         {
                             SteamPlayer steamPlayer = Provider.clients.Find(x => x.playerID == effort.Key);
-                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, effort.Value, (ushort)(effort.Value / 10), ""); }
+                            if (steamPlayer != null) { IngameSystem.GiveScoreAndCredit(steamPlayer, EScoreGainType.ObjectiveCapture, (ushort)effort.Value, (ushort)(effort.Value / 10), ""); }
                         }
                         objectiveInfo.team_0_effort.Clear();
                         objectiveInfo.team_1_effort.Clear();

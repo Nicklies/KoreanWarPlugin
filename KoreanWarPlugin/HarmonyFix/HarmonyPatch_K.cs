@@ -136,7 +136,25 @@ namespace KoreanWarPlugin.HarmonyFix
         static bool Prefix(PlayerInventory __instance ,byte page_0, byte x_0, byte y_0, byte page_1, byte x_1, byte y_1, byte rot_1)
         {
             UnturnedPlayer uPlayer = UnturnedPlayer.FromPlayer(__instance.player);
-            if (uPlayer.IsInVehicle) return false;
+            if (uPlayer.IsInVehicle)
+            {
+                if (uPlayer.CurrentVehicle.checkDriver(uPlayer.CSteamID)) return false;
+                return true;
+            }
+            else return true;
+        }
+    }
+    [HarmonyPatch(typeof(PlayerInventory), nameof(PlayerInventory.ReceiveSwapItem))]
+    public class ReceiveSwapItemPatch
+    {
+        static bool Prefix(PlayerInventory __instance, byte page_0, byte x_0, byte y_0, byte rot_0, byte page_1, byte x_1, byte y_1, byte rot_1)
+        {
+            UnturnedPlayer uPlayer = UnturnedPlayer.FromPlayer(__instance.player);
+            if (uPlayer.IsInVehicle)
+            {
+                if (uPlayer.CurrentVehicle.checkDriver(uPlayer.CSteamID)) return false;
+                return true;
+            }
             else return true;
         }
     }
@@ -198,9 +216,9 @@ namespace KoreanWarPlugin.HarmonyFix
             ItemGunAsset gunAsset = new Item(__instance.player.equipment.itemID, false).GetAsset<ItemGunAsset>();
             ItemMagazineAsset magAsset = magToEject.GetAsset<ItemMagazineAsset>();
             byte newAmount = __instance.player.equipment.state[10];
-            byte index = __instance.player.inventory.getIndex(page, x, y);
             if (page != byte.MaxValue)
             {
+                byte index = __instance.player.inventory.getIndex(page, x, y);
                 ItemJar magToReload = __instance.player.inventory.getItem(page, index); // 장전하려는 탄창 정보
                 // 새로운 탄 장전
                 __instance.player.inventory.removeItem(page, index);

@@ -19,7 +19,194 @@ namespace KoreanWarPlugin.KWSystem
 {
     public class IngameSystem
     {
-        public static void OnPlayerKilled(UnturnedPlayer _uPlayer_Death) // 유저가 사망했을때 처리
+        public static KillRecordInfo CreateKillRecordInfo(DamagePlayerParameters _parameters)
+        {
+            //if ((ulong)_parameters.killer == 0) return;
+            //UnturnedChat.Say($"{_parameters.killer}");
+            //UnturnedChat.Say($"{_parameters.cause}");
+            UnturnedPlayer uPlayer_Killer = UnturnedPlayer.FromCSteamID(_parameters.killer);
+            UnturnedPlayer uPlayer_Death = UnturnedPlayer.FromPlayer(_parameters.player);
+            bool killerTeam = false;
+            bool deathTeam = _parameters.player.GetComponent<PlayerComponent>().team;
+            if (uPlayer_Killer != null && _parameters.killer != (CSteamID)85568392930602265) killerTeam = uPlayer_Killer.Player.GetComponent<PlayerComponent>().team;
+            // 킬 기록 추가
+            PlayerInfo killerInfo = null;
+            bool headShot = _parameters.limb == ELimb.SKULL ? true : false;
+            string killerAvatarUrl = "";
+            bool isImageLarge = false;
+            string killerName = "";
+            string deathName = "";
+            string deathCauseUrl = "";
+            string deathCause = "";
+            bool isKillLog = false;
+            if (uPlayer_Killer != null && _parameters.killer != (CSteamID)85568392930602265)
+            {
+                killerInfo = PluginManager.teamInfo.GetPlayerInfo(uPlayer_Killer.CSteamID);
+                killerAvatarUrl = killerInfo.avatarUrl;
+            }
+            switch (_parameters.cause)
+            {
+                case EDeathCause.BLEEDING:
+                    killerName = "Bleeding";
+                    deathCause = "Bleeding";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = !deathTeam;
+                    deathCauseUrl = PluginManager.icons["bleeding"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.BONES:
+                    killerName = "Fall";
+                    deathCause = "Fall";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = deathTeam;
+                    deathCauseUrl = PluginManager.icons["fall"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.FREEZING:
+                    killerName = "Freeze";
+                    deathCause = "Freeze";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = !deathTeam;
+                    isKillLog = true;
+                    break;
+                case EDeathCause.BURNING:
+                    killerName = "Burn";
+                    deathCause = "Burn";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = !deathTeam;
+                    deathCauseUrl = PluginManager.icons["burn"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.GUN:
+                    WeaponInfoPreset weaponInfo = PluginManager.instance.Configuration.Instance.weaponInfoPresets.FirstOrDefault(x => x.id == uPlayer_Killer.Player.equipment.itemID);
+                    if (weaponInfo != default)
+                    {
+                        deathCauseUrl = weaponInfo.iconUrl;
+                        isImageLarge = weaponInfo.isImageLarge;
+                        deathCause = weaponInfo.name;
+                    }
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    isKillLog = true;
+                    break;
+                case EDeathCause.MELEE:
+                    WeaponInfoPreset meleeInfo = PluginManager.instance.Configuration.Instance.weaponInfoPresets.FirstOrDefault(x => x.id == uPlayer_Killer.Player.equipment.itemID);
+                    if (meleeInfo != default)
+                    {
+                        deathCauseUrl = meleeInfo.iconUrl;
+                        isImageLarge = meleeInfo.isImageLarge;
+                        deathCause = meleeInfo.name;
+                    }
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    isKillLog = true;
+                    break;
+                case EDeathCause.SUICIDE:
+                    killerName = "Suicide";
+                    deathCause = "Suicide";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = deathTeam;
+                    isKillLog = true;
+                    break;
+                case EDeathCause.KILL:
+                    break;
+                case EDeathCause.PUNCH:
+                    deathCause = "Punch";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["punch"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.BREATH:
+                    killerName = "Oxygen";
+                    deathCause = "Oxygen";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = deathTeam;
+                    deathCauseUrl = PluginManager.icons["oxygen"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.ROADKILL:
+                    deathCause = "Roadkill";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["roadkill"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.VEHICLE:
+                    deathCause = "Vehicle Explosion";
+                    killerName = "Vehicle Explosion";
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["explosion"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.GRENADE:
+                    deathCause = "Grenade";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["explosion"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.SHRED:
+                    killerName = "Shred";
+                    deathCause = "Shred";
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["shred"];
+                    killerTeam = !deathTeam;
+                    isKillLog = true;
+                    break;
+                case EDeathCause.LANDMINE:
+                    killerName = "Landmine";
+                    deathCause = "Landmine";
+                    deathName = uPlayer_Death.DisplayName;
+                    killerTeam = !deathTeam;
+                    deathCauseUrl = PluginManager.icons["landmine"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.MISSILE:
+                    deathCause = "Missile";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["explosion"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.CHARGE:
+                    deathCause = "Charge";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["explosion"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.SPLASH:
+                    deathCause = "Splash";
+                    killerName = uPlayer_Killer.DisplayName;
+                    deathName = uPlayer_Death.DisplayName;
+                    deathCauseUrl = PluginManager.icons["explosion"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.ARENA:
+                    killerName = "Arena";
+                    deathCause = "Arena";
+                    killerTeam = deathTeam;
+                    deathCauseUrl = PluginManager.icons["arena"];
+                    isKillLog = true;
+                    break;
+                case EDeathCause.BURNER:
+                    break;
+            }
+            if (isKillLog)
+            { 
+                CSteamID killerSteamID = CSteamID.NonSteamGS;
+                SteamPlayerID steamPlayerID = null;
+                if(uPlayer_Killer != null && _parameters.killer != (CSteamID)85568392930602265)
+                {
+                    killerSteamID = uPlayer_Killer.CSteamID;
+                    steamPlayerID = uPlayer_Killer.SteamPlayer().playerID;
+                }
+                return new KillRecordInfo(killerAvatarUrl, killerName, deathName, deathCause, deathCauseUrl, headShot, isImageLarge, killerTeam, deathTeam, killerSteamID, steamPlayerID);
+            }
+            return null;
+        }
+        public static void OnPlayerKilled(UnturnedPlayer _uPlayer_Death, EDeathCause _cause, ELimb _limb, CSteamID _murderer) // 유저가 사망했을때 처리
         {
             PlayerComponent pc = _uPlayer_Death.Player.GetComponent<PlayerComponent>();
             pc.fireMode = 255;
@@ -32,9 +219,21 @@ namespace KoreanWarPlugin.KWSystem
             if (PluginManager.roundInfo.killRecordList.ContainsKey(_uPlayer_Death.CSteamID))
             {
                 killRecordInfo = PluginManager.roundInfo.killRecordList[_uPlayer_Death.CSteamID];
-                PlayerTeamRecordInfo deathRecordInfo = deathInfo.team ? PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_0_RecordInfo : PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_1_RecordInfo;
-                if (deathRecordInfo != null) deathRecordInfo.deathCount++;
-                // 죽인 유저 정보 처리
+                // 기록 제거
+                PluginManager.roundInfo.killRecordList.Remove(_uPlayer_Death.CSteamID);
+            }
+            else
+            {
+                DamagePlayerParameters parameter = new DamagePlayerParameters(_uPlayer_Death.Player);
+                parameter.killer = _murderer;
+                killRecordInfo = CreateKillRecordInfo(parameter);
+            }
+            if (killRecordInfo == null) return;
+            PlayerTeamRecordInfo deathRecordInfo = deathInfo.team ? PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_0_RecordInfo : PluginManager.teamInfo.playerRecordInfoList[_uPlayer_Death.CSteamID].team_1_RecordInfo;
+            if (deathRecordInfo != null) deathRecordInfo.deathCount++;
+            // 죽인 유저 정보 처리
+            if (killRecordInfo.killerCsteamID != CSteamID.NonSteamGS)
+            {
                 SteamPlayer steamPlayer = Provider.clients.FirstOrDefault(x => x.playerID == killRecordInfo.killerID);
                 if (steamPlayer != null && killRecordInfo.killerTeam != killRecordInfo.deathTeam)
                 {
@@ -42,18 +241,16 @@ namespace KoreanWarPlugin.KWSystem
                     if (killerRecordInfo != null) killerRecordInfo.killCount++;
                     GiveScoreAndCredit(steamPlayer, EScoreGainType.EnemyKill, 100, 5, _uPlayer_Death.DisplayName);
                 }
-                // 라운드 정보 갱신
-                if (PluginManager.roundInfo.roundType != ERoundType.Free)
-                {
-                    if (deathInfo.team) PluginManager.roundInfo.ChangeScore(true, 1);
-                    else PluginManager.roundInfo.ChangeScore(false, 1);
-                    if (!PluginManager.instance.isRoundStart) return;
-                }
-                // 킬로그 갱신
-                RefreshUIKillLog(new KillLog(killRecordInfo));
-                // 기록 제거
-                PluginManager.roundInfo.killRecordList.Remove(_uPlayer_Death.CSteamID);
             }
+            // 라운드 정보 갱신
+            if (PluginManager.roundInfo.roundType != ERoundType.Free)
+            {
+                if (deathInfo.team) PluginManager.roundInfo.ChangeScore(true, 1);
+                else PluginManager.roundInfo.ChangeScore(false, 1);
+                if (!PluginManager.instance.isRoundStart) return;
+            }
+            // 킬로그 갱신
+            RefreshUIKillLog(new KillLog(killRecordInfo));
             // 죽은 유저에게 사망 UI 활성화
             ITransportConnection tc_Death = _uPlayer_Death.Player.channel.GetOwnerTransportConnection();
             EffectManager.sendUIEffectImageURL(47, tc_Death, false, "I_DeathKillerIcon", $"{killRecordInfo.killerAvatarUrl}");
@@ -365,6 +562,10 @@ namespace KoreanWarPlugin.KWSystem
                         break;
                     case EScoreGainType.FriendlyDeploy:
                         preText = "아군 수송차량에 배치";
+                        break;
+                    case EScoreGainType.EnemyDown:
+                        preText = "적 무력화";
+                        middleText = $" {_target}";
                         break;
                 }
                 EffectManager.sendUIEffectText(47, tc, false, $"P_ScoreGain_{pc.scoreGainCount}", $"<color=#FFC067>{preText}</color><color=#FF4F4F>{middleText}</color><color=White>{scoreText}</color><color=#76FF6E>{creditText}</color>");

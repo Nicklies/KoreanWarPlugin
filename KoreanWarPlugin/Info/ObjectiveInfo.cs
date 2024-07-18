@@ -27,8 +27,8 @@ namespace KoreanWarPlugin.Info
         public SpawnPreset[] objectiveSpawn;
         public SpawnPreset[] team_0_spawn;
         public SpawnPreset[] team_1_spawn;
-        public Dictionary<SteamPlayerID, ushort> team_0_effort; // 거점에서 점수를 얻은 0팀 유저들
-        public Dictionary<SteamPlayerID, ushort> team_1_effort; // 거점에서 점수를 얻은 1팀 유저들
+        public Dictionary<SteamPlayerID, float> team_0_effort; // 거점에서 점수를 얻은 0팀 유저들
+        public Dictionary<SteamPlayerID, float> team_1_effort; // 거점에서 점수를 얻은 1팀 유저들
         public ObjectiveInfo(float _point, ObjectivePreset _objectivePreset)
         {
             point = _point;
@@ -47,8 +47,8 @@ namespace KoreanWarPlugin.Info
             objectiveSpawn = _objectivePreset.objectiveSpawn;
             team_0_spawn = _objectivePreset.team_0_spawn;
             team_1_spawn = _objectivePreset.team_1_spawn;
-            team_0_effort = new Dictionary<SteamPlayerID, ushort>();
-            team_1_effort = new Dictionary<SteamPlayerID, ushort>();
+            team_0_effort = new Dictionary<SteamPlayerID, float>();
+            team_1_effort = new Dictionary<SteamPlayerID, float>();
         }
     }
 }

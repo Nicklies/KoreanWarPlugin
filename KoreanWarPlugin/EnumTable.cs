@@ -85,10 +85,10 @@ namespace KoreanWarPlugin
         }
         public enum ERoundType
         {
-            Annihilation = 0,
-            CaptureTheFlag = 1,
-            Battle = 2,
-            Free = 3, // 자유모드는 항상 맨 뒤에 있게 하기
+            //Annihilation = 0,
+            CaptureTheFlag = 0,
+            Battle = 1,
+            Free = 2, // 자유모드는 항상 맨 뒤에 있게 하기
         }
         public enum EScoreGainType
         {
@@ -99,6 +99,7 @@ namespace KoreanWarPlugin
             FriendlyRevive = 4,
             FriendlySupply = 5,
             FriendlyDeploy = 6,
+            EnemyDown = 7,
         }
     }
 }

@@ -76,17 +76,10 @@ namespace KoreanWarPlugin.Info
             isFreeModeReady = false;
             // 게임모드 별로 정보 처리
             int playerCount = (PluginManager.roundInfo.playerCount / 2 + PluginManager.roundInfo.playerCount % 2);
+            float mapSizeFactor = 0.0f;
+            ushort maxTickets = 0;
             switch (roundType)
             {
-                case ERoundType.Annihilation:
-                    objectives = new ObjectiveInfo[0];
-                    // 점수 초기화
-                    // *********************************점수 콘피그에서 수정 가능하게 다시 변경 / 다른 게임모드도 ********************
-                    team_0_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
-                    team_0_scoreMax = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
-                    team_1_score = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
-                    team_1_scoreMax = (ushort)(configuration.gameModePresets[0].scoreMultipier * playerCount);
-                    break;
                 case ERoundType.CaptureTheFlag:
                     // 거점 초기화
                     objectives = new ObjectiveInfo[currentMapPreset.ObjectivePresets.Length];
@@ -96,10 +89,25 @@ namespace KoreanWarPlugin.Info
                         objectives[i].locked = false;
                     }
                     // 점수 초기화
-                    team_0_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
-                    team_0_scoreMax = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
-                    team_1_score = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
-                    team_1_scoreMax = (ushort)(configuration.gameModePresets[1].scoreMultipier * playerCount);
+                    switch (currentMapPreset.mapSize)
+                    {
+                        case EMapSize.Small:
+                            mapSizeFactor = 1.0f;
+                            maxTickets = 250;
+                            break;
+                        case EMapSize.Medium:
+                            mapSizeFactor = 1.5f;
+                            maxTickets = 500;
+                            break;
+                        case EMapSize.Large:
+                            mapSizeFactor = 2.0f;
+                            maxTickets = 1000;
+                            break;
+                    }
+                    team_0_score = (ushort)Mathf.Clamp(configuration.gameModePresets[0].scoreMultipier * mapSizeFactor * playerCount, 0, maxTickets);
+                    team_0_scoreMax = team_0_score;
+                    team_1_score = (ushort)Mathf.Clamp(configuration.gameModePresets[0].scoreMultipier * mapSizeFactor * playerCount, 0, maxTickets);
+                    team_1_scoreMax = team_1_score;
                     break;
                 case ERoundType.Battle:
                     deffenseTeam = Random.Range(0, 2) == 0 ? true : false;
@@ -121,10 +129,25 @@ namespace KoreanWarPlugin.Info
                         }
                     }
                     // 점수 초기화
-                    team_0_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
-                    team_0_scoreMax = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
-                    team_1_score = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
-                    team_1_scoreMax = (ushort)(configuration.gameModePresets[2].scoreMultipier * playerCount);
+                    switch (currentMapPreset.mapSize)
+                    {
+                        case EMapSize.Small:
+                            mapSizeFactor = 1.0f;
+                            maxTickets = 50;
+                            break;
+                        case EMapSize.Medium:
+                            mapSizeFactor = 2.0f;
+                            maxTickets = 125;
+                            break;
+                        case EMapSize.Large:
+                            mapSizeFactor = 3.0f;
+                            maxTickets = 250;
+                            break;
+                    }
+                    team_0_score = (ushort)Mathf.Clamp(configuration.gameModePresets[1].scoreMultipier * mapSizeFactor * playerCount, 0, maxTickets);
+                    team_0_scoreMax = team_0_score;
+                    team_1_score = (ushort)Mathf.Clamp(configuration.gameModePresets[1].scoreMultipier * mapSizeFactor * playerCount, 0, maxTickets);
+                    team_1_scoreMax = team_1_score;
                     break;
                 case ERoundType.Free:
                     objectives = new ObjectiveInfo[0];

@@ -78,7 +78,7 @@ namespace KoreanWarPlugin.KWSystem
                 PluginManager.roundInfo.votePlayerCount++;
                 RoundSystem.RefreshUIVotePlayerCountToEveryone();
             }
-            if (PluginManager.roundInfo.roundType == ERoundType.Free)
+            if (PluginManager.roundInfo.roundType == ERoundType.Free && PluginManager.instance.isRoundStart)
             {
                 if (PluginManager.roundInfo.playerCount >= PluginManager.instance.Configuration.Instance.freeModeReadyCount)
                 {
@@ -163,10 +163,10 @@ namespace KoreanWarPlugin.KWSystem
         }
         public static async void OnTeamJoinRequestEnd(CSteamID _cSteamID, bool _team, bool _success) // 플레이어에게 팀을 배정하는 함수
         {
-            if (!PluginManager.instance.isRoundStart) return;
             UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(_cSteamID);
+            if (uPlayer == null) return;
             ITransportConnection tc = uPlayer.Player.channel.GetOwnerTransportConnection();
-            if (!_success) 
+            if (!_success || !PluginManager.instance.isRoundStart) 
             {
                 EffectManager.sendUIEffectVisibility(47, tc, false, "L_Loading", false);
                 return; 

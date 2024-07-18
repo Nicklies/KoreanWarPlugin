@@ -27,7 +27,6 @@ namespace KoreanWarPlugin.Command
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            
             if (command.Length < 1) return;
             string cmd = command[0].ToLower(); // 소문자로 변환
             var target = UnturnedPlayer.FromName(cmd);

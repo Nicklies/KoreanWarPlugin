@@ -30,6 +30,7 @@ namespace KoreanWarPlugin
         public ushort[] levelExpPresets; // 각 레벨별로 레벨업에 필요한 경험치량 프리셋 / 배열 개수만큼 최대 레벨이 정해짐
         public ushort[] reviveItemPresets { get; set; } // 소생 가능 회복 아이템 프리셋
         public ushort[] supplyObject { get; set; } // 보급 오브젝트
+        public ushort[] supplyBarriacde { get; set; } // 보급 바리케이드
         public string[] objectiveEffectGuid { get; set; } // 거점 이펙트 GUID
         public string discordUrl { get; set; } // 디스코드 링크
         public byte teamPresetIndex_0 { get; set; } // 0 팀 프리셋 순서
@@ -2300,6 +2301,7 @@ namespace KoreanWarPlugin
             }; // 맵 프리셋
             gameModePresets = new GameModePreset[]
             {
+                /*
                 new GameModePreset
                 {
                     name = "섬멸전",
@@ -2309,24 +2311,25 @@ namespace KoreanWarPlugin
                     maps = new byte[] { 0 },
                     scoreMultipier = 5
                 }, // 0. 섬멸전
+                */
                 new GameModePreset
                 {
                     name = "깃발점령전",
-                    playerCount = 8,
+                    playerCount = 6,
                     description = "적을 사살하거나 거점을 점령하고 유지해 상대의 점수를 낯춰 승리하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=14ZolrjQNQSJ8b1eVqOfPgle3sXoU0WK9",
                     maps = new byte[] { 2,1,0 },
-                    scoreMultipier = 500
-                }, // 1. 깃발점령전
+                    scoreMultipier = 20
+                }, // 0. 깃발점령전
                 new GameModePreset
                 {
                     name = "공방전",
-                    playerCount = 16,
+                    playerCount = 12,
                     description = "공격 혹은 방어팀이 되어 각자 임무를 달성하는것이 목표",
                     iconUrl = "https://drive.google.com/uc?id=1dzB67DeAjJe_y04eI5Gav5xNnX8qG9M6",
                     maps = new byte[] { 1,0 },
                     scoreMultipier = 10
-                }, // 2. 공방전
+                }, // 1. 공방전
             };
             levelExpPresets = new ushort[]
             {
@@ -2346,6 +2349,10 @@ namespace KoreanWarPlugin
             {
                 4700
             }; // 보급 오브젝트
+            supplyBarriacde = new ushort[]
+            {
+                47400
+            };
             objectiveEffectGuid = new string[]
             {
                 "dc3ddb05d89945088180c83bacaad4df",
@@ -2366,7 +2373,7 @@ namespace KoreanWarPlugin
             teamChangeDelay = 0;
             freeModeReadyCount = 1;
             freeModeMapIndex = 2;
-            // 거점
+            // 거점 점령 관련 데이터
             baseCaptureSpeed = 3.34f;
             thresholdCaptureSpeed = 6.67f;
             maxCapturePlayerCount = 10;

@@ -26,6 +26,7 @@ using System.IO;
 using Environment = System.Environment;
 using KoreanWarPlugin.HarmonyFix;
 using KoreanWarPlugin.Queue;
+using Rocket.Core;
 
 namespace KoreanWarPlugin
 {
@@ -75,6 +76,7 @@ namespace KoreanWarPlugin
                 { "noPlayer", "https://drive.google.com/uc?id=1Li3cuWr2FEU8PMmCZgQy2Y-CWiMBWb_V" }, // 사람 없음 아이콘
                 { "VehicleDestroy", "https://drive.google.com/uc?id=1GxAjGJDvVMbxnJUxum94CVs264RNAKGq" }, // 차량파괴 아이콘
                 { "Approve", "https://drive.google.com/uc?id=1uIOUFue-T-nayYq2bPm9CBMh-WjevDxB" }, // 확인 아이콘
+                { "arena", "https://drive.google.com/uc?id=1Ep6sAMcOV9BTpni4x2Az9o52hrlplmYe" }, // 아레나 아이콘
             };
             // 하모니
             Harmony.DEBUG = true;
@@ -113,6 +115,7 @@ namespace KoreanWarPlugin
                 player.Player.life.onStaminaUpdated += (stamina) => OnStaminaUpdated(player);
                 VehicleGroupSystem.RefreshVehicleTypeStateAllToEveryone();
             };
+            BarricadeManager.onOpenStorageRequested += OnOpenStorageRequested;
             PlayerEquipment.OnUseableChanged_Global += PlayerEquipment_OnUseableChanged_Global;
             InteractableVehicle.OnHealthChanged_Global += InteractableVehicle_OnHealthChanged_Global;
             InteractableVehicle.OnPassengerAdded_Global += InteractableVehicle_OnPassengerAdded_Global;
@@ -141,7 +144,32 @@ namespace KoreanWarPlugin
             Rocket.Core.Logging.Logger.Log(Configuration.Instance.LoadMessage);
             Rocket.Core.Logging.Logger.Log($"{Name} {Assembly.GetName().Version} has been loaded!");
         }
-
+        private void OnOpenStorageRequested(CSteamID _instigator, InteractableStorage _storage, ref bool _shouldAllow)
+        {
+            BarricadeDrop drop = BarricadeManager.FindBarricadeByRootTransform(_storage.transform);
+            if (drop != null)
+            {
+                if (Configuration.Instance.supplyBarriacde.Contains(drop.asset.id))
+                {
+                    _shouldAllow = false;
+                    UnturnedPlayer uPlayer = UnturnedPlayer.FromCSteamID(_instigator);
+                    PlayerComponent pc = uPlayer.Player.GetComponent<PlayerComponent>();
+                    if (pc.isKnockDown)
+                    {
+                        return;
+                    }
+                    if (pc.supplyCooltime > DateTime.UtcNow)
+                    {
+                        UnturnedChat.Say(uPlayer, $"남은 보급 쿨타임 {(pc.supplyCooltime - DateTime.UtcNow).Seconds}초");
+                        return;
+                    }
+                    DeploySystem.GiveLoadout(uPlayer, true, true);
+                    pc.supplyCooltime = DateTime.UtcNow.AddSeconds(Configuration.Instance.supplyCooltime_Inf);
+                    BarricadeManager.tryGetInfo(drop.model, out byte x, out byte y, out ushort plant, out ushort index, out BarricadeRegion region);
+                    BarricadeManager.destroyBarricade(drop, x, y, plant);
+                }
+            }
+        }
         private void UseableGun_onChangeBarrelRequested(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
         {
             shouldAllow = false;
@@ -499,6 +527,11 @@ namespace KoreanWarPlugin
             int num = Mathf.FloorToInt(parameters.damage * parameters.times);
             if (parameters.player.life.health - num <= 0 && !pc.isKnockDown)
             {
+                // 살해자에게 적 무력화 정보 제공
+                if(uPlayer_Killer != null)
+                {
+                    if(uPlayer_Killer != uPlayer_Death) IngameSystem.GiveScoreAndCredit(uPlayer_Killer, EScoreGainType.EnemyDown, 0, 0, uPlayer_Death.DisplayName);
+                }
                 // 피해입은 유저 무력화 처리
                 ITransportConnection tc = parameters.player.channel.GetOwnerTransportConnection();
                 EffectManager.sendUIEffectVisibility(47, tc, false, "L_Down", true);
@@ -510,174 +543,15 @@ namespace KoreanWarPlugin
                 parameters.player.life.ReceiveHealth(40);
                 parameters.player.movement.forceRemoveFromVehicle();
                 // 킬 기록 추가
-                PlayerInfo killerInfo = null;
-                bool headShot = parameters.limb == ELimb.SKULL ? true : false;
-                string killerAvatarUrl = "";
-                bool isImageLarge = false;
-                string killerName = "";
-                string deathName = "";
-                string deathCauseUrl = "";
-                string deathCause = "";
-                bool isKillLog = false;
-                if (uPlayer_Killer != null)
-                {
-                    killerInfo = teamInfo.GetPlayerInfo(uPlayer_Killer.CSteamID);
-                    killerAvatarUrl = killerInfo.avatarUrl;
-                }
-                switch (parameters.cause)
-                {
-                    case EDeathCause.BLEEDING:
-                        killerName = "Bleeding";
-                        deathCause = "Bleeding";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = !deathTeam;
-                        deathCauseUrl = icons["bleeding"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.BONES:
-                        killerName = "Fall";
-                        deathCause = "Fall";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = deathTeam;
-                        deathCauseUrl = icons["fall"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.FREEZING:
-                        killerName = "Freeze";
-                        deathCause = "Freeze";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = !deathTeam;
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.BURNING:
-                        killerName = "Burn";
-                        deathCause = "Burn";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = !deathTeam;
-                        deathCauseUrl = icons["burn"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.GUN:
-                        WeaponInfoPreset weaponInfo = Configuration.Instance.weaponInfoPresets.FirstOrDefault(x => x.id == uPlayer_Killer.Player.equipment.itemID);
-                        if (weaponInfo != default)
-                        {
-                            deathCauseUrl = weaponInfo.iconUrl;
-                            isImageLarge = weaponInfo.isImageLarge;
-                            deathCause = weaponInfo.name;
-                        }
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.MELEE:
-                        WeaponInfoPreset meleeInfo = Configuration.Instance.weaponInfoPresets.FirstOrDefault(x => x.id == uPlayer_Killer.Player.equipment.itemID);
-                        if (meleeInfo != default)
-                        {
-                            deathCauseUrl = meleeInfo.iconUrl;
-                            isImageLarge = meleeInfo.isImageLarge;
-                            deathCause = meleeInfo.name;
-                        }
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.SUICIDE:
-                        killerName = "Suicide";
-                        deathCause = "Suicide";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = deathTeam;
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.KILL:
-                        break;
-                    case EDeathCause.PUNCH:
-                        deathCause = "Punch";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["punch"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.BREATH:
-                        killerName = "Oxygen";
-                        deathCause = "Oxygen";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = deathTeam;
-                        deathCauseUrl = icons["oxygen"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.ROADKILL:
-                        deathCause = "Roadkill";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["roadkill"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.VEHICLE:
-                        deathCause = "Vehicle Explosion";
-                        killerName = "Vehicle Explosion";
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["explosion"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.GRENADE:
-                        deathCause = "Grenade";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["explosion"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.SHRED:
-                        killerName = "Shred";
-                        deathCause = "Shred";
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["shred"];
-                        killerTeam = !deathTeam;
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.LANDMINE:
-                        killerName = "Landmine";
-                        deathCause = "Landmine";
-                        deathName = uPlayer_Death.DisplayName;
-                        killerTeam = !deathTeam;
-                        deathCauseUrl = icons["landmine"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.MISSILE:
-                        deathCause = "Missile";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["explosion"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.CHARGE:
-                        deathCause = "Charge";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["explosion"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.SPLASH:
-                        deathCause = "Splash";
-                        killerName = uPlayer_Killer.DisplayName;
-                        deathName = uPlayer_Death.DisplayName;
-                        deathCauseUrl = icons["explosion"];
-                        isKillLog = true;
-                        break;
-                    case EDeathCause.BOULDER:
-                        break;
-                    case EDeathCause.BURNER:
-                        break;
-                }
-                if (isKillLog)
-                {
-                    if (roundInfo.killRecordList.ContainsKey(uPlayer_Death.CSteamID)) roundInfo.killRecordList.Remove(uPlayer_Death.CSteamID);
-                    roundInfo.killRecordList.Add(uPlayer_Death.CSteamID, new KillRecordInfo(killerAvatarUrl, killerName, deathName, deathCause, deathCauseUrl, headShot, isImageLarge, killerTeam, deathTeam, uPlayer_Killer.CSteamID, uPlayer_Killer.SteamPlayer().playerID));
-                }
+                KillRecordInfo killRecordInfo = IngameSystem.CreateKillRecordInfo(parameters);
+                if (roundInfo.killRecordList.ContainsKey(uPlayer_Death.CSteamID)) roundInfo.killRecordList.Remove(uPlayer_Death.CSteamID);
+                if(killRecordInfo != null) roundInfo.killRecordList.Add(uPlayer_Death.CSteamID, killRecordInfo);
             }
         }
+
         private void Events_OnDeath(UnturnedPlayer uPlayer_Death, EDeathCause cause, ELimb limb, CSteamID murderer)
         {
-            IngameSystem.OnPlayerKilled(uPlayer_Death);
+            IngameSystem.OnPlayerKilled(uPlayer_Death, cause,limb,murderer);
         }
         private void UseableGun_OnReloading_Global(UseableGun gun) // 장전 시 실행
         {
@@ -771,7 +645,7 @@ namespace KoreanWarPlugin
         public void OnPlayerDisconnected(UnturnedPlayer _uPlayer)
         {
             PlayerComponent pc = _uPlayer.Player.GetComponent<PlayerComponent>();
-            if(pc.isKnockDown) IngameSystem.OnPlayerKilled(_uPlayer);
+            if (pc.isKnockDown) IngameSystem.OnPlayerKilled(_uPlayer, new EDeathCause(), new ELimb(), CSteamID.NonSteamGS);
             if(pc.isEnterFinished) roundInfo.playerCount--;
             if (isRoundStart)
             {
@@ -940,6 +814,7 @@ namespace KoreanWarPlugin
             int timer = 0;
             while (true)
             {
+                LightingManager.time = 1800;
                 yield return new WaitForSeconds(1f);
                 if(isRoundStart)
                 {
@@ -948,13 +823,11 @@ namespace KoreanWarPlugin
                     {
                         case ERoundType.Free: // 자유모드
                             break;
-                        case ERoundType.Annihilation: // 섬멸전
-                            break;
                         case ERoundType.CaptureTheFlag: // 깃발 점령전
                             // 거점 정보 처리
                             AreaSystem.UpdateObjectiveCapture();
                             // 거점 점수 변동 처리
-                            if (5 <= timer)
+                            if (10 <= timer)
                             {
                                 timer = 0;
                                 AreaSystem.UpdateObjectivePoint();
@@ -1098,30 +971,22 @@ namespace KoreanWarPlugin
     1. 차량 파괴되면 트렁크내 아이템 제거
     2. 특정 아이템은 죽을때 떨구게 하기
     3. 터렛에서 나갈때 탄약 돌려주기
-    6. 탄약 보급 구역이랑 제한구역 분리하기
-    9. 적 다운시키면 살해자에게 알려주기
-    10. 리스폰 할때 서있게 하기
-    11. 특정 병과에게 레벨 제한 조건 걸기
-    12. 상대 팀이 더 많으면 팀 제한 무시하고 들가게 만들기
-    13. 사람 일정수 만큼 나가면 자유모드로 바꾸기
-    17. 투표 중 사람이 부족하면 맵에 경고 붙이기
-    18. 맵 크기에 따라 티켓 다르게 주기
-    21. 탄약수용 일회용 탄약 보급 아이템 추가
+    4. 탄약 보급 구역이랑 제한구역 분리하기
+    5. 리스폰 할때 서있게 하기
+    6. 특정 병과에게 레벨 제한 조건 걸기
+    7. 상대 팀이 더 많으면 팀 제한 무시하고 들가게 만들기
+    8. 투표 중 사람이 부족하면 맵에 경고 붙이기
+    9. 차량 무적화 및 무적 유저 공격 시 무적 임을 알리는 UI 띄우기
+    11. 서버 밸런스 고려하기 / 거점 점령, 적 사살 등 모든 상황에 점수 얼마나 줄지 / 탄약 얼마나 줄지 등등
     나중에 해도 되는거
-    1. 인게임 상태에서 나갈 시 재 접속하면 원래 상태 그대로 진행가능하게 변경
-    2. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
-    3. 버튼를 누르면 작업이 완료되기 전까지 다른 버튼 눌러도 기능 실행되지 않게 하기 (대기열쪽만 먼저 했음 나머지는 나중에 해도 됨 아마도)
-    4. 다운 됫을대 제대로 눕게 만들기
+    1. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
+    2. 버튼를 누르면 작업이 완료되기 전까지 다른 버튼 눌러도 기능 실행되지 않게 하기 (대기열쪽만 먼저 했음 나머지는 나중에 해도 됨 아마도)
+    3. 다운 됫을대 제대로 눕게 만들기
     버그
-    1. 적 세이프존 들어가면 제한구역이어도 안죽는 버그
-    2. 차량 탑승 중 물건을 버리거나 입수하는건 안되지만 아이템 끼리 위치 변경이 가능함
-    3. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
-    4. 차량에서 터져 죽으면 폭사 판정은 되는데 로그에 안뜸
-    5. 제한구역에서 죽으면 로그에 안뜨고 점수 기록 안됨
-    6. 사람 부족해서 자유모드로 전환된 상태로 라운드 준비 하는중에 사람 들와서 4명 맟추면 스코어보드랑 투표가 같이듬
-    7. 라운드 끝나기 직전에 전투배치 시도하면 움직일 수 있는 버그 있음
+    1. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
+    2. 등록안된 차량이 거점에 들어가면 루프 멈추는 버그 있음
     기타정보
-    4. 하나의 버그에 의해 다른 버그가 발생하는 경우가 있을수도 있음
-    5. 라운드를 완전히 다시 시작시키는 기능을 추가하는것도 좋을거 같음
+    1. 하나의 버그에 의해 다른 버그가 발생하는 경우가 있을수도 있음
+    2. 라운드를 완전히 다시 시작시키는 기능을 추가하는것도 좋을거 같음
     */
 }

@@ -276,7 +276,7 @@ namespace KoreanWarPlugin.KWSystem
             string score_team0_str = "", score_team1_str = "";
             string scoreText_Team_0 = "", scoreText_Team_1 = "";
             // 섬멸전, 깃발 점령에만 사용
-            if (PluginManager.roundInfo.roundType == EnumTable.ERoundType.CaptureTheFlag || PluginManager.roundInfo.roundType == EnumTable.ERoundType.Annihilation)
+            if (PluginManager.roundInfo.roundType == EnumTable.ERoundType.CaptureTheFlag)
             {
                 if (score_team0 != 0) score_team0_str = "".PadLeft(score_team0 - 1) + ".";
                 if (score_team1 != 0) score_team1_str = "".PadLeft(score_team1 - 1) + ".";
@@ -335,8 +335,8 @@ namespace KoreanWarPlugin.KWSystem
                 RefreshObjectiveInfoAll(_tc, _team);
                 RefreshObjectiveAlarmAll(_tc);
             }
-            // 섬멸전, 깃발 점령전이면 점수 정보 활성화
-            if (PluginManager.roundInfo.roundType == EnumTable.ERoundType.Annihilation || PluginManager.roundInfo.roundType == EnumTable.ERoundType.CaptureTheFlag)
+            // 깃발 점령전이면 점수 정보 활성화
+            if (PluginManager.roundInfo.roundType == EnumTable.ERoundType.CaptureTheFlag)
             {
                 EffectManager.sendUIEffectVisibility(47, _tc, false, "P_TeamPointFillbar", true);
             }
