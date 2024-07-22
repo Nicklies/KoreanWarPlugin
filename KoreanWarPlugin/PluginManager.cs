@@ -534,7 +534,7 @@ namespace KoreanWarPlugin
                 // 살해자에게 적 무력화 정보 제공
                 if(uPlayer_Killer != null)
                 {
-                    if(uPlayer_Killer != uPlayer_Death) IngameSystem.GiveScoreAndCredit(uPlayer_Killer, EScoreGainType.EnemyDown, 0, 0, uPlayer_Death.DisplayName);
+                    if(parameters.killer != uPlayer_Death.CSteamID) IngameSystem.GiveScoreAndCredit(uPlayer_Killer, EScoreGainType.EnemyDown, 0, 0, uPlayer_Death.DisplayName);
                 }
                 // 피해입은 유저 무력화 처리
                 ITransportConnection tc = parameters.player.channel.GetOwnerTransportConnection();
@@ -975,16 +975,19 @@ namespace KoreanWarPlugin
     1. 차량 파괴되면 트렁크내 아이템 제거
     2. 특정 아이템은 죽을때 떨구게 하기
     4. 탄약 보급 구역이랑 제한구역 분리하기
-    5. 리스폰 할때 서있게 하기
     6. 특정 병과에게 레벨 제한 조건 걸기
     7. 상대 팀이 더 많으면 팀 제한 무시하고 들가게 만들기
     8. 투표 중 사람이 부족하면 맵에 경고 붙이기
     9. 차량 무적화 및 무적 유저 공격 시 무적 임을 알리는 UI 띄우기
-    11. 서버 밸런스 고려하기 / 거점 점령, 적 사살 등 모든 상황에 점수 얼마나 줄지 / 탄약 얼마나 줄지 등등
+    10. 서버 밸런스 고려하기 / 거점 점령, 적 사살 등 모든 상황에 점수 얼마나 줄지 / 탄약 얼마나 줄지 등등
+    11. sks 격발음, 로켓 장비음 추가
+    12. 유저 다운 시 의무병에겐 부상병 위치를, 부상병에겐 의무병 위치 알려주기
+    13. 아군 보급 시 보상 주게 하기 / 각 이벤트 별로 주어지는 보상들 콘피그에서 관리하게 만들기
     나중에 해도 되는거
     1. 차량 그룹 정보 등 모든 정보를 다이렉토리로 변경하기
     2. 버튼를 누르면 작업이 완료되기 전까지 다른 버튼 눌러도 기능 실행되지 않게 하기 (대기열쪽만 먼저 했음 나머지는 나중에 해도 됨 아마도)
     3. 다운 됫을대 제대로 눕게 만들기
+    4. 리스폰 할때 서있게 하기
     버그
     1. 차량 배치 시 탄약 제공 안되는 버그 아직도 있음
     2. 등록안된 차량이 거점에 들어가면 루프 멈추는 버그 있음

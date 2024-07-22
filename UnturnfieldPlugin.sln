@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KoreanWarPlugin", "KoreanWarPlugin\KoreanWarPlugin.csproj", "{0E69A76E-A70D-43F9-9CB5-15F015EF7F44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnturnfieldPlugin", "KoreanWarPlugin\UnturnfieldPlugin.csproj", "{0E69A76E-A70D-43F9-9CB5-15F015EF7F44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

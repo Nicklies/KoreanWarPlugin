@@ -10,6 +10,8 @@ using UnityEngine;
 
 namespace KoreanWarPlugin
 {
+    // 플러그인에서 제공되는 콘피그 시스템을 이용해 데이터 저장 중
+    // 향후 관계형 데이터베이스를 이용해 데이터 저장 방식 변경할 예정
     public class PluginConfiguration : IRocketPluginConfiguration
     {
         public string LoadMessage { get; set; }
@@ -898,7 +900,7 @@ namespace KoreanWarPlugin
                     amount = 1,
                     sights = new ushort[] {  },
                     tacticals = new ushort[] { 12 },
-                    magazines = new ushort[] { 6, 7 },
+                    magazines = new ushort[] { 6 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
                     tacticalDefaultIndex = ushort.MaxValue,
@@ -915,11 +917,11 @@ namespace KoreanWarPlugin
                     amount = 1,
                     sights = new ushort[] {  },
                     tacticals = new ushort[] { 12 },
-                    magazines = new ushort[] { 6, 7 },
+                    magazines = new ushort[] { 7 },
                     grips = new ushort[] {  },
                     sightDefaultIndex = ushort.MaxValue,
                     tacticalDefaultIndex = ushort.MaxValue,
-                    magazineDefaultIndex = 6,
+                    magazineDefaultIndex = 7,
                     gripDefaultIndex = ushort.MaxValue
                 }, // 7.M2카빈
                 new PrimaryPresetTable
@@ -1021,7 +1023,7 @@ namespace KoreanWarPlugin
                 }, // 0. M1908스프링필드 클립
                 new LoadoutTable
                 {
-                    name = "모신난강 클립",
+                    name = "모신나강 클립",
                     iconUrl = "https://drive.google.com/uc?id=1PzsG3c1ToYio9LxMVEEjDWTZyz91lmMg",
                     itemID = 46015,
                     supplyCost = 0,
@@ -1075,7 +1077,7 @@ namespace KoreanWarPlugin
                     name = "카빈 확장 탄창",
                     iconUrl = "https://drive.google.com/uc?id=1jGG6H-W8B1R1xNXlub-OzI51DqtO7bMD",
                     itemID = 46003,
-                    supplyCost = 2,
+                    supplyCost = 0,
                     amount_equipment = new byte[]{ 2, 3, 4 }
                 }, // 7. 카빈 확장 탄창
                 new LoadoutTable
